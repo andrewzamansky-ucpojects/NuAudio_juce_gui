@@ -66,7 +66,6 @@ AndrewPlayer::AndrewPlayer ()
     stopButton->setColour (TextButton::buttonColourId, Colours::red);
     stopButton->setColour (TextButton::buttonOnColourId, Colours::aqua);
 
-
     //[UserPreSize]
     //[/UserPreSize]
 
@@ -149,6 +148,7 @@ void AndrewPlayer::buttonClicked (Button* buttonThatWasClicked)
     if (buttonThatWasClicked == openButton)
     {
         //[UserButtonCode_openButton] -- add your button handler code here..
+        debugWindow->print("Player: Click Open Button");
 		FileChooser chooser("Select a Wave file to play...",
 			File::nonexistent,
 			"*.wav");                                        // [7]
@@ -164,6 +164,7 @@ void AndrewPlayer::buttonClicked (Button* buttonThatWasClicked)
 			cmd += file_name; //append
 			row_cmd = cmd.toRawUTF8();
 			pControl_PC_App_Component_Obj->sendCommand(row_cmd);
+            debugWindow->print((String("Send Command:") + row_cmd).toRawUTF8());
 
 		}
         //[/UserButtonCode_openButton]
@@ -171,12 +172,14 @@ void AndrewPlayer::buttonClicked (Button* buttonThatWasClicked)
     else if (buttonThatWasClicked == playButton)
     {
         //[UserButtonCode_playButton] -- add your button handler code here..
+        debugWindow->print("Player: Click Play Button");
 		changeState(Starting);
         //[/UserButtonCode_playButton]
     }
     else if (buttonThatWasClicked == stopButton)
     {
         //[UserButtonCode_stopButton] -- add your button handler code here..
+        debugWindow->print("Player: Click Stop Button");
 		changeState(Stopping);
         //[/UserButtonCode_stopButton]
     }
@@ -188,6 +191,11 @@ void AndrewPlayer::buttonClicked (Button* buttonThatWasClicked)
 
 
 //[MiscUserCode] You can add your own definitions of your custom methods or any other code here...
+void AndrewPlayer::setDebugWindow(DebugWindow *adebugWindow){
+
+    debugWindow = adebugWindow;
+}
+
 void AndrewPlayer::changeListenerCallback(ChangeBroadcaster* source)
 	{
 		if (source == AndrewPlayer::AudioComponentObj)
@@ -196,14 +204,17 @@ void AndrewPlayer::changeListenerCallback(ChangeBroadcaster* source)
 			pControl_PC_App_Component_Obj->getEvent(event_msg);
 			if (0 == event_msg.compare("file loaded"))
 			{
+                debugWindow->print("Player: File Loaded");
 				playButton->setEnabled(true);
 			}
 			else if (0 == event_msg.compare("file is playing"))
 			{
+                debugWindow->print("Player: File is playing");
 				changeState(Playing);
 			}
 			else if (0 == event_msg.compare("file is stopped"))
 			{
+                debugWindow->print("Player: File is stopped");
 				changeState(Stopped);
 			}
 		}

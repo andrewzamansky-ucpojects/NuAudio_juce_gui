@@ -44,8 +44,7 @@ MainWindow::MainWindow ()
 
 	spatial_view = new Spatial();
 	viewport->addChildComponent(spatial_view);
-
-
+    
     //[/Constructor_pre]
 
     addAndMakeVisible (label = new Label ("new label",
@@ -102,6 +101,7 @@ MainWindow::MainWindow ()
     addAndMakeVisible (component = new AndrewPlayer());
 
     //[UserPreSize]
+    
     //[/UserPreSize]
 
     setSize (1000, 700);
@@ -230,6 +230,7 @@ void MainWindow::selectPartials (int i)
 			equalizer_view->setVisible(false);
 			spatial_view->setVisible(true);			
 			viewport->addAndMakeVisible(spatial_view);
+            debugWindow->print("GUI: Select Spatial View");
 			break;	
         default:
             break;
@@ -240,6 +241,8 @@ void MainWindow::selectPartials (int i)
 void MainWindow::setDebugWindow(DebugWindow *adebugWindow)
 {
     debugWindow = adebugWindow;
+    component->setDebugWindow(debugWindow);
+
 }
 
 //[/MiscUserCode]

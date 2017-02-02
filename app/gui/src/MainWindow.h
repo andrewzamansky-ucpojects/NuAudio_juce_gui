@@ -27,7 +27,6 @@
 #include "Dynamics.h"
 #include "Equalizer.h"
 #include "Spatial.h"
-#include "AndrewPlayer.h"
 #include "DebugWindow.h"
 
 //[/Headers]

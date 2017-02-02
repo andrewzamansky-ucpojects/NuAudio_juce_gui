@@ -41,7 +41,7 @@ DebugWindow::DebugWindow ()
     textEditor->setPopupMenuEnabled (true);
     textEditor->setColour (TextEditor::textColourId, Colour (0xff24fa00));
     textEditor->setColour (TextEditor::backgroundColourId, Colour (0xff403c3c));
-    textEditor->setText (TRANS("-= DEBUG =-"));
+    textEditor->setText (TRANS("-= DEBUG CHANGE =-"));
 
 
     //[UserPreSize]
