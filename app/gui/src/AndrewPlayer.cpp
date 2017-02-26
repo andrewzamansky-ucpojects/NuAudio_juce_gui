@@ -24,8 +24,7 @@
 
 
 //[MiscUserDefs] You can add your own user definitions and misc code here...
-AudioComponent* createAudioComponent();
-ControlBaseComponent *pControl_PC_App_Component_Obj;
+
 //[/MiscUserDefs]
 
 //==============================================================================
@@ -73,9 +72,7 @@ AndrewPlayer::AndrewPlayer ()
 
 
     //[Constructor] You can add your own custom stuff here..
-    AndrewPlayer::AudioComponentObj = createAudioComponent();
-	pControl_PC_App_Component_Obj = AndrewPlayer::AudioComponentObj;
-    pControl_PC_App_Component_Obj->addChangeListener(this);
+    
     //[/Constructor]
 }
 
@@ -91,8 +88,7 @@ AndrewPlayer::~AndrewPlayer()
     stopButton = nullptr;
 
 
-    //[Destructor]. You can add your own custom destruction code here..
-	delete AudioComponentObj;
+    //[Destructor]. You can add your own custom destruction code here..	
     //[/Destructor]
 }
 
@@ -148,7 +144,7 @@ void AndrewPlayer::buttonClicked (Button* buttonThatWasClicked)
     if (buttonThatWasClicked == openButton)
     {
         //[UserButtonCode_openButton] -- add your button handler code here..
-        debugWindow->print("Player: Click Open Button");
+        guiGlobalsParams->debugWindow->print("Player: Click Open Button");
 		FileChooser chooser("Select a Wave file to play...",
 			File::nonexistent,
 			"*.wav");                                        // [7]
@@ -163,8 +159,8 @@ void AndrewPlayer::buttonClicked (Button* buttonThatWasClicked)
 			file_name = file_name.replace("\\", "\\\\");
 			cmd += file_name; //append
 			row_cmd = cmd.toRawUTF8();
-			pControl_PC_App_Component_Obj->sendCommand(row_cmd);
-            debugWindow->print((String("Send Command:") + row_cmd).toRawUTF8());
+			guiGlobalsParams->pControl_PC_App_Component_Obj->sendCommand(row_cmd);
+            guiGlobalsParams->debugWindow->print((String("Send Command:") + row_cmd).toRawUTF8());
 
 		}
         //[/UserButtonCode_openButton]
@@ -172,14 +168,14 @@ void AndrewPlayer::buttonClicked (Button* buttonThatWasClicked)
     else if (buttonThatWasClicked == playButton)
     {
         //[UserButtonCode_playButton] -- add your button handler code here..
-        debugWindow->print("Player: Click Play Button");
+        guiGlobalsParams->debugWindow->print("Player: Click Play Button");
 		changeState(Starting);
         //[/UserButtonCode_playButton]
     }
     else if (buttonThatWasClicked == stopButton)
     {
         //[UserButtonCode_stopButton] -- add your button handler code here..
-        debugWindow->print("Player: Click Stop Button");
+        guiGlobalsParams->debugWindow->print("Player: Click Stop Button");
 		changeState(Stopping);
         //[/UserButtonCode_stopButton]
     }
@@ -191,30 +187,30 @@ void AndrewPlayer::buttonClicked (Button* buttonThatWasClicked)
 
 
 //[MiscUserCode] You can add your own definitions of your custom methods or any other code here...
-void AndrewPlayer::setDebugWindow(DebugWindow *adebugWindow){
-
-    debugWindow = adebugWindow;
+void AndrewPlayer::setGlobalsParams(GuiGlobalsParams *aGuiGlobalsParams){
+    guiGlobalsParams = aGuiGlobalsParams;
+    guiGlobalsParams->pControl_PC_App_Component_Obj->addChangeListener(this);
 }
 
 void AndrewPlayer::changeListenerCallback(ChangeBroadcaster* source)
 	{
-		if (source == AndrewPlayer::AudioComponentObj)
+		if (source == guiGlobalsParams->pControl_PC_App_Component_Obj)
 		{
 			String event_msg;
-			pControl_PC_App_Component_Obj->getEvent(event_msg);
+			guiGlobalsParams->pControl_PC_App_Component_Obj->getEvent(event_msg);
 			if (0 == event_msg.compare("file loaded"))
 			{
-                debugWindow->print("Player: File Loaded");
+                guiGlobalsParams->debugWindow->print("Player: File Loaded");
 				playButton->setEnabled(true);
 			}
 			else if (0 == event_msg.compare("file is playing"))
 			{
-                debugWindow->print("Player: File is playing");
+                guiGlobalsParams->debugWindow->print("Player: File is playing");
 				changeState(Playing);
 			}
 			else if (0 == event_msg.compare("file is stopped"))
 			{
-                debugWindow->print("Player: File is stopped");
+                guiGlobalsParams->debugWindow->print("Player: File is stopped");
 				changeState(Stopped);
 			}
 		}
@@ -235,7 +231,7 @@ void AndrewPlayer::changeState(AndrewPlayer::TransportState newState)
 
 			case Starting:                          // [4]
 				playButton->setEnabled(false);
-				pControl_PC_App_Component_Obj->sendCommand("start_play");
+				guiGlobalsParams->pControl_PC_App_Component_Obj->sendCommand("start_play");
 
 				break;
 
@@ -244,7 +240,7 @@ void AndrewPlayer::changeState(AndrewPlayer::TransportState newState)
 				break;
 
 			case Stopping:                          // [6]
-				pControl_PC_App_Component_Obj->sendCommand("stop_play");
+				guiGlobalsParams->pControl_PC_App_Component_Obj->sendCommand("stop_play");
 				break;
 			}
 		}

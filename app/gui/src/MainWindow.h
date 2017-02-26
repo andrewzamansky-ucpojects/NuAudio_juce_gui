@@ -53,7 +53,7 @@ public:
     //==============================================================================
     //[UserMethods]     -- You can add your own custom methods in this section.
     void selectPartials (int i);
-    void setDebugWindow(DebugWindow *adebugWindow);
+    void setGlobalsParams(GuiGlobalsParams *params);     
     //[/UserMethods]
 
     void paint (Graphics& g) override;
@@ -68,7 +68,7 @@ private:
 	ScopedPointer<Equalizer> equalizer_view;
 	ScopedPointer<Spatial> spatial_view;
 	ScopedPointer<AndrewPlayer> player_view;
-	DebugWindow *debugWindow;
+	GuiGlobalsParams *guiGlobalsParams;
 
     //[/UserVariables]
 

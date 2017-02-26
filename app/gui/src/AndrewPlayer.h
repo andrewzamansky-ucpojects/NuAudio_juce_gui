@@ -23,7 +23,7 @@
 //[Headers]     -- You can add your own extra header files here --
 #include "../JuceLibraryCode/JuceHeader.h"
 #include "AudioComponent.h"
-#include "DebugWindow.h"
+#include "GuiDefinitions.h"
 //[/Headers]
 
 
@@ -57,11 +57,10 @@ public:
 	};
     TransportState state;
 
-    void setDebugWindow(DebugWindow *adebugWindow);
+    void setGlobalsParams(GuiGlobalsParams *params);    
     void changeState(AndrewPlayer::TransportState newState);
     void changeListenerCallback(ChangeBroadcaster* source) override;
 
-	AudioComponent* AudioComponentObj;
 
     //[/UserMethods]
 
@@ -74,7 +73,7 @@ public:
 
 private:
     //[UserVariables]   -- You can add your own custom variables in this section.
-    DebugWindow *debugWindow;
+    GuiGlobalsParams *guiGlobalsParams;
     //[/UserVariables]
 
     //==============================================================================

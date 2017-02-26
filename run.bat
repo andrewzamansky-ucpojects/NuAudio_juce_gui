@@ -1,0 +1,3 @@
+cd zOUT
+out
+cd ..

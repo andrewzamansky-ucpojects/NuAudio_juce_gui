@@ -26,6 +26,10 @@
 //[MiscUserDefs] You can add your own user definitions and misc code here...
 #include "MainWindow.h"
 #include "DebugWindow.h"
+#include "GuiDefinitions.h"
+#include "AudioComponent.h"
+
+AudioComponent* createAudioComponent();
 //[/MiscUserDefs]
 
 //==============================================================================
@@ -43,7 +47,6 @@ GuiMain::GuiMain ()
     debugWindow = new DebugWindow();
     mainWindow = new MainWindow();
     viewPort->addAndMakeVisible (mainWindow);
-    mainWindow->setDebugWindow(debugWindow);
     debugViewPort->addAndMakeVisible (debugWindow);
 
     //[/UserPreSize]
@@ -52,6 +55,13 @@ GuiMain::GuiMain ()
 
 
     //[Constructor] You can add your own custom stuff here..
+    AudioComponentObj =  createAudioComponent();
+    guiGlobalsParams.pControl_PC_App_Component_Obj = AudioComponentObj;
+    //guiGlobalsParams->pControl_PC_App_Component_Obj->addChangeListener(this);        
+    guiGlobalsParams.debugWindow = debugWindow;    
+
+    mainWindow->setGlobalsParams(&guiGlobalsParams);
+
     //[/Constructor]
 }
 
@@ -94,6 +104,14 @@ void GuiMain::resized()
 
 
 //[MiscUserCode] You can add your own definitions of your custom methods or any other code here...
+
+
+void GuiMain::changeListenerCallback(ChangeBroadcaster* source)
+	{
+		if (source == guiGlobalsParams.pControl_PC_App_Component_Obj)
+		{
+        }
+    }
 //[/MiscUserCode]
 
 

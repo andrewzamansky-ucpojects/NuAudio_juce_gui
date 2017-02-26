@@ -25,6 +25,8 @@
 
 
 //[MiscUserDefs] You can add your own user definitions and misc code here...
+ControlBaseComponent *pControl_PC_App_Component_Obj;
+GuiGlobalsParams guiGlobalsParams;
 //[/MiscUserDefs]
 
 //==============================================================================
@@ -216,21 +218,21 @@ void MainWindow::selectPartials (int i)
 			equalizer_view->setVisible(false);
 			spatial_view->setVisible(false);			
 			viewport->addAndMakeVisible(dynamic_view);
-			debugWindow->print("GUI: Select Dynamic View");
+			guiGlobalsParams->debugWindow->print("GUI: Select Dynamic View");
             break;
 		case 1:
 			dynamic_view->setVisible(false);
 			equalizer_view->setVisible(true);
 			spatial_view->setVisible(false);			
 			viewport->addAndMakeVisible(equalizer_view);
-			debugWindow->print("GUI: Select Equalizer View");
+			guiGlobalsParams->debugWindow->print("GUI: Select Equalizer View");
 			break;
 	    case 2:
 			dynamic_view->setVisible(false);
 			equalizer_view->setVisible(false);
 			spatial_view->setVisible(true);			
 			viewport->addAndMakeVisible(spatial_view);
-            debugWindow->print("GUI: Select Spatial View");
+            guiGlobalsParams->debugWindow->print("GUI: Select Spatial View");
 			break;	
         default:
             break;
@@ -238,10 +240,10 @@ void MainWindow::selectPartials (int i)
 
 }
 
-void MainWindow::setDebugWindow(DebugWindow *adebugWindow)
+void MainWindow::setGlobalsParams(GuiGlobalsParams *aparams)
 {
-    debugWindow = adebugWindow;
-    component->setDebugWindow(debugWindow);
+    guiGlobalsParams = aparams;
+    component->setGlobalsParams(aparams);
 
 }
 

@@ -21,8 +21,9 @@
 #define __JUCE_HEADER_E062EA25D23CE004__
 
 //[Headers]     -- You can add your own extra header files here --
- #include "../JuceLibraryCode/JuceHeader.h"
+#include "../JuceLibraryCode/JuceHeader.h"
 #include "DebugWindow.h"
+#include "src/GuiDefinitions.h"
 #include "src/MainWindow.h"
 //[/Headers]
 
@@ -36,7 +37,8 @@
     Describe your class and how it works here!
                                                                     //[/Comments]
 */
-class GuiMain  : public Component
+class GuiMain  : public Component,
+                 public ChangeListener
 {
 public:
     //==============================================================================
@@ -45,6 +47,8 @@ public:
 
     //==============================================================================
     //[UserMethods]     -- You can add your own custom methods in this section.
+    //AudioComponent* createAudioComponent();
+    void changeListenerCallback(ChangeBroadcaster* source) override;
     //[/UserMethods]
 
     void paint (Graphics& g) override;
@@ -55,7 +59,9 @@ public:
 private:
     //[UserVariables]   -- You can add your own custom variables in this section.
     DebugWindow *debugWindow;
+    GuiGlobalsParams guiGlobalsParams;
     MainWindow *mainWindow;
+    AudioComponent* AudioComponentObj;
     //[/UserVariables]
 
     //==============================================================================
