@@ -7,7 +7,7 @@
   the "//[xyz]" and "//[/xyz]" sections will be retained when the file is loaded
   and re-saved.
 
-  Created with Projucer version: 4.3.0
+  Created with Projucer version: 4.3.1
 
   ------------------------------------------------------------------------------
 
@@ -22,8 +22,11 @@
 
 //[Headers]     -- You can add your own extra header files here --
 #include "../JuceLibraryCode/JuceHeader.h"
+#include "AudioComponent.h"
+#include "GuiDefinitions.h"
 //[/Headers]
 
+#include "DynamicGraph.h"
 
 
 //==============================================================================
@@ -35,6 +38,7 @@
                                                                     //[/Comments]
 */
 class Dynamics  : public Component,
+                  public ChangeListener,
                   public ButtonListener,
                   public SliderListener
 {
@@ -45,6 +49,9 @@ public:
 
     //==============================================================================
     //[UserMethods]     -- You can add your own custom methods in this section.
+    void setGlobalsParams(GuiGlobalsParams *params);
+    void changeListenerCallback(ChangeBroadcaster* source) override;
+    void Dynamics::sliderDragEnded (Slider* sliderThatWasMoved)  override;
     //[/UserMethods]
 
     void paint (Graphics& g) override;
@@ -59,14 +66,13 @@ public:
 
 private:
     //[UserVariables]   -- You can add your own custom variables in this section.
+    GuiGlobalsParams *guiGlobalsParams;
     //[/UserVariables]
 
     //==============================================================================
     ScopedPointer<Label> label;
-    ScopedPointer<TextEditor> textEditor;
     ScopedPointer<Label> label2;
     ScopedPointer<Label> label3;
-    ScopedPointer<TextEditor> textEditor2;
     ScopedPointer<Label> label4;
     ScopedPointer<TextButton> textButton;
     ScopedPointer<TextButton> textButton2;
@@ -102,7 +108,9 @@ private:
     ScopedPointer<Label> label18;
     ScopedPointer<Label> label19;
     ScopedPointer<Label> label20;
-    Image cachedImage_dynamics_graph_png_1;
+    ScopedPointer<DynamicGraph> dGraph;
+    ScopedPointer<Slider> sl_cross_1;
+    ScopedPointer<Slider> sl_cross_2;
 
 
     //==============================================================================

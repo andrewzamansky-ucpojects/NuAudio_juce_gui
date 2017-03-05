@@ -46,7 +46,7 @@ MainWindow::MainWindow ()
 
 	spatial_view = new Spatial();
 	viewport->addChildComponent(spatial_view);
-    
+
     //[/Constructor_pre]
 
     addAndMakeVisible (label = new Label ("new label",
@@ -91,22 +91,13 @@ MainWindow::MainWindow ()
 
     addAndMakeVisible (viewport = new Viewport ("new viewport"));
 
-    addAndMakeVisible (label4 = new Label ("new label",
-                                           TRANS("Test GUI")));
-    label4->setFont (Font (24.20f, Font::plain));
-    label4->setJustificationType (Justification::centredLeft);
-    label4->setEditable (false, false, false);
-    label4->setColour (Label::textColourId, Colours::white);
-    label4->setColour (TextEditor::textColourId, Colours::black);
-    label4->setColour (TextEditor::backgroundColourId, Colour (0x00000000));
-
     addAndMakeVisible (component = new AndrewPlayer());
 
     //[UserPreSize]
-    
+
     //[/UserPreSize]
 
-    setSize (1000, 700);
+    setSize (1000, 650);
 
 
     //[Constructor] You can add your own custom stuff here..
@@ -126,7 +117,6 @@ MainWindow::~MainWindow()
     label3 = nullptr;
     toggleButton3 = nullptr;
     viewport = nullptr;
-    label4 = nullptr;
     component = nullptr;
 
 
@@ -143,10 +133,10 @@ void MainWindow::paint (Graphics& g)
     g.fillAll (Colours::black);
 
     g.setColour (Colour (0xff314a5b));
-    g.fillRoundedRectangle (12.0f, 356.0f, 156.0f, 30.0f, 10.000f);
+    g.fillRoundedRectangle (12.0f, 300.0f, 156.0f, 30.0f, 10.000f);
 
     g.setColour (Colour (0xff314a5b));
-    g.fillRoundedRectangle (12.0f, 404.0f, 156.0f, 280.0f, 10.000f);
+    g.fillRoundedRectangle (12.0f, 348.0f, 156.0f, 280.0f, 10.000f);
 
     //[UserPaint] Add your own custom painting code here..
     //[/UserPaint]
@@ -157,15 +147,14 @@ void MainWindow::resized()
     //[UserPreResize] Add your own custom resize code here..
     //[/UserPreResize]
 
-    label->setBounds (24, 424, 104, 24);
-    toggleButton1->setBounds (128, 424, 24, 24);
-    label2->setBounds (24, 472, 104, 24);
-    toggleButton2->setBounds (128, 472, 24, 24);
-    label3->setBounds (24, 520, 104, 24);
-    toggleButton3->setBounds (128, 520, 24, 24);
-    viewport->setBounds (184, 64, 800, 624);
-    label4->setBounds (16, 16, 150, 24);
-    component->setBounds (13, 56, 163, 280);
+    label->setBounds (24, 376, 104, 24);
+    toggleButton1->setBounds (128, 376, 24, 24);
+    label2->setBounds (24, 424, 104, 24);
+    toggleButton2->setBounds (128, 424, 24, 24);
+    label3->setBounds (24, 472, 104, 24);
+    toggleButton3->setBounds (128, 472, 24, 24);
+    viewport->setBounds (184, 8, 800, 624);
+    component->setBounds (13, 8, 163, 280);
     //[UserResized] Add your own custom resize handling here..
     //[/UserResized]
 }
@@ -180,7 +169,7 @@ void MainWindow::buttonClicked (Button* buttonThatWasClicked)
         //[UserButtonCode_toggleButton1] -- add your button handler code here..
         toggleButton1->setToggleState(true, dontSendNotification);
 		toggleButton2->setToggleState(false, dontSendNotification);
-		toggleButton3->setToggleState(false, dontSendNotification);		
+		toggleButton3->setToggleState(false, dontSendNotification);
 		selectPartials(0);
         //[/UserButtonCode_toggleButton1]
     }
@@ -189,7 +178,7 @@ void MainWindow::buttonClicked (Button* buttonThatWasClicked)
         //[UserButtonCode_toggleButton2] -- add your button handler code here..
 		toggleButton1->setToggleState(false, dontSendNotification);
 		toggleButton2->setToggleState(true, dontSendNotification);
-		toggleButton3->setToggleState(false, dontSendNotification);		
+		toggleButton3->setToggleState(false, dontSendNotification);
 		selectPartials(1);
         //[/UserButtonCode_toggleButton2]
     }
@@ -198,7 +187,7 @@ void MainWindow::buttonClicked (Button* buttonThatWasClicked)
         //[UserButtonCode_toggleButton3] -- add your button handler code here..
 		toggleButton1->setToggleState(false, dontSendNotification);
 		toggleButton2->setToggleState(false, dontSendNotification);
-		toggleButton3->setToggleState(true, dontSendNotification);		
+		toggleButton3->setToggleState(true, dontSendNotification);
 		selectPartials(2);
         //[/UserButtonCode_toggleButton3]
     }
@@ -216,24 +205,24 @@ void MainWindow::selectPartials (int i)
         case 0:
 			dynamic_view->setVisible(true);
 			equalizer_view->setVisible(false);
-			spatial_view->setVisible(false);			
+			spatial_view->setVisible(false);
 			viewport->addAndMakeVisible(dynamic_view);
 			guiGlobalsParams->debugWindow->print("GUI: Select Dynamic View");
             break;
 		case 1:
 			dynamic_view->setVisible(false);
 			equalizer_view->setVisible(true);
-			spatial_view->setVisible(false);			
+			spatial_view->setVisible(false);
 			viewport->addAndMakeVisible(equalizer_view);
 			guiGlobalsParams->debugWindow->print("GUI: Select Equalizer View");
 			break;
 	    case 2:
 			dynamic_view->setVisible(false);
 			equalizer_view->setVisible(false);
-			spatial_view->setVisible(true);			
+			spatial_view->setVisible(true);
 			viewport->addAndMakeVisible(spatial_view);
             guiGlobalsParams->debugWindow->print("GUI: Select Spatial View");
-			break;	
+			break;
         default:
             break;
     }
@@ -244,6 +233,7 @@ void MainWindow::setGlobalsParams(GuiGlobalsParams *aparams)
 {
     guiGlobalsParams = aparams;
     component->setGlobalsParams(aparams);
+    dynamic_view->setGlobalsParams(aparams);
 
 }
 
@@ -262,46 +252,41 @@ BEGIN_JUCER_METADATA
 <JUCER_COMPONENT documentType="Component" className="MainWindow" componentName=""
                  parentClasses="public Component" constructorParams="" variableInitialisers=""
                  snapPixels="8" snapActive="1" snapShown="1" overlayOpacity="0.330"
-                 fixedSize="0" initialWidth="1000" initialHeight="700">
+                 fixedSize="0" initialWidth="1000" initialHeight="650">
   <BACKGROUND backgroundColour="ff000000">
-    <ROUNDRECT pos="12 356 156 30" cornerSize="10" fill="solid: ff314a5b" hasStroke="0"/>
-    <ROUNDRECT pos="12 404 156 280" cornerSize="10" fill="solid: ff314a5b" hasStroke="0"/>
+    <ROUNDRECT pos="12 300 156 30" cornerSize="10" fill="solid: ff314a5b" hasStroke="0"/>
+    <ROUNDRECT pos="12 348 156 280" cornerSize="10" fill="solid: ff314a5b" hasStroke="0"/>
   </BACKGROUND>
   <LABEL name="new label" id="1b5b1b669248de9e" memberName="label" virtualName=""
-         explicitFocusOrder="0" pos="24 424 104 24" textCol="ffffffff"
+         explicitFocusOrder="0" pos="24 376 104 24" textCol="ffffffff"
          edTextCol="ff000000" edBkgCol="0" labelText="Dynamics" editableSingleClick="0"
          editableDoubleClick="0" focusDiscardsChanges="0" fontname="Default font"
          fontsize="16.399999999999998579" bold="1" italic="0" justification="33"/>
   <TOGGLEBUTTON name="new toggle button" id="6cc0e29dc36ce786" memberName="toggleButton1"
-                virtualName="" explicitFocusOrder="0" pos="128 424 24 24" buttonText=""
+                virtualName="" explicitFocusOrder="0" pos="128 376 24 24" buttonText=""
                 connectedEdges="0" needsCallback="1" radioGroupId="0" state="1"/>
   <LABEL name="new label" id="82a049741e00f875" memberName="label2" virtualName=""
-         explicitFocusOrder="0" pos="24 472 104 24" textCol="ffffffff"
+         explicitFocusOrder="0" pos="24 424 104 24" textCol="ffffffff"
          edTextCol="ff000000" edBkgCol="0" labelText="Equalizer" editableSingleClick="0"
          editableDoubleClick="0" focusDiscardsChanges="0" fontname="Default font"
          fontsize="16.399999999999998579" bold="1" italic="0" justification="33"/>
   <TOGGLEBUTTON name="new toggle button" id="f6880a868bc6c8e5" memberName="toggleButton2"
-                virtualName="" explicitFocusOrder="0" pos="128 472 24 24" buttonText=""
+                virtualName="" explicitFocusOrder="0" pos="128 424 24 24" buttonText=""
                 connectedEdges="0" needsCallback="1" radioGroupId="0" state="0"/>
   <LABEL name="new label" id="f8be1b30bdade15b" memberName="label3" virtualName=""
-         explicitFocusOrder="0" pos="24 520 104 24" textCol="ffffffff"
+         explicitFocusOrder="0" pos="24 472 104 24" textCol="ffffffff"
          edTextCol="ff000000" edBkgCol="0" labelText="Spatial" editableSingleClick="0"
          editableDoubleClick="0" focusDiscardsChanges="0" fontname="Default font"
          fontsize="16.399999999999998579" bold="1" italic="0" justification="33"/>
   <TOGGLEBUTTON name="new toggle button" id="b127432b0987bc73" memberName="toggleButton3"
-                virtualName="" explicitFocusOrder="0" pos="128 520 24 24" buttonText=""
+                virtualName="" explicitFocusOrder="0" pos="128 472 24 24" buttonText=""
                 connectedEdges="0" needsCallback="1" radioGroupId="0" state="0"/>
   <VIEWPORT name="new viewport" id="204e665b1f6576eb" memberName="viewport"
-            virtualName="" explicitFocusOrder="0" pos="184 64 800 624" vscroll="1"
+            virtualName="" explicitFocusOrder="0" pos="184 8 800 624" vscroll="1"
             hscroll="1" scrollbarThickness="18" contentType="1" jucerFile=""
             contentClass="" constructorParams=""/>
-  <LABEL name="new label" id="753cb365f0cd9063" memberName="label4" virtualName=""
-         explicitFocusOrder="0" pos="16 16 150 24" textCol="ffffffff"
-         edTextCol="ff000000" edBkgCol="0" labelText="Test GUI" editableSingleClick="0"
-         editableDoubleClick="0" focusDiscardsChanges="0" fontname="Default font"
-         fontsize="24.199999999999999289" bold="0" italic="0" justification="33"/>
   <JUCERCOMP name="" id="c4abcf2773420c68" memberName="component" virtualName=""
-             explicitFocusOrder="0" pos="13 56 163 280" sourceFile="AndrewPlayer.cpp"
+             explicitFocusOrder="0" pos="13 8 163 280" sourceFile="AndrewPlayer.cpp"
              constructorParams=""/>
 </JUCER_COMPONENT>
 

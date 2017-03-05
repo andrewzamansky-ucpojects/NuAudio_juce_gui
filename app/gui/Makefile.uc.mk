@@ -14,6 +14,7 @@ INCLUDE_THIS_COMPONENT := y
 
 SRC = AndrewPlayer.cpp
 SRC += DebugWindow.cpp
+SRC += DynamicGraph.cpp
 SRC += Dynamics.cpp
 SRC += Equalizer.cpp
 SRC += GuiMain.cpp

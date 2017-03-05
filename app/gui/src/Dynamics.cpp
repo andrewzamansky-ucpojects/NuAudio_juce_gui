@@ -7,7 +7,7 @@
   the "//[xyz]" and "//[/xyz]" sections will be retained when the file is loaded
   and re-saved.
 
-  Created with Projucer version: 4.3.0
+  Created with Projucer version: 4.3.1
 
   ------------------------------------------------------------------------------
 
@@ -41,15 +41,6 @@ Dynamics::Dynamics ()
     label->setColour (TextEditor::textColourId, Colours::black);
     label->setColour (TextEditor::backgroundColourId, Colour (0x00000000));
 
-    addAndMakeVisible (textEditor = new TextEditor ("new text editor"));
-    textEditor->setMultiLine (false);
-    textEditor->setReturnKeyStartsNewLine (false);
-    textEditor->setReadOnly (false);
-    textEditor->setScrollbarsShown (true);
-    textEditor->setCaretVisible (true);
-    textEditor->setPopupMenuEnabled (true);
-    textEditor->setText (TRANS("100"));
-
     addAndMakeVisible (label2 = new Label ("new label",
                                            TRANS("[Hz]")));
     label2->setFont (Font (15.00f, Font::bold));
@@ -67,15 +58,6 @@ Dynamics::Dynamics ()
     label3->setColour (Label::textColourId, Colours::white);
     label3->setColour (TextEditor::textColourId, Colours::black);
     label3->setColour (TextEditor::backgroundColourId, Colour (0x00000000));
-
-    addAndMakeVisible (textEditor2 = new TextEditor ("new text editor"));
-    textEditor2->setMultiLine (false);
-    textEditor2->setReturnKeyStartsNewLine (false);
-    textEditor2->setReadOnly (false);
-    textEditor2->setScrollbarsShown (true);
-    textEditor2->setCaretVisible (true);
-    textEditor2->setPopupMenuEnabled (true);
-    textEditor2->setText (TRANS("100"));
 
     addAndMakeVisible (label4 = new Label ("new label",
                                            TRANS("[Hz]")));
@@ -99,7 +81,7 @@ Dynamics::Dynamics ()
     textButton2->addListener (this);
 
     addAndMakeVisible (slider = new Slider ("new slider"));
-    slider->setRange (0, 50, 1);
+    slider->setRange (0, 50, 0.1);
     slider->setSliderStyle (Slider::RotaryVerticalDrag);
     slider->setTextBoxStyle (Slider::TextBoxRight, false, 40, 20);
     slider->addListener (this);
@@ -371,9 +353,23 @@ Dynamics::Dynamics ()
     label20->setColour (TextEditor::textColourId, Colours::black);
     label20->setColour (TextEditor::backgroundColourId, Colour (0x00000000));
 
-    cachedImage_dynamics_graph_png_1 = ImageCache::getFromMemory (dynamics_graph_png, dynamics_graph_pngSize);
+    addAndMakeVisible (dGraph = new DynamicGraph());
+    addAndMakeVisible (sl_cross_1 = new Slider ("new slider"));
+    sl_cross_1->setRange (20, 650, 1);
+    sl_cross_1->setSliderStyle (Slider::IncDecButtons);
+    sl_cross_1->setTextBoxStyle (Slider::TextBoxLeft, false, 80, 20);
+    sl_cross_1->addListener (this);
+
+    addAndMakeVisible (sl_cross_2 = new Slider ("new slider"));
+    sl_cross_2->setRange (2600, 20000, 1);
+    sl_cross_2->setSliderStyle (Slider::IncDecButtons);
+    sl_cross_2->setTextBoxStyle (Slider::TextBoxLeft, false, 80, 20);
+    sl_cross_2->addListener (this);
+
 
     //[UserPreSize]
+    sl_cross_1->setValue(650);
+    sl_cross_2->setValue(2600);
     //[/UserPreSize]
 
     setSize (780, 650);
@@ -389,10 +385,8 @@ Dynamics::~Dynamics()
     //[/Destructor_pre]
 
     label = nullptr;
-    textEditor = nullptr;
     label2 = nullptr;
     label3 = nullptr;
-    textEditor2 = nullptr;
     label4 = nullptr;
     textButton = nullptr;
     textButton2 = nullptr;
@@ -428,6 +422,9 @@ Dynamics::~Dynamics()
     label18 = nullptr;
     label19 = nullptr;
     label20 = nullptr;
+    dGraph = nullptr;
+    sl_cross_1 = nullptr;
+    sl_cross_2 = nullptr;
 
 
     //[Destructor]. You can add your own custom destruction code here..
@@ -466,11 +463,6 @@ void Dynamics::paint (Graphics& g)
     g.setColour (Colours::black);
     g.fillRect (540, 388, 212, 4);
 
-    g.setColour (Colours::black);
-    g.drawImage (cachedImage_dynamics_graph_png_1,
-                 12, 12, 740, 228,
-                 0, 0, cachedImage_dynamics_graph_png_1.getWidth(), cachedImage_dynamics_graph_png_1.getHeight());
-
     //[UserPaint] Add your own custom painting code here..
     //[/UserPaint]
 }
@@ -480,12 +472,10 @@ void Dynamics::resized()
     //[UserPreResize] Add your own custom resize code here..
     //[/UserPreResize]
 
-    label->setBounds (112, 296, 104, 24);
-    textEditor->setBounds (224, 296, 64, 24);
-    label2->setBounds (288, 296, 40, 24);
+    label->setBounds (80, 296, 104, 24);
+    label2->setBounds (312, 296, 40, 24);
     label3->setBounds (390, 295, 104, 24);
-    textEditor2->setBounds (502, 295, 64, 24);
-    label4->setBounds (566, 295, 40, 24);
+    label4->setBounds (632, 296, 40, 24);
     textButton->setBounds (48, 352, 104, 24);
     textButton2->setBounds (8, 392, 104, 24);
     slider->setBounds (96, 432, 136, 88);
@@ -520,6 +510,9 @@ void Dynamics::resized()
     label18->setBounds (168, 240, 32, 24);
     label19->setBounds (400, 240, 48, 24);
     label20->setBounds (720, 240, 40, 24);
+    dGraph->setBounds (16, 8, 740, 230);
+    sl_cross_1->setBounds (184, 296, 128, 24);
+    sl_cross_2->setBounds (496, 296, 128, 24);
     //[UserResized] Add your own custom resize handling here..
     //[/UserResized]
 }
@@ -572,7 +565,21 @@ void Dynamics::sliderValueChanged (Slider* sliderThatWasMoved)
     if (sliderThatWasMoved == slider)
     {
         //[UserSliderCode_slider] -- add your slider handling code here..
+        guiGlobalsParams->pControl_PC_App_Component_Obj->sendCommand("Slider Command");
+        guiGlobalsParams->debugWindow->print((String("Slider ") + String(sliderThatWasMoved->getValue()).toRawUTF8()));
         //[/UserSliderCode_slider]
+    }
+    else if (sliderThatWasMoved == sl_cross_1)
+    {
+        //[UserSliderCode_sl_cross_1] -- add your slider handling code here..
+        dGraph->setCrossOvers(Dynamics::sl_cross_1->getValue(), Dynamics::sl_cross_2->getValue());
+        //[/UserSliderCode_sl_cross_1]
+    }
+    else if (sliderThatWasMoved == sl_cross_2)
+    {
+        //[UserSliderCode_sl_cross_2] -- add your slider handling code here..
+        dGraph->setCrossOvers(Dynamics::sl_cross_1->getValue(), Dynamics::sl_cross_2->getValue());
+        //[/UserSliderCode_sl_cross_2]
     }
 
     //[UsersliderValueChanged_Post]
@@ -582,6 +589,38 @@ void Dynamics::sliderValueChanged (Slider* sliderThatWasMoved)
 
 
 //[MiscUserCode] You can add your own definitions of your custom methods or any other code here...
+void Dynamics::sliderDragEnded (Slider* sliderThatWasMoved)
+{
+    //[UsersliderValueChanged_Pre]
+    //[/UsersliderValueChanged_Pre]
+
+    if (sliderThatWasMoved == slider)
+    {
+        //[UserSliderCode_slider] -- add your slider handling code here..
+        // guiGlobalsParams->pControl_PC_App_Component_Obj->sendCommand("Slider Command");
+        // guiGlobalsParams->debugWindow->print((String("Slider ") + String(sliderThatWasMoved->getValue()).toRawUTF8()));
+        //[/UserSliderCode_slider]
+    }
+
+    //[UsersliderValueChanged_Post]
+    //[/UsersliderValueChanged_Post]
+}
+
+
+void Dynamics::setGlobalsParams(GuiGlobalsParams *aGuiGlobalsParams){
+    guiGlobalsParams = aGuiGlobalsParams;
+    guiGlobalsParams->pControl_PC_App_Component_Obj->addChangeListener(this);
+}
+
+void Dynamics::changeListenerCallback(ChangeBroadcaster* source)
+{
+    if (source == guiGlobalsParams->pControl_PC_App_Component_Obj)
+    {
+        guiGlobalsParams->debugWindow->print((String("XX Send Command:")).toRawUTF8());
+    }
+}
+
+
 //[/MiscUserCode]
 
 
@@ -595,9 +634,9 @@ void Dynamics::sliderValueChanged (Slider* sliderThatWasMoved)
 BEGIN_JUCER_METADATA
 
 <JUCER_COMPONENT documentType="Component" className="Dynamics" componentName=""
-                 parentClasses="public Component" constructorParams="" variableInitialisers=""
-                 snapPixels="8" snapActive="1" snapShown="1" overlayOpacity="0.330"
-                 fixedSize="0" initialWidth="780" initialHeight="650">
+                 parentClasses="public Component, public ChangeListener" constructorParams=""
+                 variableInitialisers="" snapPixels="8" snapActive="1" snapShown="1"
+                 overlayOpacity="0.330" fixedSize="0" initialWidth="780" initialHeight="650">
   <BACKGROUND backgroundColour="ff000000">
     <ROUNDRECT pos="0 0 770 272" cornerSize="10" fill="solid: ff314a5b" hasStroke="0"/>
     <ROUNDRECT pos="0 292 770 30" cornerSize="10" fill="solid: ff314a5b" hasStroke="0"/>
@@ -610,20 +649,14 @@ BEGIN_JUCER_METADATA
                hasStroke="0"/>
     <RECT pos="540 388 212 4" fill="solid: ff000000" hasStroke="0"/>
     <IMAGE pos="584 448 100 100" resource="" opacity="1" mode="0"/>
-    <IMAGE pos="12 12 740 228" resource="dynamics_graph_png" opacity="1"
-           mode="0"/>
   </BACKGROUND>
   <LABEL name="new label" id="18572fc6c01b2c8f" memberName="label" virtualName=""
-         explicitFocusOrder="0" pos="112 296 104 24" textCol="ffffffff"
+         explicitFocusOrder="0" pos="80 296 104 24" textCol="ffffffff"
          edTextCol="ff000000" edBkgCol="0" labelText="Cross-Over 1:" editableSingleClick="0"
          editableDoubleClick="0" focusDiscardsChanges="0" fontname="Default font"
          fontsize="15" bold="1" italic="0" justification="33"/>
-  <TEXTEDITOR name="new text editor" id="3397870222ea7c33" memberName="textEditor"
-              virtualName="" explicitFocusOrder="0" pos="224 296 64 24" initialText="100"
-              multiline="0" retKeyStartsLine="0" readonly="0" scrollbars="1"
-              caret="1" popupmenu="1"/>
   <LABEL name="new label" id="ed500ccd5b496a67" memberName="label2" virtualName=""
-         explicitFocusOrder="0" pos="288 296 40 24" textCol="ffffffff"
+         explicitFocusOrder="0" pos="312 296 40 24" textCol="ffffffff"
          edTextCol="ff000000" edBkgCol="0" labelText="[Hz]" editableSingleClick="0"
          editableDoubleClick="0" focusDiscardsChanges="0" fontname="Default font"
          fontsize="15" bold="1" italic="0" justification="33"/>
@@ -632,12 +665,8 @@ BEGIN_JUCER_METADATA
          edTextCol="ff000000" edBkgCol="0" labelText="Cross-Over 2:" editableSingleClick="0"
          editableDoubleClick="0" focusDiscardsChanges="0" fontname="Default font"
          fontsize="15" bold="1" italic="0" justification="33"/>
-  <TEXTEDITOR name="new text editor" id="7ea306dd927002c" memberName="textEditor2"
-              virtualName="" explicitFocusOrder="0" pos="502 295 64 24" initialText="100"
-              multiline="0" retKeyStartsLine="0" readonly="0" scrollbars="1"
-              caret="1" popupmenu="1"/>
   <LABEL name="new label" id="48f86d7fcd0ee7bb" memberName="label4" virtualName=""
-         explicitFocusOrder="0" pos="566 295 40 24" textCol="ffffffff"
+         explicitFocusOrder="0" pos="632 296 40 24" textCol="ffffffff"
          edTextCol="ff000000" edBkgCol="0" labelText="[Hz]" editableSingleClick="0"
          editableDoubleClick="0" focusDiscardsChanges="0" fontname="Default font"
          fontsize="15" bold="1" italic="0" justification="33"/>
@@ -648,7 +677,7 @@ BEGIN_JUCER_METADATA
               virtualName="" explicitFocusOrder="0" pos="8 392 104 24" tooltip="BAND1"
               buttonText="PROCESS" connectedEdges="15" needsCallback="1" radioGroupId="0"/>
   <SLIDER name="new slider" id="7d5968e7eb3aaa7c" memberName="slider" virtualName=""
-          explicitFocusOrder="0" pos="96 432 136 88" min="0" max="50" int="1"
+          explicitFocusOrder="0" pos="96 432 136 88" min="0" max="50" int="0.10000000000000000555"
           style="RotaryVerticalDrag" textBoxPos="TextBoxRight" textBoxEditable="1"
           textBoxWidth="40" textBoxHeight="20" skewFactor="1" needsCallback="1"/>
   <LABEL name="new label" id="a9b1f595e9b8be1e" memberName="label5" virtualName=""
@@ -787,6 +816,19 @@ BEGIN_JUCER_METADATA
          edTextCol="ff000000" edBkgCol="0" labelText="20K" editableSingleClick="0"
          editableDoubleClick="0" focusDiscardsChanges="0" fontname="Default font"
          fontsize="15" bold="1" italic="0" justification="33"/>
+  <JUCERCOMP name="" id="2548a7e3609f5669" memberName="dGraph" virtualName=""
+             explicitFocusOrder="0" pos="16 8 740 230" sourceFile="DynamicGraph.cpp"
+             constructorParams=""/>
+  <SLIDER name="new slider" id="af340e30cc1f4492" memberName="sl_cross_1"
+          virtualName="" explicitFocusOrder="0" pos="184 296 128 24" min="20"
+          max="650" int="1" style="IncDecButtons" textBoxPos="TextBoxLeft"
+          textBoxEditable="1" textBoxWidth="80" textBoxHeight="20" skewFactor="1"
+          needsCallback="1"/>
+  <SLIDER name="new slider" id="2d3323ed4d8a6ee6" memberName="sl_cross_2"
+          virtualName="" explicitFocusOrder="0" pos="496 296 128 24" min="2600"
+          max="20000" int="1" style="IncDecButtons" textBoxPos="TextBoxLeft"
+          textBoxEditable="1" textBoxWidth="80" textBoxHeight="20" skewFactor="1"
+          needsCallback="1"/>
 </JUCER_COMPONENT>
 
 END_JUCER_METADATA

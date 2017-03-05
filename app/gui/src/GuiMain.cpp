@@ -39,6 +39,7 @@ GuiMain::GuiMain ()
     //[/Constructor_pre]
 
     addAndMakeVisible (debugViewPort = new Viewport ("new viewport"));
+    debugViewPort->setScrollBarsShown (false, false);
 
     addAndMakeVisible (viewPort = new Viewport ("new viewport"));
 
@@ -57,8 +58,8 @@ GuiMain::GuiMain ()
     //[Constructor] You can add your own custom stuff here..
     AudioComponentObj =  createAudioComponent();
     guiGlobalsParams.pControl_PC_App_Component_Obj = AudioComponentObj;
-    //guiGlobalsParams->pControl_PC_App_Component_Obj->addChangeListener(this);        
-    guiGlobalsParams.debugWindow = debugWindow;    
+    //guiGlobalsParams->pControl_PC_App_Component_Obj->addChangeListener(this);
+    guiGlobalsParams.debugWindow = debugWindow;
 
     mainWindow->setGlobalsParams(&guiGlobalsParams);
 
@@ -95,8 +96,8 @@ void GuiMain::resized()
     //[UserPreResize] Add your own custom resize code here..
     //[/UserPreResize]
 
-    debugViewPort->setBounds (0, getHeight() - 210, proportionOfWidth (1.0000f), 210);
-    viewPort->setBounds (0, 0, proportionOfWidth (1.0000f), getHeight() - 210);
+    debugViewPort->setBounds (0, 650, proportionOfWidth (1.0000f), 210);
+    viewPort->setBounds (0, 0, proportionOfWidth (1.0000f), 650);
     //[UserResized] Add your own custom resize handling here..
     //[/UserResized]
 }
@@ -125,16 +126,16 @@ void GuiMain::changeListenerCallback(ChangeBroadcaster* source)
 BEGIN_JUCER_METADATA
 
 <JUCER_COMPONENT documentType="Component" className="GuiMain" componentName=""
-                 parentClasses="public Component" constructorParams="" variableInitialisers=""
-                 snapPixels="8" snapActive="1" snapShown="1" overlayOpacity="0.330"
-                 fixedSize="0" initialWidth="1000" initialHeight="900">
+                 parentClasses="public Component, public ChangeListener" constructorParams=""
+                 variableInitialisers="" snapPixels="8" snapActive="1" snapShown="1"
+                 overlayOpacity="0.330" fixedSize="0" initialWidth="1000" initialHeight="900">
   <BACKGROUND backgroundColour="ffff0000"/>
   <VIEWPORT name="new viewport" id="77e2f9b86e9dc9ee" memberName="debugViewPort"
-            virtualName="" explicitFocusOrder="0" pos="0 210R 100% 210" vscroll="1"
-            hscroll="1" scrollbarThickness="18" contentType="0" jucerFile=""
+            virtualName="" explicitFocusOrder="0" pos="0 650 100% 210" vscroll="0"
+            hscroll="0" scrollbarThickness="18" contentType="0" jucerFile=""
             contentClass="" constructorParams=""/>
   <VIEWPORT name="new viewport" id="bdaedbe4d636ce14" memberName="viewPort"
-            virtualName="" explicitFocusOrder="0" pos="0 0 100% 210M" vscroll="1"
+            virtualName="" explicitFocusOrder="0" pos="0 0 100% 650" vscroll="1"
             hscroll="1" scrollbarThickness="18" contentType="0" jucerFile=""
             contentClass="" constructorParams=""/>
 </JUCER_COMPONENT>

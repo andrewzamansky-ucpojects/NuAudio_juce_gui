@@ -17,21 +17,13 @@
   ==============================================================================
 */
 
-#ifndef __JUCE_HEADER_1A7C0314FA0C68BA__
-#define __JUCE_HEADER_1A7C0314FA0C68BA__
+#ifndef __JUCE_HEADER_4B6F32FF31EE3ACA__
+#define __JUCE_HEADER_4B6F32FF31EE3ACA__
 
 //[Headers]     -- You can add your own extra header files here --
-#include "../JuceLibraryCode/JuceHeader.h"
-#include "Style.h"
-#include "MyUtils.h"
-#include "Dynamics.h"
-#include "Equalizer.h"
-#include "Spatial.h"
-#include "DebugWindow.h"
-
+ #include "../JuceLibraryCode/JuceHeader.h"
 //[/Headers]
 
-#include "AndrewPlayer.h"
 
 
 //==============================================================================
@@ -42,52 +34,36 @@
     Describe your class and how it works here!
                                                                     //[/Comments]
 */
-class MainWindow  : public Component,
-                    public ButtonListener
+class DebugWindow  : public Component
 {
 public:
     //==============================================================================
-    MainWindow ();
-    ~MainWindow();
+    DebugWindow ();
+    ~DebugWindow();
 
     //==============================================================================
     //[UserMethods]     -- You can add your own custom methods in this section.
-    void selectPartials (int i);
-    void setGlobalsParams(GuiGlobalsParams *params);
+    void print(String text);
     //[/UserMethods]
 
     void paint (Graphics& g) override;
     void resized() override;
-    void buttonClicked (Button* buttonThatWasClicked) override;
 
 
 
 private:
     //[UserVariables]   -- You can add your own custom variables in this section.
-	ScopedPointer<Dynamics> dynamic_view;
-	ScopedPointer<Equalizer> equalizer_view;
-	ScopedPointer<Spatial> spatial_view;
-	ScopedPointer<AndrewPlayer> player_view;
-	GuiGlobalsParams *guiGlobalsParams;
-
     //[/UserVariables]
 
     //==============================================================================
-    ScopedPointer<Label> label;
-    ScopedPointer<ToggleButton> toggleButton1;
-    ScopedPointer<Label> label2;
-    ScopedPointer<ToggleButton> toggleButton2;
-    ScopedPointer<Label> label3;
-    ScopedPointer<ToggleButton> toggleButton3;
-    ScopedPointer<Viewport> viewport;
-    ScopedPointer<AndrewPlayer> component;
+    ScopedPointer<TextEditor> textEditor;
 
 
     //==============================================================================
-    JUCE_DECLARE_NON_COPYABLE_WITH_LEAK_DETECTOR (MainWindow)
+    JUCE_DECLARE_NON_COPYABLE_WITH_LEAK_DETECTOR (DebugWindow)
 };
 
 //[EndFile] You can add extra defines here...
 //[/EndFile]
 
-#endif   // __JUCE_HEADER_1A7C0314FA0C68BA__
+#endif   // __JUCE_HEADER_4B6F32FF31EE3ACA__

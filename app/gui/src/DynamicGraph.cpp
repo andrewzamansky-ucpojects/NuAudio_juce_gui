@@ -20,48 +20,35 @@
 //[Headers] You can add your own extra header files here...
 //[/Headers]
 
-#include "DebugWindow.h"
+#include "DynamicGraph.h"
 
 
 //[MiscUserDefs] You can add your own user definitions and misc code here...
 //[/MiscUserDefs]
 
 //==============================================================================
-DebugWindow::DebugWindow ()
+DynamicGraph::DynamicGraph ()
 {
     //[Constructor_pre] You can add your own custom stuff here..
     //[/Constructor_pre]
 
-    addAndMakeVisible (textEditor = new TextEditor ("new text editor"));
-    textEditor->setMultiLine (true);
-    textEditor->setReturnKeyStartsNewLine (true);
-    textEditor->setReadOnly (false);
-    textEditor->setScrollbarsShown (true);
-    textEditor->setCaretVisible (true);
-    textEditor->setPopupMenuEnabled (true);
-    textEditor->setColour (TextEditor::textColourId, Colour (0xff24fa00));
-    textEditor->setColour (TextEditor::backgroundColourId, Colour (0xff403c3c));
-    textEditor->setText (TRANS("-= DEBUG =-"));
-
 
     //[UserPreSize]
-    String nt = "Start";
-    print(nt);
     //[/UserPreSize]
 
-    setSize (1000, 600);
+    setSize (740, 230);
 
 
     //[Constructor] You can add your own custom stuff here..
+    DynamicGraph::setCrossOvers(100, 2000);
     //[/Constructor]
 }
 
-DebugWindow::~DebugWindow()
+DynamicGraph::~DynamicGraph()
 {
     //[Destructor_pre]. You can add your own custom destruction code here..
     //[/Destructor_pre]
 
-    textEditor = nullptr;
 
 
     //[Destructor]. You can add your own custom destruction code here..
@@ -69,23 +56,27 @@ DebugWindow::~DebugWindow()
 }
 
 //==============================================================================
-void DebugWindow::paint (Graphics& g)
+void DynamicGraph::paint (Graphics& g)
 {
     //[UserPrePaint] Add your own custom painting code here..
     //[/UserPrePaint]
 
     g.fillAll (Colours::white);
 
+    g.setColour (Colours::black);
+    g.fillRect (0, 0, 740, 230);
+
     //[UserPaint] Add your own custom painting code here..
+    DynamicGraph::drawGrid(g);
+
     //[/UserPaint]
 }
 
-void DebugWindow::resized()
+void DynamicGraph::resized()
 {
     //[UserPreResize] Add your own custom resize code here..
     //[/UserPreResize]
 
-    textEditor->setBounds (0, 0, proportionOfWidth (1.0000f), 150);
     //[UserResized] Add your own custom resize handling here..
     //[/UserResized]
 }
@@ -93,15 +84,56 @@ void DebugWindow::resized()
 
 
 //[MiscUserCode] You can add your own definitions of your custom methods or any other code here...
-void DebugWindow::print (String text)
-{
-    //String newText = textEditor->getText();
-    //newText = newText + "\n" +  text;
-    //textEditor->setText(newText);
-    String newText = text + "\n";
-    textEditor->insertTextAtCaret(newText);
+void DynamicGraph::setCrossOvers(int c1, int c2){
+    int dc1 = 0;
+    int dc2 = 0;
+    
+    dc1 = (740.0 / 20000.0) * c1;
+    dc2 = (740.0 / 20000.0) * c2;
+    DynamicGraph::crossOver1 = dc1;
+    DynamicGraph::crossOver2 = dc2;
+    Component::repaint();
+}
+
+void DynamicGraph::drawGrid(Graphics& g) {
+    int startX = 0;
+    int endX = 740;
+
+    int startY = 0;
+    int endY = 200;
+
+    int radious = 10;
+    
+    int centerY = 100;
+
+    g.setColour (Colours::white);
+
+    g.setFont (14.0f);
+    g.drawText ("Hello, World!", getLocalBounds(), Justification::centred, true);
+
+    // Center line
+    g.drawLine (startX, centerY, endX, centerY, 1);
+
+
+    // Draw Cross setCrossOvers
+    // CO1
+    g.setColour (Colours::yellow);
+    g.fillEllipse (DynamicGraph::crossOver1, centerY + radious, 5, 5);
+    g.drawLine(0, centerY, crossOver1 - radious, centerY);    
+    g.drawLine(crossOver1 + radious, centerY + radious, crossOver1 + radious + 100, endY);
+    
+    
+    // CO2
+    g.setColour (Colours::red);
+    g.fillEllipse (DynamicGraph::crossOver2, centerY+ radious, 5, 5);
+   
+    g.drawLine(endX, centerY, crossOver2 + radious, centerY);    
+    
+    g.drawLine(crossOver2 - radious, centerY + radious, crossOver2 - radious + 100, endY);
+
 
 }
+
 //[/MiscUserCode]
 
 
@@ -114,15 +146,13 @@ void DebugWindow::print (String text)
 
 BEGIN_JUCER_METADATA
 
-<JUCER_COMPONENT documentType="Component" className="DebugWindow" componentName=""
+<JUCER_COMPONENT documentType="Component" className="DynamicGraph" componentName=""
                  parentClasses="public Component" constructorParams="" variableInitialisers=""
                  snapPixels="8" snapActive="1" snapShown="1" overlayOpacity="0.330"
-                 fixedSize="0" initialWidth="1000" initialHeight="600">
-  <BACKGROUND backgroundColour="ffffffff"/>
-  <TEXTEDITOR name="new text editor" id="fc82b56f1f1b5c95" memberName="textEditor"
-              virtualName="" explicitFocusOrder="0" pos="0 0 100% 150" textcol="ff24fa00"
-              bkgcol="ff403c3c" initialText="-= DEBUG =-" multiline="1" retKeyStartsLine="1"
-              readonly="0" scrollbars="1" caret="1" popupmenu="1"/>
+                 fixedSize="0" initialWidth="740" initialHeight="230">
+  <BACKGROUND backgroundColour="ffffffff">
+    <RECT pos="0 0 740 230" fill="solid: ff000000" hasStroke="0"/>
+  </BACKGROUND>
 </JUCER_COMPONENT>
 
 END_JUCER_METADATA
