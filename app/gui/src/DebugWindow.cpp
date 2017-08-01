@@ -41,7 +41,7 @@ DebugWindow::DebugWindow ()
     textEditor->setPopupMenuEnabled (true);
     textEditor->setColour (TextEditor::textColourId, Colour (0xff24fa00));
     textEditor->setColour (TextEditor::backgroundColourId, Colour (0xff403c3c));
-    textEditor->setText (TRANS("-= DEBUG =-"));
+    textEditor->setText (String());
 
 
     //[UserPreSize]
@@ -121,7 +121,7 @@ BEGIN_JUCER_METADATA
   <BACKGROUND backgroundColour="ffffffff"/>
   <TEXTEDITOR name="new text editor" id="fc82b56f1f1b5c95" memberName="textEditor"
               virtualName="" explicitFocusOrder="0" pos="0 0 100% 150" textcol="ff24fa00"
-              bkgcol="ff403c3c" initialText="-= DEBUG =-" multiline="1" retKeyStartsLine="1"
+              bkgcol="ff403c3c" initialText="" multiline="1" retKeyStartsLine="1"
               readonly="0" scrollbars="1" caret="1" popupmenu="1"/>
 </JUCER_COMPONENT>
 

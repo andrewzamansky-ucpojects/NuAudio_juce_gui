@@ -22,6 +22,8 @@ SRC += MainWindow.cpp
 SRC += MyImages.cpp
 SRC += MyUtils.cpp
 SRC += Spatial.cpp
+SRC += CircleItem.cpp
+SRC += EqGraph.cpp
 
 #SPEED_CRITICAL_FILES =
 

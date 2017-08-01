@@ -7,7 +7,7 @@
   the "//[xyz]" and "//[/xyz]" sections will be retained when the file is loaded
   and re-saved.
 
-  Created with Projucer version: 4.3.0
+  Created with Projucer version: 4.3.1
 
   ------------------------------------------------------------------------------
 
@@ -32,10 +32,9 @@ Equalizer::Equalizer ()
     //[Constructor_pre] You can add your own custom stuff here..
     //[/Constructor_pre]
 
-    addAndMakeVisible (toggleButton = new ToggleButton ("new toggle button"));
-    toggleButton->setButtonText (String());
-    toggleButton->addListener (this);
-    toggleButton->setToggleState (true, dontSendNotification);
+    addAndMakeVisible (tb1 = new ToggleButton ("tb enable"));
+    tb1->setButtonText (String());
+    tb1->setToggleState (true, dontSendNotification);
 
     addAndMakeVisible (label = new Label ("new label",
                                           TRANS("F")));
@@ -46,14 +45,14 @@ Equalizer::Equalizer ()
     label->setColour (TextEditor::textColourId, Colours::black);
     label->setColour (TextEditor::backgroundColourId, Colour (0x00000000));
 
-    addAndMakeVisible (textEditor = new TextEditor ("new text editor"));
-    textEditor->setMultiLine (false);
-    textEditor->setReturnKeyStartsNewLine (false);
-    textEditor->setReadOnly (false);
-    textEditor->setScrollbarsShown (true);
-    textEditor->setCaretVisible (true);
-    textEditor->setPopupMenuEnabled (true);
-    textEditor->setText (TRANS("20"));
+    addAndMakeVisible (te_f1 = new TextEditor ("freq1"));
+    te_f1->setMultiLine (false);
+    te_f1->setReturnKeyStartsNewLine (false);
+    te_f1->setReadOnly (false);
+    te_f1->setScrollbarsShown (true);
+    te_f1->setCaretVisible (true);
+    te_f1->setPopupMenuEnabled (true);
+    te_f1->setText (TRANS("20"));
 
     addAndMakeVisible (label2 = new Label ("new label",
                                            TRANS("G")));
@@ -64,14 +63,14 @@ Equalizer::Equalizer ()
     label2->setColour (TextEditor::textColourId, Colours::black);
     label2->setColour (TextEditor::backgroundColourId, Colour (0x00000000));
 
-    addAndMakeVisible (textEditor2 = new TextEditor ("new text editor"));
-    textEditor2->setMultiLine (false);
-    textEditor2->setReturnKeyStartsNewLine (false);
-    textEditor2->setReadOnly (false);
-    textEditor2->setScrollbarsShown (true);
-    textEditor2->setCaretVisible (true);
-    textEditor2->setPopupMenuEnabled (true);
-    textEditor2->setText (TRANS("20"));
+    addAndMakeVisible (te_g1 = new TextEditor ("gain 1"));
+    te_g1->setMultiLine (false);
+    te_g1->setReturnKeyStartsNewLine (false);
+    te_g1->setReadOnly (true);
+    te_g1->setScrollbarsShown (true);
+    te_g1->setCaretVisible (false);
+    te_g1->setPopupMenuEnabled (true);
+    te_g1->setText (TRANS("0"));
 
     addAndMakeVisible (label3 = new Label ("new label",
                                            TRANS("Q")));
@@ -82,406 +81,401 @@ Equalizer::Equalizer ()
     label3->setColour (TextEditor::textColourId, Colours::black);
     label3->setColour (TextEditor::backgroundColourId, Colour (0x00000000));
 
-    addAndMakeVisible (toggleButton2 = new ToggleButton ("new toggle button"));
-    toggleButton2->setButtonText (String());
-    toggleButton2->addListener (this);
-    toggleButton2->setToggleState (true, dontSendNotification);
+    addAndMakeVisible (tb2 = new ToggleButton ("tb enable"));
+    tb2->setButtonText (String());
+    tb2->setToggleState (true, dontSendNotification);
 
-    addAndMakeVisible (textEditor5 = new TextEditor ("new text editor"));
-    textEditor5->setMultiLine (false);
-    textEditor5->setReturnKeyStartsNewLine (false);
-    textEditor5->setReadOnly (false);
-    textEditor5->setScrollbarsShown (true);
-    textEditor5->setCaretVisible (true);
-    textEditor5->setPopupMenuEnabled (true);
-    textEditor5->setText (TRANS("20"));
+    addAndMakeVisible (te_f2 = new TextEditor ("freq1"));
+    te_f2->setMultiLine (false);
+    te_f2->setReturnKeyStartsNewLine (false);
+    te_f2->setReadOnly (false);
+    te_f2->setScrollbarsShown (true);
+    te_f2->setCaretVisible (true);
+    te_f2->setPopupMenuEnabled (true);
+    te_f2->setText (TRANS("20"));
 
-    addAndMakeVisible (textEditor6 = new TextEditor ("new text editor"));
-    textEditor6->setMultiLine (false);
-    textEditor6->setReturnKeyStartsNewLine (false);
-    textEditor6->setReadOnly (false);
-    textEditor6->setScrollbarsShown (true);
-    textEditor6->setCaretVisible (true);
-    textEditor6->setPopupMenuEnabled (true);
-    textEditor6->setText (TRANS("20"));
+    addAndMakeVisible (te_g2 = new TextEditor ("gain 1"));
+    te_g2->setMultiLine (false);
+    te_g2->setReturnKeyStartsNewLine (false);
+    te_g2->setReadOnly (false);
+    te_g2->setScrollbarsShown (true);
+    te_g2->setCaretVisible (true);
+    te_g2->setPopupMenuEnabled (true);
+    te_g2->setText (TRANS("20"));
 
-    addAndMakeVisible (textEditor7 = new TextEditor ("new text editor"));
-    textEditor7->setMultiLine (false);
-    textEditor7->setReturnKeyStartsNewLine (false);
-    textEditor7->setReadOnly (false);
-    textEditor7->setScrollbarsShown (true);
-    textEditor7->setCaretVisible (true);
-    textEditor7->setPopupMenuEnabled (true);
-    textEditor7->setText (TRANS("3"));
+    addAndMakeVisible (te_q2 = new TextEditor ("q2"));
+    te_q2->setMultiLine (false);
+    te_q2->setReturnKeyStartsNewLine (false);
+    te_q2->setReadOnly (false);
+    te_q2->setScrollbarsShown (true);
+    te_q2->setCaretVisible (true);
+    te_q2->setPopupMenuEnabled (true);
+    te_q2->setText (TRANS("3"));
 
-    addAndMakeVisible (toggleButton3 = new ToggleButton ("new toggle button"));
-    toggleButton3->setButtonText (String());
-    toggleButton3->addListener (this);
-    toggleButton3->setToggleState (true, dontSendNotification);
+    addAndMakeVisible (tb3 = new ToggleButton ("tb enable"));
+    tb3->setButtonText (String());
+    tb3->setToggleState (true, dontSendNotification);
 
-    addAndMakeVisible (textEditor9 = new TextEditor ("new text editor"));
-    textEditor9->setMultiLine (false);
-    textEditor9->setReturnKeyStartsNewLine (false);
-    textEditor9->setReadOnly (false);
-    textEditor9->setScrollbarsShown (true);
-    textEditor9->setCaretVisible (true);
-    textEditor9->setPopupMenuEnabled (true);
-    textEditor9->setText (TRANS("20"));
+    addAndMakeVisible (te_f3 = new TextEditor ("freq1"));
+    te_f3->setMultiLine (false);
+    te_f3->setReturnKeyStartsNewLine (false);
+    te_f3->setReadOnly (false);
+    te_f3->setScrollbarsShown (true);
+    te_f3->setCaretVisible (true);
+    te_f3->setPopupMenuEnabled (true);
+    te_f3->setText (TRANS("20"));
 
-    addAndMakeVisible (textEditor10 = new TextEditor ("new text editor"));
-    textEditor10->setMultiLine (false);
-    textEditor10->setReturnKeyStartsNewLine (false);
-    textEditor10->setReadOnly (false);
-    textEditor10->setScrollbarsShown (true);
-    textEditor10->setCaretVisible (true);
-    textEditor10->setPopupMenuEnabled (true);
-    textEditor10->setText (TRANS("20"));
+    addAndMakeVisible (te_g3 = new TextEditor ("gain 3"));
+    te_g3->setMultiLine (false);
+    te_g3->setReturnKeyStartsNewLine (false);
+    te_g3->setReadOnly (false);
+    te_g3->setScrollbarsShown (true);
+    te_g3->setCaretVisible (true);
+    te_g3->setPopupMenuEnabled (true);
+    te_g3->setText (TRANS("20"));
 
-    addAndMakeVisible (textEditor11 = new TextEditor ("new text editor"));
-    textEditor11->setMultiLine (false);
-    textEditor11->setReturnKeyStartsNewLine (false);
-    textEditor11->setReadOnly (false);
-    textEditor11->setScrollbarsShown (true);
-    textEditor11->setCaretVisible (true);
-    textEditor11->setPopupMenuEnabled (true);
-    textEditor11->setText (TRANS("3"));
+    addAndMakeVisible (te_q3 = new TextEditor ("q3"));
+    te_q3->setMultiLine (false);
+    te_q3->setReturnKeyStartsNewLine (false);
+    te_q3->setReadOnly (false);
+    te_q3->setScrollbarsShown (true);
+    te_q3->setCaretVisible (true);
+    te_q3->setPopupMenuEnabled (true);
+    te_q3->setText (TRANS("3"));
 
-    addAndMakeVisible (toggleButton4 = new ToggleButton ("new toggle button"));
-    toggleButton4->setButtonText (String());
-    toggleButton4->addListener (this);
-    toggleButton4->setToggleState (true, dontSendNotification);
+    addAndMakeVisible (tb4 = new ToggleButton ("tb enable"));
+    tb4->setButtonText (String());
+    tb4->setToggleState (true, dontSendNotification);
 
-    addAndMakeVisible (textEditor13 = new TextEditor ("new text editor"));
-    textEditor13->setMultiLine (false);
-    textEditor13->setReturnKeyStartsNewLine (false);
-    textEditor13->setReadOnly (false);
-    textEditor13->setScrollbarsShown (true);
-    textEditor13->setCaretVisible (true);
-    textEditor13->setPopupMenuEnabled (true);
-    textEditor13->setText (TRANS("20"));
+    addAndMakeVisible (te_f4 = new TextEditor ("freq1"));
+    te_f4->setMultiLine (false);
+    te_f4->setReturnKeyStartsNewLine (false);
+    te_f4->setReadOnly (false);
+    te_f4->setScrollbarsShown (true);
+    te_f4->setCaretVisible (true);
+    te_f4->setPopupMenuEnabled (true);
+    te_f4->setText (TRANS("20"));
 
-    addAndMakeVisible (textEditor14 = new TextEditor ("new text editor"));
-    textEditor14->setMultiLine (false);
-    textEditor14->setReturnKeyStartsNewLine (false);
-    textEditor14->setReadOnly (false);
-    textEditor14->setScrollbarsShown (true);
-    textEditor14->setCaretVisible (true);
-    textEditor14->setPopupMenuEnabled (true);
-    textEditor14->setText (TRANS("20"));
+    addAndMakeVisible (te_g4 = new TextEditor ("gain 4"));
+    te_g4->setMultiLine (false);
+    te_g4->setReturnKeyStartsNewLine (false);
+    te_g4->setReadOnly (false);
+    te_g4->setScrollbarsShown (true);
+    te_g4->setCaretVisible (true);
+    te_g4->setPopupMenuEnabled (true);
+    te_g4->setText (TRANS("20"));
 
-    addAndMakeVisible (textEditor15 = new TextEditor ("new text editor"));
-    textEditor15->setMultiLine (false);
-    textEditor15->setReturnKeyStartsNewLine (false);
-    textEditor15->setReadOnly (false);
-    textEditor15->setScrollbarsShown (true);
-    textEditor15->setCaretVisible (true);
-    textEditor15->setPopupMenuEnabled (true);
-    textEditor15->setText (TRANS("3"));
+    addAndMakeVisible (te_q4 = new TextEditor ("q4"));
+    te_q4->setMultiLine (false);
+    te_q4->setReturnKeyStartsNewLine (false);
+    te_q4->setReadOnly (false);
+    te_q4->setScrollbarsShown (true);
+    te_q4->setCaretVisible (true);
+    te_q4->setPopupMenuEnabled (true);
+    te_q4->setText (TRANS("3"));
 
-    addAndMakeVisible (toggleButton5 = new ToggleButton ("new toggle button"));
-    toggleButton5->setButtonText (String());
-    toggleButton5->addListener (this);
-    toggleButton5->setToggleState (true, dontSendNotification);
+    addAndMakeVisible (tb5 = new ToggleButton ("tb enable"));
+    tb5->setButtonText (String());
+    tb5->setToggleState (true, dontSendNotification);
 
-    addAndMakeVisible (textEditor17 = new TextEditor ("new text editor"));
-    textEditor17->setMultiLine (false);
-    textEditor17->setReturnKeyStartsNewLine (false);
-    textEditor17->setReadOnly (false);
-    textEditor17->setScrollbarsShown (true);
-    textEditor17->setCaretVisible (true);
-    textEditor17->setPopupMenuEnabled (true);
-    textEditor17->setText (TRANS("20"));
+    addAndMakeVisible (te_f5 = new TextEditor ("freq1"));
+    te_f5->setMultiLine (false);
+    te_f5->setReturnKeyStartsNewLine (false);
+    te_f5->setReadOnly (false);
+    te_f5->setScrollbarsShown (true);
+    te_f5->setCaretVisible (true);
+    te_f5->setPopupMenuEnabled (true);
+    te_f5->setText (TRANS("20"));
 
-    addAndMakeVisible (textEditor18 = new TextEditor ("new text editor"));
-    textEditor18->setMultiLine (false);
-    textEditor18->setReturnKeyStartsNewLine (false);
-    textEditor18->setReadOnly (false);
-    textEditor18->setScrollbarsShown (true);
-    textEditor18->setCaretVisible (true);
-    textEditor18->setPopupMenuEnabled (true);
-    textEditor18->setText (TRANS("20"));
+    addAndMakeVisible (te_g5 = new TextEditor ("gain 5"));
+    te_g5->setMultiLine (false);
+    te_g5->setReturnKeyStartsNewLine (false);
+    te_g5->setReadOnly (false);
+    te_g5->setScrollbarsShown (true);
+    te_g5->setCaretVisible (true);
+    te_g5->setPopupMenuEnabled (true);
+    te_g5->setText (TRANS("20"));
 
-    addAndMakeVisible (textEditor19 = new TextEditor ("new text editor"));
-    textEditor19->setMultiLine (false);
-    textEditor19->setReturnKeyStartsNewLine (false);
-    textEditor19->setReadOnly (false);
-    textEditor19->setScrollbarsShown (true);
-    textEditor19->setCaretVisible (true);
-    textEditor19->setPopupMenuEnabled (true);
-    textEditor19->setText (TRANS("3"));
+    addAndMakeVisible (te_q5 = new TextEditor ("q5"));
+    te_q5->setMultiLine (false);
+    te_q5->setReturnKeyStartsNewLine (false);
+    te_q5->setReadOnly (false);
+    te_q5->setScrollbarsShown (true);
+    te_q5->setCaretVisible (true);
+    te_q5->setPopupMenuEnabled (true);
+    te_q5->setText (TRANS("3"));
 
-    addAndMakeVisible (textEditor23 = new TextEditor ("new text editor"));
-    textEditor23->setMultiLine (false);
-    textEditor23->setReturnKeyStartsNewLine (false);
-    textEditor23->setReadOnly (false);
-    textEditor23->setScrollbarsShown (true);
-    textEditor23->setCaretVisible (true);
-    textEditor23->setPopupMenuEnabled (true);
-    textEditor23->setText (TRANS("0.700"));
+    addAndMakeVisible (te_q1 = new TextEditor ("q1"));
+    te_q1->setMultiLine (false);
+    te_q1->setReturnKeyStartsNewLine (false);
+    te_q1->setReadOnly (false);
+    te_q1->setScrollbarsShown (true);
+    te_q1->setCaretVisible (true);
+    te_q1->setPopupMenuEnabled (true);
+    te_q1->setText (TRANS("0.700"));
 
-    addAndMakeVisible (toggleButton7 = new ToggleButton ("new toggle button"));
-    toggleButton7->setButtonText (String());
-    toggleButton7->addListener (this);
-    toggleButton7->setToggleState (true, dontSendNotification);
+    addAndMakeVisible (te_f6 = new TextEditor ("freq1"));
+    te_f6->setMultiLine (false);
+    te_f6->setReturnKeyStartsNewLine (false);
+    te_f6->setReadOnly (false);
+    te_f6->setScrollbarsShown (true);
+    te_f6->setCaretVisible (true);
+    te_f6->setPopupMenuEnabled (true);
+    te_f6->setText (TRANS("20"));
 
-    addAndMakeVisible (textEditor25 = new TextEditor ("new text editor"));
-    textEditor25->setMultiLine (false);
-    textEditor25->setReturnKeyStartsNewLine (false);
-    textEditor25->setReadOnly (false);
-    textEditor25->setScrollbarsShown (true);
-    textEditor25->setCaretVisible (true);
-    textEditor25->setPopupMenuEnabled (true);
-    textEditor25->setText (TRANS("20"));
+    addAndMakeVisible (te_g6 = new TextEditor ("gain 6"));
+    te_g6->setMultiLine (false);
+    te_g6->setReturnKeyStartsNewLine (false);
+    te_g6->setReadOnly (false);
+    te_g6->setScrollbarsShown (true);
+    te_g6->setCaretVisible (true);
+    te_g6->setPopupMenuEnabled (true);
+    te_g6->setText (TRANS("20"));
 
-    addAndMakeVisible (textEditor26 = new TextEditor ("new text editor"));
-    textEditor26->setMultiLine (false);
-    textEditor26->setReturnKeyStartsNewLine (false);
-    textEditor26->setReadOnly (false);
-    textEditor26->setScrollbarsShown (true);
-    textEditor26->setCaretVisible (true);
-    textEditor26->setPopupMenuEnabled (true);
-    textEditor26->setText (TRANS("20"));
+    addAndMakeVisible (tb7 = new ToggleButton ("tb enable"));
+    tb7->setButtonText (String());
+    tb7->setToggleState (true, dontSendNotification);
 
-    addAndMakeVisible (toggleButton8 = new ToggleButton ("new toggle button"));
-    toggleButton8->setButtonText (String());
-    toggleButton8->addListener (this);
-    toggleButton8->setToggleState (true, dontSendNotification);
+    addAndMakeVisible (te_f7 = new TextEditor ("freq1"));
+    te_f7->setMultiLine (false);
+    te_f7->setReturnKeyStartsNewLine (false);
+    te_f7->setReadOnly (false);
+    te_f7->setScrollbarsShown (true);
+    te_f7->setCaretVisible (true);
+    te_f7->setPopupMenuEnabled (true);
+    te_f7->setText (TRANS("20"));
 
-    addAndMakeVisible (textEditor29 = new TextEditor ("new text editor"));
-    textEditor29->setMultiLine (false);
-    textEditor29->setReturnKeyStartsNewLine (false);
-    textEditor29->setReadOnly (false);
-    textEditor29->setScrollbarsShown (true);
-    textEditor29->setCaretVisible (true);
-    textEditor29->setPopupMenuEnabled (true);
-    textEditor29->setText (TRANS("20"));
+    addAndMakeVisible (te_g7 = new TextEditor ("gain 7"));
+    te_g7->setMultiLine (false);
+    te_g7->setReturnKeyStartsNewLine (false);
+    te_g7->setReadOnly (false);
+    te_g7->setScrollbarsShown (true);
+    te_g7->setCaretVisible (true);
+    te_g7->setPopupMenuEnabled (true);
+    te_g7->setText (TRANS("20"));
 
-    addAndMakeVisible (textEditor30 = new TextEditor ("new text editor"));
-    textEditor30->setMultiLine (false);
-    textEditor30->setReturnKeyStartsNewLine (false);
-    textEditor30->setReadOnly (false);
-    textEditor30->setScrollbarsShown (true);
-    textEditor30->setCaretVisible (true);
-    textEditor30->setPopupMenuEnabled (true);
-    textEditor30->setText (TRANS("20"));
+    addAndMakeVisible (te_q7 = new TextEditor ("q7"));
+    te_q7->setMultiLine (false);
+    te_q7->setReturnKeyStartsNewLine (false);
+    te_q7->setReadOnly (false);
+    te_q7->setScrollbarsShown (true);
+    te_q7->setCaretVisible (true);
+    te_q7->setPopupMenuEnabled (true);
+    te_q7->setText (TRANS("3"));
 
-    addAndMakeVisible (textEditor31 = new TextEditor ("new text editor"));
-    textEditor31->setMultiLine (false);
-    textEditor31->setReturnKeyStartsNewLine (false);
-    textEditor31->setReadOnly (false);
-    textEditor31->setScrollbarsShown (true);
-    textEditor31->setCaretVisible (true);
-    textEditor31->setPopupMenuEnabled (true);
-    textEditor31->setText (TRANS("3"));
+    addAndMakeVisible (tb8 = new ToggleButton ("tb enable"));
+    tb8->setButtonText (String());
+    tb8->setToggleState (true, dontSendNotification);
 
-    addAndMakeVisible (toggleButton9 = new ToggleButton ("new toggle button"));
-    toggleButton9->setButtonText (String());
-    toggleButton9->addListener (this);
-    toggleButton9->setToggleState (true, dontSendNotification);
+    addAndMakeVisible (te_f8 = new TextEditor ("freq1"));
+    te_f8->setMultiLine (false);
+    te_f8->setReturnKeyStartsNewLine (false);
+    te_f8->setReadOnly (false);
+    te_f8->setScrollbarsShown (true);
+    te_f8->setCaretVisible (true);
+    te_f8->setPopupMenuEnabled (true);
+    te_f8->setText (TRANS("20"));
 
-    addAndMakeVisible (textEditor33 = new TextEditor ("new text editor"));
-    textEditor33->setMultiLine (false);
-    textEditor33->setReturnKeyStartsNewLine (false);
-    textEditor33->setReadOnly (false);
-    textEditor33->setScrollbarsShown (true);
-    textEditor33->setCaretVisible (true);
-    textEditor33->setPopupMenuEnabled (true);
-    textEditor33->setText (TRANS("20"));
+    addAndMakeVisible (te_g8 = new TextEditor ("gain 8"));
+    te_g8->setMultiLine (false);
+    te_g8->setReturnKeyStartsNewLine (false);
+    te_g8->setReadOnly (false);
+    te_g8->setScrollbarsShown (true);
+    te_g8->setCaretVisible (true);
+    te_g8->setPopupMenuEnabled (true);
+    te_g8->setText (TRANS("20"));
 
-    addAndMakeVisible (textEditor34 = new TextEditor ("new text editor"));
-    textEditor34->setMultiLine (false);
-    textEditor34->setReturnKeyStartsNewLine (false);
-    textEditor34->setReadOnly (false);
-    textEditor34->setScrollbarsShown (true);
-    textEditor34->setCaretVisible (true);
-    textEditor34->setPopupMenuEnabled (true);
-    textEditor34->setText (TRANS("20"));
+    addAndMakeVisible (te_q8 = new TextEditor ("q8"));
+    te_q8->setMultiLine (false);
+    te_q8->setReturnKeyStartsNewLine (false);
+    te_q8->setReadOnly (false);
+    te_q8->setScrollbarsShown (true);
+    te_q8->setCaretVisible (true);
+    te_q8->setPopupMenuEnabled (true);
+    te_q8->setText (TRANS("3"));
 
-    addAndMakeVisible (textEditor35 = new TextEditor ("new text editor"));
-    textEditor35->setMultiLine (false);
-    textEditor35->setReturnKeyStartsNewLine (false);
-    textEditor35->setReadOnly (false);
-    textEditor35->setScrollbarsShown (true);
-    textEditor35->setCaretVisible (true);
-    textEditor35->setPopupMenuEnabled (true);
-    textEditor35->setText (TRANS("3"));
+    addAndMakeVisible (tb9 = new ToggleButton ("tb enable"));
+    tb9->setButtonText (String());
+    tb9->setToggleState (true, dontSendNotification);
 
-    addAndMakeVisible (toggleButton10 = new ToggleButton ("new toggle button"));
-    toggleButton10->setButtonText (String());
-    toggleButton10->addListener (this);
-    toggleButton10->setToggleState (true, dontSendNotification);
+    addAndMakeVisible (te_f9 = new TextEditor ("freq1"));
+    te_f9->setMultiLine (false);
+    te_f9->setReturnKeyStartsNewLine (false);
+    te_f9->setReadOnly (false);
+    te_f9->setScrollbarsShown (true);
+    te_f9->setCaretVisible (true);
+    te_f9->setPopupMenuEnabled (true);
+    te_f9->setText (TRANS("20"));
 
-    addAndMakeVisible (textEditor37 = new TextEditor ("new text editor"));
-    textEditor37->setMultiLine (false);
-    textEditor37->setReturnKeyStartsNewLine (false);
-    textEditor37->setReadOnly (false);
-    textEditor37->setScrollbarsShown (true);
-    textEditor37->setCaretVisible (true);
-    textEditor37->setPopupMenuEnabled (true);
-    textEditor37->setText (TRANS("20"));
+    addAndMakeVisible (te_g9 = new TextEditor ("gain 9"));
+    te_g9->setMultiLine (false);
+    te_g9->setReturnKeyStartsNewLine (false);
+    te_g9->setReadOnly (false);
+    te_g9->setScrollbarsShown (true);
+    te_g9->setCaretVisible (true);
+    te_g9->setPopupMenuEnabled (true);
+    te_g9->setText (TRANS("20"));
 
-    addAndMakeVisible (textEditor38 = new TextEditor ("new text editor"));
-    textEditor38->setMultiLine (false);
-    textEditor38->setReturnKeyStartsNewLine (false);
-    textEditor38->setReadOnly (false);
-    textEditor38->setScrollbarsShown (true);
-    textEditor38->setCaretVisible (true);
-    textEditor38->setPopupMenuEnabled (true);
-    textEditor38->setText (TRANS("20"));
+    addAndMakeVisible (te_q9 = new TextEditor ("q9"));
+    te_q9->setMultiLine (false);
+    te_q9->setReturnKeyStartsNewLine (false);
+    te_q9->setReadOnly (false);
+    te_q9->setScrollbarsShown (true);
+    te_q9->setCaretVisible (true);
+    te_q9->setPopupMenuEnabled (true);
+    te_q9->setText (TRANS("3"));
 
-    addAndMakeVisible (textEditor39 = new TextEditor ("new text editor"));
-    textEditor39->setMultiLine (false);
-    textEditor39->setReturnKeyStartsNewLine (false);
-    textEditor39->setReadOnly (false);
-    textEditor39->setScrollbarsShown (true);
-    textEditor39->setCaretVisible (true);
-    textEditor39->setPopupMenuEnabled (true);
-    textEditor39->setText (TRANS("3"));
+    addAndMakeVisible (tb10 = new ToggleButton ("tb enable"));
+    tb10->setButtonText (String());
+    tb10->setToggleState (true, dontSendNotification);
 
-    addAndMakeVisible (toggleButton11 = new ToggleButton ("new toggle button"));
-    toggleButton11->setButtonText (String());
-    toggleButton11->addListener (this);
-    toggleButton11->setToggleState (true, dontSendNotification);
+    addAndMakeVisible (te_f10 = new TextEditor ("freq1"));
+    te_f10->setMultiLine (false);
+    te_f10->setReturnKeyStartsNewLine (false);
+    te_f10->setReadOnly (false);
+    te_f10->setScrollbarsShown (true);
+    te_f10->setCaretVisible (true);
+    te_f10->setPopupMenuEnabled (true);
+    te_f10->setText (TRANS("20"));
 
-    addAndMakeVisible (textEditor41 = new TextEditor ("new text editor"));
-    textEditor41->setMultiLine (false);
-    textEditor41->setReturnKeyStartsNewLine (false);
-    textEditor41->setReadOnly (false);
-    textEditor41->setScrollbarsShown (true);
-    textEditor41->setCaretVisible (true);
-    textEditor41->setPopupMenuEnabled (true);
-    textEditor41->setText (TRANS("20"));
+    addAndMakeVisible (te_g10 = new TextEditor ("gain 10"));
+    te_g10->setMultiLine (false);
+    te_g10->setReturnKeyStartsNewLine (false);
+    te_g10->setReadOnly (false);
+    te_g10->setScrollbarsShown (true);
+    te_g10->setCaretVisible (true);
+    te_g10->setPopupMenuEnabled (true);
+    te_g10->setText (TRANS("20"));
 
-    addAndMakeVisible (textEditor42 = new TextEditor ("new text editor"));
-    textEditor42->setMultiLine (false);
-    textEditor42->setReturnKeyStartsNewLine (false);
-    textEditor42->setReadOnly (false);
-    textEditor42->setScrollbarsShown (true);
-    textEditor42->setCaretVisible (true);
-    textEditor42->setPopupMenuEnabled (true);
-    textEditor42->setText (TRANS("20"));
+    addAndMakeVisible (te_q10 = new TextEditor ("q10"));
+    te_q10->setMultiLine (false);
+    te_q10->setReturnKeyStartsNewLine (false);
+    te_q10->setReadOnly (false);
+    te_q10->setScrollbarsShown (true);
+    te_q10->setCaretVisible (true);
+    te_q10->setPopupMenuEnabled (true);
+    te_q10->setText (TRANS("0.707"));
 
-    addAndMakeVisible (textEditor43 = new TextEditor ("new text editor"));
-    textEditor43->setMultiLine (false);
-    textEditor43->setReturnKeyStartsNewLine (false);
-    textEditor43->setReadOnly (false);
-    textEditor43->setScrollbarsShown (true);
-    textEditor43->setCaretVisible (true);
-    textEditor43->setPopupMenuEnabled (true);
-    textEditor43->setText (TRANS("0.707"));
+    addAndMakeVisible (tb6 = new ToggleButton ("tb enable"));
+    tb6->setButtonText (String());
+    tb6->setToggleState (true, dontSendNotification);
 
-    addAndMakeVisible (toggleButton12 = new ToggleButton ("new toggle button"));
-    toggleButton12->setButtonText (String());
-    toggleButton12->addListener (this);
-    toggleButton12->setToggleState (true, dontSendNotification);
+    addAndMakeVisible (te_q6 = new TextEditor ("q6"));
+    te_q6->setMultiLine (false);
+    te_q6->setReturnKeyStartsNewLine (false);
+    te_q6->setReadOnly (false);
+    te_q6->setScrollbarsShown (true);
+    te_q6->setCaretVisible (true);
+    te_q6->setPopupMenuEnabled (true);
+    te_q6->setText (TRANS("3"));
 
-    addAndMakeVisible (textEditor47 = new TextEditor ("new text editor"));
-    textEditor47->setMultiLine (false);
-    textEditor47->setReturnKeyStartsNewLine (false);
-    textEditor47->setReadOnly (false);
-    textEditor47->setScrollbarsShown (true);
-    textEditor47->setCaretVisible (true);
-    textEditor47->setPopupMenuEnabled (true);
-    textEditor47->setText (TRANS("3"));
-
-    addAndMakeVisible (label4 = new Label ("new label",
+    addAndMakeVisible (lb_200 = new Label ("new label",
                                            TRANS("200")));
-    label4->setFont (Font (15.00f, Font::plain));
-    label4->setJustificationType (Justification::centredLeft);
-    label4->setEditable (false, false, false);
-    label4->setColour (Label::textColourId, Colours::white);
-    label4->setColour (TextEditor::textColourId, Colours::black);
-    label4->setColour (TextEditor::backgroundColourId, Colour (0x00000000));
+    lb_200->setFont (Font (15.00f, Font::plain));
+    lb_200->setJustificationType (Justification::centredLeft);
+    lb_200->setEditable (false, false, false);
+    lb_200->setColour (Label::textColourId, Colours::white);
+    lb_200->setColour (TextEditor::textColourId, Colours::black);
+    lb_200->setColour (TextEditor::backgroundColourId, Colour (0x00000000));
 
-    addAndMakeVisible (label5 = new Label ("new label",
-                                           TRANS("2000")));
-    label5->setFont (Font (15.00f, Font::plain));
-    label5->setJustificationType (Justification::centredLeft);
-    label5->setEditable (false, false, false);
-    label5->setColour (Label::textColourId, Colours::white);
-    label5->setColour (TextEditor::textColourId, Colours::black);
-    label5->setColour (TextEditor::backgroundColourId, Colour (0x00000000));
+    addAndMakeVisible (lb_2000 = new Label ("new label",
+                                            TRANS("2000")));
+    lb_2000->setFont (Font (15.00f, Font::plain));
+    lb_2000->setJustificationType (Justification::centredLeft);
+    lb_2000->setEditable (false, false, false);
+    lb_2000->setColour (Label::textColourId, Colours::white);
+    lb_2000->setColour (TextEditor::textColourId, Colours::black);
+    lb_2000->setColour (TextEditor::backgroundColourId, Colour (0x00000000));
 
-    addAndMakeVisible (label6 = new Label ("new label",
+    addAndMakeVisible (lb_20K = new Label ("new label",
                                            TRANS("20K")));
-    label6->setFont (Font (15.00f, Font::plain));
-    label6->setJustificationType (Justification::centredLeft);
-    label6->setEditable (false, false, false);
-    label6->setColour (Label::textColourId, Colours::white);
-    label6->setColour (TextEditor::textColourId, Colours::black);
-    label6->setColour (TextEditor::backgroundColourId, Colour (0x00000000));
+    lb_20K->setFont (Font (15.00f, Font::plain));
+    lb_20K->setJustificationType (Justification::centredLeft);
+    lb_20K->setEditable (false, false, false);
+    lb_20K->setColour (Label::textColourId, Colours::white);
+    lb_20K->setColour (TextEditor::textColourId, Colours::black);
+    lb_20K->setColour (TextEditor::backgroundColourId, Colour (0x00000000));
 
-    addAndMakeVisible (imageButton = new ImageButton ("new button"));
-    imageButton->addListener (this);
+    addAndMakeVisible (ib_1 = new ImageButton ("Graph Type"));
+    ib_1->setButtonText (TRANS("new button"));
+    ib_1->addListener (this);
 
-    imageButton->setImages (false, true, true,
-                            ImageCache::getFromMemory (eq_ls_png, eq_ls_pngSize), 1.000f, Colour (0x00000000),
-                            Image(), 1.000f, Colour (0x00000000),
-                            Image(), 1.000f, Colour (0x00000000));
-    addAndMakeVisible (imageButton2 = new ImageButton ("new button"));
-    imageButton2->addListener (this);
+    ib_1->setImages (false, true, true,
+                     ImageCache::getFromMemory (eq_ls_png, eq_ls_pngSize), 1.000f, Colour (0x00000000),
+                     Image(), 1.000f, Colour (0x00000000),
+                     Image(), 1.000f, Colour (0x00000000));
+    addAndMakeVisible (ib_2 = new ImageButton ("Graph Type"));
+    ib_2->setButtonText (TRANS("new button"));
+    ib_2->addListener (this);
 
-    imageButton2->setImages (false, true, true,
-                             ImageCache::getFromMemory (eq_peak_png, eq_peak_pngSize), 1.000f, Colour (0x00000000),
-                             Image(), 1.000f, Colour (0x00000000),
-                             Image(), 1.000f, Colour (0x00000000));
-    addAndMakeVisible (imageButton3 = new ImageButton ("new button"));
-    imageButton3->addListener (this);
+    ib_2->setImages (false, true, true,
+                     ImageCache::getFromMemory (eq_peak_png, eq_peak_pngSize), 1.000f, Colour (0x00000000),
+                     Image(), 1.000f, Colour (0x00000000),
+                     Image(), 1.000f, Colour (0x00000000));
+    addAndMakeVisible (ib_3 = new ImageButton ("Graph Type"));
+    ib_3->setButtonText (TRANS("new button"));
+    ib_3->addListener (this);
 
-    imageButton3->setImages (false, true, true,
-                             ImageCache::getFromMemory (eq_peak_png, eq_peak_pngSize), 1.000f, Colour (0x00000000),
-                             Image(), 1.000f, Colour (0x00000000),
-                             Image(), 1.000f, Colour (0x00000000));
-    addAndMakeVisible (imageButton4 = new ImageButton ("new button"));
-    imageButton4->addListener (this);
+    ib_3->setImages (false, true, true,
+                     ImageCache::getFromMemory (eq_peak_png, eq_peak_pngSize), 1.000f, Colour (0x00000000),
+                     Image(), 1.000f, Colour (0x00000000),
+                     Image(), 1.000f, Colour (0x00000000));
+    addAndMakeVisible (ib_4 = new ImageButton ("Graph Type"));
+    ib_4->setButtonText (TRANS("new button"));
+    ib_4->addListener (this);
 
-    imageButton4->setImages (false, true, true,
-                             ImageCache::getFromMemory (eq_peak_png, eq_peak_pngSize), 1.000f, Colour (0x00000000),
-                             Image(), 1.000f, Colour (0x00000000),
-                             Image(), 1.000f, Colour (0x00000000));
-    addAndMakeVisible (imageButton5 = new ImageButton ("new button"));
-    imageButton5->addListener (this);
+    ib_4->setImages (false, true, true,
+                     ImageCache::getFromMemory (eq_peak_png, eq_peak_pngSize), 1.000f, Colour (0x00000000),
+                     Image(), 1.000f, Colour (0x00000000),
+                     Image(), 1.000f, Colour (0x00000000));
+    addAndMakeVisible (ib_5 = new ImageButton ("Graph Type"));
+    ib_5->setButtonText (TRANS("new button"));
+    ib_5->addListener (this);
 
-    imageButton5->setImages (false, true, true,
-                             ImageCache::getFromMemory (eq_peak_png, eq_peak_pngSize), 1.000f, Colour (0x00000000),
-                             Image(), 1.000f, Colour (0x00000000),
-                             Image(), 1.000f, Colour (0x00000000));
-    addAndMakeVisible (imageButton6 = new ImageButton ("new button"));
-    imageButton6->addListener (this);
+    ib_5->setImages (false, true, true,
+                     ImageCache::getFromMemory (eq_peak_png, eq_peak_pngSize), 1.000f, Colour (0x00000000),
+                     Image(), 1.000f, Colour (0x00000000),
+                     Image(), 1.000f, Colour (0x00000000));
+    addAndMakeVisible (ib_6 = new ImageButton ("Graph Type"));
+    ib_6->setButtonText (TRANS("new button"));
+    ib_6->addListener (this);
 
-    imageButton6->setImages (false, true, true,
-                             ImageCache::getFromMemory (eq_peak_png, eq_peak_pngSize), 1.000f, Colour (0x00000000),
-                             Image(), 1.000f, Colour (0x00000000),
-                             Image(), 1.000f, Colour (0x00000000));
-    addAndMakeVisible (imageButton7 = new ImageButton ("new button"));
-    imageButton7->addListener (this);
+    ib_6->setImages (false, true, true,
+                     ImageCache::getFromMemory (eq_peak_png, eq_peak_pngSize), 1.000f, Colour (0x00000000),
+                     Image(), 1.000f, Colour (0x00000000),
+                     Image(), 1.000f, Colour (0x00000000));
+    addAndMakeVisible (ib_7 = new ImageButton ("Graph Type"));
+    ib_7->setButtonText (TRANS("new button"));
+    ib_7->addListener (this);
 
-    imageButton7->setImages (false, true, true,
-                             ImageCache::getFromMemory (eq_peak_png, eq_peak_pngSize), 1.000f, Colour (0x00000000),
-                             Image(), 1.000f, Colour (0x00000000),
-                             Image(), 1.000f, Colour (0x00000000));
-    addAndMakeVisible (imageButton8 = new ImageButton ("new button"));
-    imageButton8->addListener (this);
+    ib_7->setImages (false, true, true,
+                     ImageCache::getFromMemory (eq_peak_png, eq_peak_pngSize), 1.000f, Colour (0x00000000),
+                     Image(), 1.000f, Colour (0x00000000),
+                     Image(), 1.000f, Colour (0x00000000));
+    addAndMakeVisible (ib_8 = new ImageButton ("Graph Type"));
+    ib_8->setButtonText (TRANS("new button"));
+    ib_8->addListener (this);
 
-    imageButton8->setImages (false, true, true,
-                             ImageCache::getFromMemory (eq_peak_png, eq_peak_pngSize), 1.000f, Colour (0x00000000),
-                             Image(), 1.000f, Colour (0x00000000),
-                             Image(), 1.000f, Colour (0x00000000));
-    addAndMakeVisible (imageButton9 = new ImageButton ("new button"));
-    imageButton9->addListener (this);
+    ib_8->setImages (false, true, true,
+                     ImageCache::getFromMemory (eq_peak_png, eq_peak_pngSize), 1.000f, Colour (0x00000000),
+                     Image(), 1.000f, Colour (0x00000000),
+                     Image(), 1.000f, Colour (0x00000000));
+    addAndMakeVisible (ib_10 = new ImageButton ("new button"));
+    ib_10->addListener (this);
 
-    imageButton9->setImages (false, true, true,
-                             ImageCache::getFromMemory (eq_ls_png, eq_ls_pngSize), 1.000f, Colour (0x00000000),
-                             Image(), 1.000f, Colour (0x00000000),
-                             Image(), 1.000f, Colour (0x00000000));
-    addAndMakeVisible (imageButton10 = new ImageButton ("new button"));
-    imageButton10->addListener (this);
+    ib_10->setImages (false, true, true,
+                      ImageCache::getFromMemory (eq_ls_png, eq_ls_pngSize), 1.000f, Colour (0x00000000),
+                      Image(), 1.000f, Colour (0x00000000),
+                      Image(), 1.000f, Colour (0x00000000));
+    addAndMakeVisible (ib_9 = new ImageButton ("Graph Type"));
+    ib_9->setButtonText (TRANS("new button"));
+    ib_9->addListener (this);
 
-    imageButton10->setImages (false, true, true,
-                              ImageCache::getFromMemory (eq_peak_png, eq_peak_pngSize), 1.000f, Colour (0x00000000),
-                              Image(), 1.000f, Colour (0x00000000),
-                              Image(), 1.000f, Colour (0x00000000));
-    cachedImage_dynamics_graph_png_1 = ImageCache::getFromMemory (dynamics_graph_png, dynamics_graph_pngSize);
+    ib_9->setImages (false, true, true,
+                     ImageCache::getFromMemory (eq_peak_png, eq_peak_pngSize), 1.000f, Colour (0x00000000),
+                     Image(), 1.000f, Colour (0x00000000),
+                     Image(), 1.000f, Colour (0x00000000));
+    addAndMakeVisible (eqGraphComponent = new EqGraph());
 
     //[UserPreSize]
     //[/UserPreSize]
@@ -490,6 +484,36 @@ Equalizer::Equalizer ()
 
 
     //[Constructor] You can add your own custom stuff here..
+    eqGraphComponent->addChangeListener(this);
+
+    toggles = new ToggleButton*[10];
+    toggles[0] = tb1;
+    toggles[1] = tb2;
+    toggles[2] = tb3;
+    toggles[3] = tb4;
+    toggles[4] = tb5;
+    toggles[5] = tb6;
+    toggles[6] = tb7;
+    toggles[7] = tb8;
+    toggles[8] = tb9;
+    toggles[9] = tb10;
+    int i = 0;
+    for(i=0;i<10;i++){
+        toggles[i]->addListener (this);
+    }
+
+    te_frequencies = new TextEditor*[10];
+    te_frequencies[0] = te_f1;
+    te_frequencies[1] = te_f2;
+    te_frequencies[2] = te_f3;
+    te_frequencies[3] = te_f4;
+    te_frequencies[4] = te_f5;
+    te_frequencies[5] = te_f6;
+    te_frequencies[6] = te_f7;
+    te_frequencies[7] = te_f8;
+    te_frequencies[8] = te_f9;
+    te_frequencies[9] = te_f10;
+
     //[/Constructor]
 }
 
@@ -498,63 +522,63 @@ Equalizer::~Equalizer()
     //[Destructor_pre]. You can add your own custom destruction code here..
     //[/Destructor_pre]
 
-    toggleButton = nullptr;
+    tb1 = nullptr;
     label = nullptr;
-    textEditor = nullptr;
+    te_f1 = nullptr;
     label2 = nullptr;
-    textEditor2 = nullptr;
+    te_g1 = nullptr;
     label3 = nullptr;
-    toggleButton2 = nullptr;
-    textEditor5 = nullptr;
-    textEditor6 = nullptr;
-    textEditor7 = nullptr;
-    toggleButton3 = nullptr;
-    textEditor9 = nullptr;
-    textEditor10 = nullptr;
-    textEditor11 = nullptr;
-    toggleButton4 = nullptr;
-    textEditor13 = nullptr;
-    textEditor14 = nullptr;
-    textEditor15 = nullptr;
-    toggleButton5 = nullptr;
-    textEditor17 = nullptr;
-    textEditor18 = nullptr;
-    textEditor19 = nullptr;
-    textEditor23 = nullptr;
-    toggleButton7 = nullptr;
-    textEditor25 = nullptr;
-    textEditor26 = nullptr;
-    toggleButton8 = nullptr;
-    textEditor29 = nullptr;
-    textEditor30 = nullptr;
-    textEditor31 = nullptr;
-    toggleButton9 = nullptr;
-    textEditor33 = nullptr;
-    textEditor34 = nullptr;
-    textEditor35 = nullptr;
-    toggleButton10 = nullptr;
-    textEditor37 = nullptr;
-    textEditor38 = nullptr;
-    textEditor39 = nullptr;
-    toggleButton11 = nullptr;
-    textEditor41 = nullptr;
-    textEditor42 = nullptr;
-    textEditor43 = nullptr;
-    toggleButton12 = nullptr;
-    textEditor47 = nullptr;
-    label4 = nullptr;
-    label5 = nullptr;
-    label6 = nullptr;
-    imageButton = nullptr;
-    imageButton2 = nullptr;
-    imageButton3 = nullptr;
-    imageButton4 = nullptr;
-    imageButton5 = nullptr;
-    imageButton6 = nullptr;
-    imageButton7 = nullptr;
-    imageButton8 = nullptr;
-    imageButton9 = nullptr;
-    imageButton10 = nullptr;
+    tb2 = nullptr;
+    te_f2 = nullptr;
+    te_g2 = nullptr;
+    te_q2 = nullptr;
+    tb3 = nullptr;
+    te_f3 = nullptr;
+    te_g3 = nullptr;
+    te_q3 = nullptr;
+    tb4 = nullptr;
+    te_f4 = nullptr;
+    te_g4 = nullptr;
+    te_q4 = nullptr;
+    tb5 = nullptr;
+    te_f5 = nullptr;
+    te_g5 = nullptr;
+    te_q5 = nullptr;
+    te_q1 = nullptr;
+    te_f6 = nullptr;
+    te_g6 = nullptr;
+    tb7 = nullptr;
+    te_f7 = nullptr;
+    te_g7 = nullptr;
+    te_q7 = nullptr;
+    tb8 = nullptr;
+    te_f8 = nullptr;
+    te_g8 = nullptr;
+    te_q8 = nullptr;
+    tb9 = nullptr;
+    te_f9 = nullptr;
+    te_g9 = nullptr;
+    te_q9 = nullptr;
+    tb10 = nullptr;
+    te_f10 = nullptr;
+    te_g10 = nullptr;
+    te_q10 = nullptr;
+    tb6 = nullptr;
+    te_q6 = nullptr;
+    lb_200 = nullptr;
+    lb_2000 = nullptr;
+    lb_20K = nullptr;
+    ib_1 = nullptr;
+    ib_2 = nullptr;
+    ib_3 = nullptr;
+    ib_4 = nullptr;
+    ib_5 = nullptr;
+    ib_6 = nullptr;
+    ib_7 = nullptr;
+    ib_8 = nullptr;
+    ib_10 = nullptr;
+    ib_9 = nullptr;
+    eqGraphComponent = nullptr;
 
 
     //[Destructor]. You can add your own custom destruction code here..
@@ -575,11 +599,6 @@ void Equalizer::paint (Graphics& g)
     g.setColour (Colour (0xff314a5b));
     g.fillRoundedRectangle (0.0f, 444.0f, 770.0f, 172.0f, 10.000f);
 
-    g.setColour (Colours::black);
-    g.drawImage (cachedImage_dynamics_graph_png_1,
-                 12, 12, 740, 396,
-                 0, 0, cachedImage_dynamics_graph_png_1.getWidth(), cachedImage_dynamics_graph_png_1.getHeight());
-
     //[UserPaint] Add your own custom painting code here..
     //[/UserPaint]
 }
@@ -589,63 +608,63 @@ void Equalizer::resized()
     //[UserPreResize] Add your own custom resize code here..
     //[/UserPreResize]
 
-    toggleButton->setBounds (64, 456, 23, 24);
+    tb1->setBounds (64, 456, 23, 24);
     label->setBounds (16, 480, 23, 24);
-    textEditor->setBounds (48, 480, 48, 24);
+    te_f1->setBounds (48, 480, 48, 24);
     label2->setBounds (16, 512, 23, 24);
-    textEditor2->setBounds (48, 512, 48, 24);
+    te_g1->setBounds (48, 512, 48, 24);
     label3->setBounds (16, 544, 23, 24);
-    toggleButton2->setBounds (136, 456, 23, 24);
-    textEditor5->setBounds (120, 480, 48, 24);
-    textEditor6->setBounds (120, 512, 48, 24);
-    textEditor7->setBounds (120, 544, 48, 24);
-    toggleButton3->setBounds (206, 455, 23, 24);
-    textEditor9->setBounds (192, 480, 48, 24);
-    textEditor10->setBounds (192, 512, 48, 24);
-    textEditor11->setBounds (192, 544, 48, 24);
-    toggleButton4->setBounds (275, 456, 23, 24);
-    textEditor13->setBounds (264, 480, 48, 24);
-    textEditor14->setBounds (264, 512, 48, 24);
-    textEditor15->setBounds (264, 544, 48, 24);
-    toggleButton5->setBounds (347, 456, 23, 24);
-    textEditor17->setBounds (336, 480, 48, 24);
-    textEditor18->setBounds (336, 512, 48, 24);
-    textEditor19->setBounds (336, 544, 48, 24);
-    textEditor23->setBounds (48, 544, 48, 24);
-    toggleButton7->setBounds (422, 456, 23, 24);
-    textEditor25->setBounds (408, 480, 48, 24);
-    textEditor26->setBounds (408, 512, 48, 24);
-    toggleButton8->setBounds (499, 456, 23, 24);
-    textEditor29->setBounds (480, 480, 48, 24);
-    textEditor30->setBounds (480, 512, 48, 24);
-    textEditor31->setBounds (480, 544, 48, 24);
-    toggleButton9->setBounds (568, 456, 23, 24);
-    textEditor33->setBounds (552, 480, 48, 24);
-    textEditor34->setBounds (552, 512, 48, 24);
-    textEditor35->setBounds (552, 544, 48, 24);
-    toggleButton10->setBounds (640, 456, 23, 24);
-    textEditor37->setBounds (624, 480, 48, 24);
-    textEditor38->setBounds (624, 512, 48, 24);
-    textEditor39->setBounds (624, 544, 48, 24);
-    toggleButton11->setBounds (712, 456, 23, 24);
-    textEditor41->setBounds (697, 480, 48, 24);
-    textEditor42->setBounds (697, 512, 48, 24);
-    textEditor43->setBounds (697, 544, 48, 24);
-    toggleButton12->setBounds (422, 456, 23, 24);
-    textEditor47->setBounds (408, 544, 48, 24);
-    label4->setBounds (184, 384, 40, 24);
-    label5->setBounds (432, 384, 40, 24);
-    label6->setBounds (704, 384, 40, 24);
-    imageButton->setBounds (48, 584, 48, 24);
-    imageButton2->setBounds (120, 584, 48, 24);
-    imageButton3->setBounds (192, 584, 48, 24);
-    imageButton4->setBounds (264, 584, 48, 24);
-    imageButton5->setBounds (336, 584, 48, 24);
-    imageButton6->setBounds (408, 584, 48, 24);
-    imageButton7->setBounds (480, 584, 48, 24);
-    imageButton8->setBounds (552, 584, 48, 24);
-    imageButton9->setBounds (696, 584, 48, 24);
-    imageButton10->setBounds (624, 584, 48, 24);
+    tb2->setBounds (136, 456, 23, 24);
+    te_f2->setBounds (120, 480, 48, 24);
+    te_g2->setBounds (120, 512, 48, 24);
+    te_q2->setBounds (120, 544, 48, 24);
+    tb3->setBounds (206, 455, 23, 24);
+    te_f3->setBounds (192, 480, 48, 24);
+    te_g3->setBounds (192, 512, 48, 24);
+    te_q3->setBounds (192, 544, 48, 24);
+    tb4->setBounds (275, 456, 23, 24);
+    te_f4->setBounds (264, 480, 48, 24);
+    te_g4->setBounds (264, 512, 48, 24);
+    te_q4->setBounds (264, 544, 48, 24);
+    tb5->setBounds (347, 456, 23, 24);
+    te_f5->setBounds (336, 480, 48, 24);
+    te_g5->setBounds (336, 512, 48, 24);
+    te_q5->setBounds (336, 544, 48, 24);
+    te_q1->setBounds (48, 544, 48, 24);
+    te_f6->setBounds (408, 480, 48, 24);
+    te_g6->setBounds (408, 512, 48, 24);
+    tb7->setBounds (496, 456, 23, 24);
+    te_f7->setBounds (480, 480, 48, 24);
+    te_g7->setBounds (480, 512, 48, 24);
+    te_q7->setBounds (480, 544, 48, 24);
+    tb8->setBounds (568, 456, 23, 24);
+    te_f8->setBounds (552, 480, 48, 24);
+    te_g8->setBounds (552, 512, 48, 24);
+    te_q8->setBounds (552, 544, 48, 24);
+    tb9->setBounds (640, 456, 23, 24);
+    te_f9->setBounds (624, 480, 48, 24);
+    te_g9->setBounds (624, 512, 48, 24);
+    te_q9->setBounds (624, 544, 48, 24);
+    tb10->setBounds (712, 456, 23, 24);
+    te_f10->setBounds (697, 480, 48, 24);
+    te_g10->setBounds (697, 512, 48, 24);
+    te_q10->setBounds (697, 544, 48, 24);
+    tb6->setBounds (424, 456, 23, 24);
+    te_q6->setBounds (408, 544, 48, 24);
+    lb_200->setBounds (184, 404, 40, 24);
+    lb_2000->setBounds (432, 404, 40, 24);
+    lb_20K->setBounds (704, 404, 40, 24);
+    ib_1->setBounds (48, 584, 48, 24);
+    ib_2->setBounds (120, 584, 48, 24);
+    ib_3->setBounds (192, 584, 48, 24);
+    ib_4->setBounds (264, 584, 48, 24);
+    ib_5->setBounds (336, 584, 48, 24);
+    ib_6->setBounds (408, 584, 48, 24);
+    ib_7->setBounds (480, 584, 48, 24);
+    ib_8->setBounds (552, 584, 48, 24);
+    ib_10->setBounds (696, 584, 48, 24);
+    ib_9->setBounds (624, 584, 48, 24);
+    eqGraphComponent->setBounds (16, 8, 740, 400);
     //[UserResized] Add your own custom resize handling here..
     //[/UserResized]
 }
@@ -653,112 +672,68 @@ void Equalizer::resized()
 void Equalizer::buttonClicked (Button* buttonThatWasClicked)
 {
     //[UserbuttonClicked_Pre]
+    
+
+    // Check for TBs
+    int i = 0;
+    for(i=0;i<10;i++){
+        if (buttonThatWasClicked == toggles[i])
+        {
+            eqGraphComponent->activeCircle(i, buttonThatWasClicked->getToggleState());
+            break;
+        }
+    }
     //[/UserbuttonClicked_Pre]
 
-    if (buttonThatWasClicked == toggleButton)
+    if (buttonThatWasClicked == ib_1)
     {
-        //[UserButtonCode_toggleButton] -- add your button handler code here..
-        //[/UserButtonCode_toggleButton]
+        //[UserButtonCode_ib_1] -- add your button handler code here..
+        //[/UserButtonCode_ib_1]
     }
-    else if (buttonThatWasClicked == toggleButton2)
+    else if (buttonThatWasClicked == ib_2)
     {
-        //[UserButtonCode_toggleButton2] -- add your button handler code here..
-        //[/UserButtonCode_toggleButton2]
+        //[UserButtonCode_ib_2] -- add your button handler code here..
+        //[/UserButtonCode_ib_2]
     }
-    else if (buttonThatWasClicked == toggleButton3)
+    else if (buttonThatWasClicked == ib_3)
     {
-        //[UserButtonCode_toggleButton3] -- add your button handler code here..
-        //[/UserButtonCode_toggleButton3]
+        //[UserButtonCode_ib_3] -- add your button handler code here..
+        //[/UserButtonCode_ib_3]
     }
-    else if (buttonThatWasClicked == toggleButton4)
+    else if (buttonThatWasClicked == ib_4)
     {
-        //[UserButtonCode_toggleButton4] -- add your button handler code here..
-        //[/UserButtonCode_toggleButton4]
+        //[UserButtonCode_ib_4] -- add your button handler code here..
+        //[/UserButtonCode_ib_4]
     }
-    else if (buttonThatWasClicked == toggleButton5)
+    else if (buttonThatWasClicked == ib_5)
     {
-        //[UserButtonCode_toggleButton5] -- add your button handler code here..
-        //[/UserButtonCode_toggleButton5]
+        //[UserButtonCode_ib_5] -- add your button handler code here..
+        //[/UserButtonCode_ib_5]
     }
-    else if (buttonThatWasClicked == toggleButton7)
+    else if (buttonThatWasClicked == ib_6)
     {
-        //[UserButtonCode_toggleButton7] -- add your button handler code here..
-        //[/UserButtonCode_toggleButton7]
+        //[UserButtonCode_ib_6] -- add your button handler code here..
+        //[/UserButtonCode_ib_6]
     }
-    else if (buttonThatWasClicked == toggleButton8)
+    else if (buttonThatWasClicked == ib_7)
     {
-        //[UserButtonCode_toggleButton8] -- add your button handler code here..
-        //[/UserButtonCode_toggleButton8]
+        //[UserButtonCode_ib_7] -- add your button handler code here..
+        //[/UserButtonCode_ib_7]
     }
-    else if (buttonThatWasClicked == toggleButton9)
+    else if (buttonThatWasClicked == ib_8)
     {
-        //[UserButtonCode_toggleButton9] -- add your button handler code here..
-        //[/UserButtonCode_toggleButton9]
+        //[UserButtonCode_ib_8] -- add your button handler code here..
+        //[/UserButtonCode_ib_8]
     }
-    else if (buttonThatWasClicked == toggleButton10)
+    else if (buttonThatWasClicked == ib_10)
     {
-        //[UserButtonCode_toggleButton10] -- add your button handler code here..
-        //[/UserButtonCode_toggleButton10]
+        //[UserButtonCode_ib_10] -- add your button handler code here..
+        //[/UserButtonCode_ib_10]
     }
-    else if (buttonThatWasClicked == toggleButton11)
+    else if (buttonThatWasClicked == ib_9)
     {
-        //[UserButtonCode_toggleButton11] -- add your button handler code here..
-        //[/UserButtonCode_toggleButton11]
-    }
-    else if (buttonThatWasClicked == toggleButton12)
-    {
-        //[UserButtonCode_toggleButton12] -- add your button handler code here..
-        //[/UserButtonCode_toggleButton12]
-    }
-    else if (buttonThatWasClicked == imageButton)
-    {
-        //[UserButtonCode_imageButton] -- add your button handler code here..
-        //[/UserButtonCode_imageButton]
-    }
-    else if (buttonThatWasClicked == imageButton2)
-    {
-        //[UserButtonCode_imageButton2] -- add your button handler code here..
-        //[/UserButtonCode_imageButton2]
-    }
-    else if (buttonThatWasClicked == imageButton3)
-    {
-        //[UserButtonCode_imageButton3] -- add your button handler code here..
-        //[/UserButtonCode_imageButton3]
-    }
-    else if (buttonThatWasClicked == imageButton4)
-    {
-        //[UserButtonCode_imageButton4] -- add your button handler code here..
-        //[/UserButtonCode_imageButton4]
-    }
-    else if (buttonThatWasClicked == imageButton5)
-    {
-        //[UserButtonCode_imageButton5] -- add your button handler code here..
-        //[/UserButtonCode_imageButton5]
-    }
-    else if (buttonThatWasClicked == imageButton6)
-    {
-        //[UserButtonCode_imageButton6] -- add your button handler code here..
-        //[/UserButtonCode_imageButton6]
-    }
-    else if (buttonThatWasClicked == imageButton7)
-    {
-        //[UserButtonCode_imageButton7] -- add your button handler code here..
-        //[/UserButtonCode_imageButton7]
-    }
-    else if (buttonThatWasClicked == imageButton8)
-    {
-        //[UserButtonCode_imageButton8] -- add your button handler code here..
-        //[/UserButtonCode_imageButton8]
-    }
-    else if (buttonThatWasClicked == imageButton9)
-    {
-        //[UserButtonCode_imageButton9] -- add your button handler code here..
-        //[/UserButtonCode_imageButton9]
-    }
-    else if (buttonThatWasClicked == imageButton10)
-    {
-        //[UserButtonCode_imageButton10] -- add your button handler code here..
-        //[/UserButtonCode_imageButton10]
+        //[UserButtonCode_ib_9] -- add your button handler code here..
+        //[/UserButtonCode_ib_9]
     }
 
     //[UserbuttonClicked_Post]
@@ -768,6 +743,84 @@ void Equalizer::buttonClicked (Button* buttonThatWasClicked)
 
 
 //[MiscUserCode] You can add your own definitions of your custom methods or any other code here...
+void Equalizer::changeListenerCallback(ChangeBroadcaster* source)
+{
+    if(source == eqGraphComponent)
+    {
+        int index = eqGraphComponent->getSelectedItem();
+        float freq = eqGraphComponent->getFreq(index);
+        float gain = eqGraphComponent->getGain(index);
+        Logger::outputDebugString ("ChangeBroadcaster :" + String(index) + " : " + String(freq) + " : " +  String(gain));
+        
+        te_frequencies[index]->setText(String(freq));
+
+        if(index == 0)
+        {
+            BiQuads bq = LowPassFilter(freq, 1);
+            FilterEval(bq, Magdb, X_SIZE); 
+            eqGraphComponent->SetMagDb(Magdb, X_SIZE);
+        }
+    }
+}
+
+
+Equalizer::BiQuads Equalizer::LowPassFilter(float f, float q)
+{   
+    BiQuads biQuads;    
+    // int G = 1;
+    float k, kk, kq, norm;
+
+    k = tan(f / float(SR) * M_PI);
+    kk = k*k;
+    kq = k/q;
+    norm = 1/(1+kq+kk);
+    biQuads.a0 = kk * norm;
+    biQuads.a1 = 2 * biQuads.a0;
+    biQuads.a2 = biQuads.a0;
+    biQuads.b1 = 2 * (kk - 1) * norm;
+    biQuads.b2 = (1 - kq + kk) * norm;    
+
+    return biQuads;
+}
+
+void Equalizer::CoefsEval(float *coefs, int numOfCoeffs,float w, float *resReal, float *resImg)
+{
+    *resReal = 0;
+    *resImg = 0;
+    int i;
+    for (i = 0; i < numOfCoeffs; i++)
+    {
+        *resReal += coefs[i] * cos(((float)(-i))* w);
+        *resImg += coefs[i] * sin(((float)(-i))* w);
+    }  
+}
+
+void Equalizer::FilterEval(Equalizer::BiQuads biQuads, float *magdb, int numPoints)
+{
+    float resZerosReal;
+    float resZerosImg;
+    float resPolesReal;
+    float resPolesImg;
+
+    float mag;
+    float w;
+
+    float zeros[3] = {biQuads.a0, biQuads.a1, biQuads.a2};
+    float poles[2] = {biQuads.b1, biQuads.b2};
+
+    for(int jdx = 0; jdx < numPoints; jdx++)
+    {
+        w = jdx * M_PI / (numPoints-1);        
+        CoefsEval(zeros, 3, w, &resZerosReal, &resZerosImg );
+        CoefsEval(poles, 2, w, &resPolesReal, &resPolesImg );
+
+        mag = (pow(resZerosReal,2) + pow(resZerosImg,2))/(pow(resPolesReal,2) + pow(resPolesImg,2));        
+        mag = sqrt(mag);
+        mag += 0.0000000001f; // limit to -200 dB for log        
+        magdb[jdx] = 20 * log10(mag);
+    }
+}
+
 //[/MiscUserCode]
 
 
@@ -781,258 +834,228 @@ void Equalizer::buttonClicked (Button* buttonThatWasClicked)
 BEGIN_JUCER_METADATA
 
 <JUCER_COMPONENT documentType="Component" className="Equalizer" componentName=""
-                 parentClasses="public Component" constructorParams="" variableInitialisers=""
-                 snapPixels="8" snapActive="1" snapShown="1" overlayOpacity="0.330"
-                 fixedSize="0" initialWidth="780" initialHeight="650">
+                 parentClasses="public Component, public ChangeListener" constructorParams=""
+                 variableInitialisers="" snapPixels="8" snapActive="1" snapShown="1"
+                 overlayOpacity="0.330" fixedSize="0" initialWidth="780" initialHeight="650">
   <BACKGROUND backgroundColour="ff000000">
     <ROUNDRECT pos="0 0 770 424" cornerSize="10" fill="solid: ff314a5b" hasStroke="0"/>
     <ROUNDRECT pos="0 444 770 172" cornerSize="10" fill="solid: ff314a5b" hasStroke="0"/>
-    <IMAGE pos="12 12 740 396" resource="dynamics_graph_png" opacity="1"
-           mode="0"/>
   </BACKGROUND>
-  <TOGGLEBUTTON name="new toggle button" id="abd6b399b019a3cb" memberName="toggleButton"
-                virtualName="" explicitFocusOrder="0" pos="64 456 23 24" buttonText=""
-                connectedEdges="0" needsCallback="1" radioGroupId="0" state="1"/>
+  <TOGGLEBUTTON name="tb enable" id="abd6b399b019a3cb" memberName="tb1" virtualName=""
+                explicitFocusOrder="0" pos="64 456 23 24" buttonText="" connectedEdges="0"
+                needsCallback="0" radioGroupId="0" state="1"/>
   <LABEL name="new label" id="9c213d3c60efb37e" memberName="label" virtualName=""
          explicitFocusOrder="0" pos="16 480 23 24" textCol="ffffffff"
          edTextCol="ff000000" edBkgCol="0" labelText="F" editableSingleClick="0"
          editableDoubleClick="0" focusDiscardsChanges="0" fontname="Default font"
          fontsize="15" bold="1" italic="0" justification="33"/>
-  <TEXTEDITOR name="new text editor" id="9ef6cf3bdcb21da" memberName="textEditor"
-              virtualName="" explicitFocusOrder="0" pos="48 480 48 24" initialText="20"
-              multiline="0" retKeyStartsLine="0" readonly="0" scrollbars="1"
-              caret="1" popupmenu="1"/>
+  <TEXTEDITOR name="freq1" id="9ef6cf3bdcb21da" memberName="te_f1" virtualName=""
+              explicitFocusOrder="0" pos="48 480 48 24" initialText="20" multiline="0"
+              retKeyStartsLine="0" readonly="0" scrollbars="1" caret="1" popupmenu="1"/>
   <LABEL name="new label" id="8a2335922e03341c" memberName="label2" virtualName=""
          explicitFocusOrder="0" pos="16 512 23 24" textCol="ffffffff"
          edTextCol="ff000000" edBkgCol="0" labelText="G" editableSingleClick="0"
          editableDoubleClick="0" focusDiscardsChanges="0" fontname="Default font"
          fontsize="15" bold="1" italic="0" justification="33"/>
-  <TEXTEDITOR name="new text editor" id="ede80515ec296f29" memberName="textEditor2"
-              virtualName="" explicitFocusOrder="0" pos="48 512 48 24" initialText="20"
-              multiline="0" retKeyStartsLine="0" readonly="0" scrollbars="1"
-              caret="1" popupmenu="1"/>
+  <TEXTEDITOR name="gain 1" id="ede80515ec296f29" memberName="te_g1" virtualName=""
+              explicitFocusOrder="0" pos="48 512 48 24" initialText="0" multiline="0"
+              retKeyStartsLine="0" readonly="1" scrollbars="1" caret="0" popupmenu="1"/>
   <LABEL name="new label" id="e4767d1e09fd9935" memberName="label3" virtualName=""
          explicitFocusOrder="0" pos="16 544 23 24" textCol="ffffffff"
          edTextCol="ff000000" edBkgCol="0" labelText="Q" editableSingleClick="0"
          editableDoubleClick="0" focusDiscardsChanges="0" fontname="Default font"
          fontsize="15" bold="1" italic="0" justification="33"/>
-  <TOGGLEBUTTON name="new toggle button" id="dfabde4ca531665a" memberName="toggleButton2"
-                virtualName="" explicitFocusOrder="0" pos="136 456 23 24" buttonText=""
-                connectedEdges="0" needsCallback="1" radioGroupId="0" state="1"/>
-  <TEXTEDITOR name="new text editor" id="53b9ebc81951ae3b" memberName="textEditor5"
-              virtualName="" explicitFocusOrder="0" pos="120 480 48 24" initialText="20"
+  <TOGGLEBUTTON name="tb enable" id="dfabde4ca531665a" memberName="tb2" virtualName=""
+                explicitFocusOrder="0" pos="136 456 23 24" buttonText="" connectedEdges="0"
+                needsCallback="0" radioGroupId="0" state="1"/>
+  <TEXTEDITOR name="freq1" id="53b9ebc81951ae3b" memberName="te_f2" virtualName=""
+              explicitFocusOrder="0" pos="120 480 48 24" initialText="20" multiline="0"
+              retKeyStartsLine="0" readonly="0" scrollbars="1" caret="1" popupmenu="1"/>
+  <TEXTEDITOR name="gain 1" id="5b8d0849f7f76b66" memberName="te_g2" virtualName=""
+              explicitFocusOrder="0" pos="120 512 48 24" initialText="20" multiline="0"
+              retKeyStartsLine="0" readonly="0" scrollbars="1" caret="1" popupmenu="1"/>
+  <TEXTEDITOR name="q2" id="70626575b2e07ecc" memberName="te_q2" virtualName=""
+              explicitFocusOrder="0" pos="120 544 48 24" initialText="3" multiline="0"
+              retKeyStartsLine="0" readonly="0" scrollbars="1" caret="1" popupmenu="1"/>
+  <TOGGLEBUTTON name="tb enable" id="282d4ad39a4a2d22" memberName="tb3" virtualName=""
+                explicitFocusOrder="0" pos="206 455 23 24" buttonText="" connectedEdges="0"
+                needsCallback="0" radioGroupId="0" state="1"/>
+  <TEXTEDITOR name="freq1" id="a64d24e0eff51490" memberName="te_f3" virtualName=""
+              explicitFocusOrder="0" pos="192 480 48 24" initialText="20" multiline="0"
+              retKeyStartsLine="0" readonly="0" scrollbars="1" caret="1" popupmenu="1"/>
+  <TEXTEDITOR name="gain 3" id="67e8acb32923d831" memberName="te_g3" virtualName=""
+              explicitFocusOrder="0" pos="192 512 48 24" initialText="20" multiline="0"
+              retKeyStartsLine="0" readonly="0" scrollbars="1" caret="1" popupmenu="1"/>
+  <TEXTEDITOR name="q3" id="78adca4ca2136211" memberName="te_q3" virtualName=""
+              explicitFocusOrder="0" pos="192 544 48 24" initialText="3" multiline="0"
+              retKeyStartsLine="0" readonly="0" scrollbars="1" caret="1" popupmenu="1"/>
+  <TOGGLEBUTTON name="tb enable" id="5ece882c55552e10" memberName="tb4" virtualName=""
+                explicitFocusOrder="0" pos="275 456 23 24" buttonText="" connectedEdges="0"
+                needsCallback="0" radioGroupId="0" state="1"/>
+  <TEXTEDITOR name="freq1" id="c3f1f3f885822910" memberName="te_f4" virtualName=""
+              explicitFocusOrder="0" pos="264 480 48 24" initialText="20" multiline="0"
+              retKeyStartsLine="0" readonly="0" scrollbars="1" caret="1" popupmenu="1"/>
+  <TEXTEDITOR name="gain 4" id="b10e5f6da6e473cd" memberName="te_g4" virtualName=""
+              explicitFocusOrder="0" pos="264 512 48 24" initialText="20" multiline="0"
+              retKeyStartsLine="0" readonly="0" scrollbars="1" caret="1" popupmenu="1"/>
+  <TEXTEDITOR name="q4" id="dc587125177977e5" memberName="te_q4" virtualName=""
+              explicitFocusOrder="0" pos="264 544 48 24" initialText="3" multiline="0"
+              retKeyStartsLine="0" readonly="0" scrollbars="1" caret="1" popupmenu="1"/>
+  <TOGGLEBUTTON name="tb enable" id="10c812ebd6d59db" memberName="tb5" virtualName=""
+                explicitFocusOrder="0" pos="347 456 23 24" buttonText="" connectedEdges="0"
+                needsCallback="0" radioGroupId="0" state="1"/>
+  <TEXTEDITOR name="freq1" id="f4f38562e6dd495e" memberName="te_f5" virtualName=""
+              explicitFocusOrder="0" pos="336 480 48 24" initialText="20" multiline="0"
+              retKeyStartsLine="0" readonly="0" scrollbars="1" caret="1" popupmenu="1"/>
+  <TEXTEDITOR name="gain 5" id="a174e551f6b0942f" memberName="te_g5" virtualName=""
+              explicitFocusOrder="0" pos="336 512 48 24" initialText="20" multiline="0"
+              retKeyStartsLine="0" readonly="0" scrollbars="1" caret="1" popupmenu="1"/>
+  <TEXTEDITOR name="q5" id="d4540287c659182a" memberName="te_q5" virtualName=""
+              explicitFocusOrder="0" pos="336 544 48 24" initialText="3" multiline="0"
+              retKeyStartsLine="0" readonly="0" scrollbars="1" caret="1" popupmenu="1"/>
+  <TEXTEDITOR name="q1" id="94768d07f878c2c0" memberName="te_q1" virtualName=""
+              explicitFocusOrder="0" pos="48 544 48 24" initialText="0.700"
               multiline="0" retKeyStartsLine="0" readonly="0" scrollbars="1"
               caret="1" popupmenu="1"/>
-  <TEXTEDITOR name="new text editor" id="5b8d0849f7f76b66" memberName="textEditor6"
-              virtualName="" explicitFocusOrder="0" pos="120 512 48 24" initialText="20"
+  <TEXTEDITOR name="freq1" id="39bf88f781f7e9" memberName="te_f6" virtualName=""
+              explicitFocusOrder="0" pos="408 480 48 24" initialText="20" multiline="0"
+              retKeyStartsLine="0" readonly="0" scrollbars="1" caret="1" popupmenu="1"/>
+  <TEXTEDITOR name="gain 6" id="4bbbae4e5ae100bc" memberName="te_g6" virtualName=""
+              explicitFocusOrder="0" pos="408 512 48 24" initialText="20" multiline="0"
+              retKeyStartsLine="0" readonly="0" scrollbars="1" caret="1" popupmenu="1"/>
+  <TOGGLEBUTTON name="tb enable" id="349edfe70ffd2b73" memberName="tb7" virtualName=""
+                explicitFocusOrder="0" pos="496 456 23 24" buttonText="" connectedEdges="0"
+                needsCallback="0" radioGroupId="0" state="1"/>
+  <TEXTEDITOR name="freq1" id="667330e29f287217" memberName="te_f7" virtualName=""
+              explicitFocusOrder="0" pos="480 480 48 24" initialText="20" multiline="0"
+              retKeyStartsLine="0" readonly="0" scrollbars="1" caret="1" popupmenu="1"/>
+  <TEXTEDITOR name="gain 7" id="c9e0089ce4ec5462" memberName="te_g7" virtualName=""
+              explicitFocusOrder="0" pos="480 512 48 24" initialText="20" multiline="0"
+              retKeyStartsLine="0" readonly="0" scrollbars="1" caret="1" popupmenu="1"/>
+  <TEXTEDITOR name="q7" id="1ecf182af7493f18" memberName="te_q7" virtualName=""
+              explicitFocusOrder="0" pos="480 544 48 24" initialText="3" multiline="0"
+              retKeyStartsLine="0" readonly="0" scrollbars="1" caret="1" popupmenu="1"/>
+  <TOGGLEBUTTON name="tb enable" id="77d40afad97a258a" memberName="tb8" virtualName=""
+                explicitFocusOrder="0" pos="568 456 23 24" buttonText="" connectedEdges="0"
+                needsCallback="0" radioGroupId="0" state="1"/>
+  <TEXTEDITOR name="freq1" id="e1fdefd03de7ea92" memberName="te_f8" virtualName=""
+              explicitFocusOrder="0" pos="552 480 48 24" initialText="20" multiline="0"
+              retKeyStartsLine="0" readonly="0" scrollbars="1" caret="1" popupmenu="1"/>
+  <TEXTEDITOR name="gain 8" id="c30f4c5cd7be2eb0" memberName="te_g8" virtualName=""
+              explicitFocusOrder="0" pos="552 512 48 24" initialText="20" multiline="0"
+              retKeyStartsLine="0" readonly="0" scrollbars="1" caret="1" popupmenu="1"/>
+  <TEXTEDITOR name="q8" id="638c52a668204bba" memberName="te_q8" virtualName=""
+              explicitFocusOrder="0" pos="552 544 48 24" initialText="3" multiline="0"
+              retKeyStartsLine="0" readonly="0" scrollbars="1" caret="1" popupmenu="1"/>
+  <TOGGLEBUTTON name="tb enable" id="51349ccdf04611e1" memberName="tb9" virtualName=""
+                explicitFocusOrder="0" pos="640 456 23 24" buttonText="" connectedEdges="0"
+                needsCallback="0" radioGroupId="0" state="1"/>
+  <TEXTEDITOR name="freq1" id="38bf68d8288733dc" memberName="te_f9" virtualName=""
+              explicitFocusOrder="0" pos="624 480 48 24" initialText="20" multiline="0"
+              retKeyStartsLine="0" readonly="0" scrollbars="1" caret="1" popupmenu="1"/>
+  <TEXTEDITOR name="gain 9" id="a85da9c12364aad6" memberName="te_g9" virtualName=""
+              explicitFocusOrder="0" pos="624 512 48 24" initialText="20" multiline="0"
+              retKeyStartsLine="0" readonly="0" scrollbars="1" caret="1" popupmenu="1"/>
+  <TEXTEDITOR name="q9" id="a70473d76451766c" memberName="te_q9" virtualName=""
+              explicitFocusOrder="0" pos="624 544 48 24" initialText="3" multiline="0"
+              retKeyStartsLine="0" readonly="0" scrollbars="1" caret="1" popupmenu="1"/>
+  <TOGGLEBUTTON name="tb enable" id="d20ec81d6b5dcd8c" memberName="tb10" virtualName=""
+                explicitFocusOrder="0" pos="712 456 23 24" buttonText="" connectedEdges="0"
+                needsCallback="0" radioGroupId="0" state="1"/>
+  <TEXTEDITOR name="freq1" id="b1c12d2b720e7e14" memberName="te_f10" virtualName=""
+              explicitFocusOrder="0" pos="697 480 48 24" initialText="20" multiline="0"
+              retKeyStartsLine="0" readonly="0" scrollbars="1" caret="1" popupmenu="1"/>
+  <TEXTEDITOR name="gain 10" id="ece48b3f66a2ecdc" memberName="te_g10" virtualName=""
+              explicitFocusOrder="0" pos="697 512 48 24" initialText="20" multiline="0"
+              retKeyStartsLine="0" readonly="0" scrollbars="1" caret="1" popupmenu="1"/>
+  <TEXTEDITOR name="q10" id="cb0f1b9fcc38944e" memberName="te_q10" virtualName=""
+              explicitFocusOrder="0" pos="697 544 48 24" initialText="0.707"
               multiline="0" retKeyStartsLine="0" readonly="0" scrollbars="1"
               caret="1" popupmenu="1"/>
-  <TEXTEDITOR name="new text editor" id="70626575b2e07ecc" memberName="textEditor7"
-              virtualName="" explicitFocusOrder="0" pos="120 544 48 24" initialText="3"
-              multiline="0" retKeyStartsLine="0" readonly="0" scrollbars="1"
-              caret="1" popupmenu="1"/>
-  <TOGGLEBUTTON name="new toggle button" id="282d4ad39a4a2d22" memberName="toggleButton3"
-                virtualName="" explicitFocusOrder="0" pos="206 455 23 24" buttonText=""
-                connectedEdges="0" needsCallback="1" radioGroupId="0" state="1"/>
-  <TEXTEDITOR name="new text editor" id="a64d24e0eff51490" memberName="textEditor9"
-              virtualName="" explicitFocusOrder="0" pos="192 480 48 24" initialText="20"
-              multiline="0" retKeyStartsLine="0" readonly="0" scrollbars="1"
-              caret="1" popupmenu="1"/>
-  <TEXTEDITOR name="new text editor" id="67e8acb32923d831" memberName="textEditor10"
-              virtualName="" explicitFocusOrder="0" pos="192 512 48 24" initialText="20"
-              multiline="0" retKeyStartsLine="0" readonly="0" scrollbars="1"
-              caret="1" popupmenu="1"/>
-  <TEXTEDITOR name="new text editor" id="78adca4ca2136211" memberName="textEditor11"
-              virtualName="" explicitFocusOrder="0" pos="192 544 48 24" initialText="3"
-              multiline="0" retKeyStartsLine="0" readonly="0" scrollbars="1"
-              caret="1" popupmenu="1"/>
-  <TOGGLEBUTTON name="new toggle button" id="5ece882c55552e10" memberName="toggleButton4"
-                virtualName="" explicitFocusOrder="0" pos="275 456 23 24" buttonText=""
-                connectedEdges="0" needsCallback="1" radioGroupId="0" state="1"/>
-  <TEXTEDITOR name="new text editor" id="c3f1f3f885822910" memberName="textEditor13"
-              virtualName="" explicitFocusOrder="0" pos="264 480 48 24" initialText="20"
-              multiline="0" retKeyStartsLine="0" readonly="0" scrollbars="1"
-              caret="1" popupmenu="1"/>
-  <TEXTEDITOR name="new text editor" id="b10e5f6da6e473cd" memberName="textEditor14"
-              virtualName="" explicitFocusOrder="0" pos="264 512 48 24" initialText="20"
-              multiline="0" retKeyStartsLine="0" readonly="0" scrollbars="1"
-              caret="1" popupmenu="1"/>
-  <TEXTEDITOR name="new text editor" id="dc587125177977e5" memberName="textEditor15"
-              virtualName="" explicitFocusOrder="0" pos="264 544 48 24" initialText="3"
-              multiline="0" retKeyStartsLine="0" readonly="0" scrollbars="1"
-              caret="1" popupmenu="1"/>
-  <TOGGLEBUTTON name="new toggle button" id="10c812ebd6d59db" memberName="toggleButton5"
-                virtualName="" explicitFocusOrder="0" pos="347 456 23 24" buttonText=""
-                connectedEdges="0" needsCallback="1" radioGroupId="0" state="1"/>
-  <TEXTEDITOR name="new text editor" id="f4f38562e6dd495e" memberName="textEditor17"
-              virtualName="" explicitFocusOrder="0" pos="336 480 48 24" initialText="20"
-              multiline="0" retKeyStartsLine="0" readonly="0" scrollbars="1"
-              caret="1" popupmenu="1"/>
-  <TEXTEDITOR name="new text editor" id="a174e551f6b0942f" memberName="textEditor18"
-              virtualName="" explicitFocusOrder="0" pos="336 512 48 24" initialText="20"
-              multiline="0" retKeyStartsLine="0" readonly="0" scrollbars="1"
-              caret="1" popupmenu="1"/>
-  <TEXTEDITOR name="new text editor" id="d4540287c659182a" memberName="textEditor19"
-              virtualName="" explicitFocusOrder="0" pos="336 544 48 24" initialText="3"
-              multiline="0" retKeyStartsLine="0" readonly="0" scrollbars="1"
-              caret="1" popupmenu="1"/>
-  <TEXTEDITOR name="new text editor" id="94768d07f878c2c0" memberName="textEditor23"
-              virtualName="" explicitFocusOrder="0" pos="48 544 48 24" initialText="0.700"
-              multiline="0" retKeyStartsLine="0" readonly="0" scrollbars="1"
-              caret="1" popupmenu="1"/>
-  <TOGGLEBUTTON name="new toggle button" id="9aae747c8e0baeef" memberName="toggleButton7"
-                virtualName="" explicitFocusOrder="0" pos="422 456 23 24" buttonText=""
-                connectedEdges="0" needsCallback="1" radioGroupId="0" state="1"/>
-  <TEXTEDITOR name="new text editor" id="39bf88f781f7e9" memberName="textEditor25"
-              virtualName="" explicitFocusOrder="0" pos="408 480 48 24" initialText="20"
-              multiline="0" retKeyStartsLine="0" readonly="0" scrollbars="1"
-              caret="1" popupmenu="1"/>
-  <TEXTEDITOR name="new text editor" id="4bbbae4e5ae100bc" memberName="textEditor26"
-              virtualName="" explicitFocusOrder="0" pos="408 512 48 24" initialText="20"
-              multiline="0" retKeyStartsLine="0" readonly="0" scrollbars="1"
-              caret="1" popupmenu="1"/>
-  <TOGGLEBUTTON name="new toggle button" id="349edfe70ffd2b73" memberName="toggleButton8"
-                virtualName="" explicitFocusOrder="0" pos="499 456 23 24" buttonText=""
-                connectedEdges="0" needsCallback="1" radioGroupId="0" state="1"/>
-  <TEXTEDITOR name="new text editor" id="667330e29f287217" memberName="textEditor29"
-              virtualName="" explicitFocusOrder="0" pos="480 480 48 24" initialText="20"
-              multiline="0" retKeyStartsLine="0" readonly="0" scrollbars="1"
-              caret="1" popupmenu="1"/>
-  <TEXTEDITOR name="new text editor" id="c9e0089ce4ec5462" memberName="textEditor30"
-              virtualName="" explicitFocusOrder="0" pos="480 512 48 24" initialText="20"
-              multiline="0" retKeyStartsLine="0" readonly="0" scrollbars="1"
-              caret="1" popupmenu="1"/>
-  <TEXTEDITOR name="new text editor" id="1ecf182af7493f18" memberName="textEditor31"
-              virtualName="" explicitFocusOrder="0" pos="480 544 48 24" initialText="3"
-              multiline="0" retKeyStartsLine="0" readonly="0" scrollbars="1"
-              caret="1" popupmenu="1"/>
-  <TOGGLEBUTTON name="new toggle button" id="77d40afad97a258a" memberName="toggleButton9"
-                virtualName="" explicitFocusOrder="0" pos="568 456 23 24" buttonText=""
-                connectedEdges="0" needsCallback="1" radioGroupId="0" state="1"/>
-  <TEXTEDITOR name="new text editor" id="e1fdefd03de7ea92" memberName="textEditor33"
-              virtualName="" explicitFocusOrder="0" pos="552 480 48 24" initialText="20"
-              multiline="0" retKeyStartsLine="0" readonly="0" scrollbars="1"
-              caret="1" popupmenu="1"/>
-  <TEXTEDITOR name="new text editor" id="c30f4c5cd7be2eb0" memberName="textEditor34"
-              virtualName="" explicitFocusOrder="0" pos="552 512 48 24" initialText="20"
-              multiline="0" retKeyStartsLine="0" readonly="0" scrollbars="1"
-              caret="1" popupmenu="1"/>
-  <TEXTEDITOR name="new text editor" id="638c52a668204bba" memberName="textEditor35"
-              virtualName="" explicitFocusOrder="0" pos="552 544 48 24" initialText="3"
-              multiline="0" retKeyStartsLine="0" readonly="0" scrollbars="1"
-              caret="1" popupmenu="1"/>
-  <TOGGLEBUTTON name="new toggle button" id="51349ccdf04611e1" memberName="toggleButton10"
-                virtualName="" explicitFocusOrder="0" pos="640 456 23 24" buttonText=""
-                connectedEdges="0" needsCallback="1" radioGroupId="0" state="1"/>
-  <TEXTEDITOR name="new text editor" id="38bf68d8288733dc" memberName="textEditor37"
-              virtualName="" explicitFocusOrder="0" pos="624 480 48 24" initialText="20"
-              multiline="0" retKeyStartsLine="0" readonly="0" scrollbars="1"
-              caret="1" popupmenu="1"/>
-  <TEXTEDITOR name="new text editor" id="a85da9c12364aad6" memberName="textEditor38"
-              virtualName="" explicitFocusOrder="0" pos="624 512 48 24" initialText="20"
-              multiline="0" retKeyStartsLine="0" readonly="0" scrollbars="1"
-              caret="1" popupmenu="1"/>
-  <TEXTEDITOR name="new text editor" id="a70473d76451766c" memberName="textEditor39"
-              virtualName="" explicitFocusOrder="0" pos="624 544 48 24" initialText="3"
-              multiline="0" retKeyStartsLine="0" readonly="0" scrollbars="1"
-              caret="1" popupmenu="1"/>
-  <TOGGLEBUTTON name="new toggle button" id="d20ec81d6b5dcd8c" memberName="toggleButton11"
-                virtualName="" explicitFocusOrder="0" pos="712 456 23 24" buttonText=""
-                connectedEdges="0" needsCallback="1" radioGroupId="0" state="1"/>
-  <TEXTEDITOR name="new text editor" id="b1c12d2b720e7e14" memberName="textEditor41"
-              virtualName="" explicitFocusOrder="0" pos="697 480 48 24" initialText="20"
-              multiline="0" retKeyStartsLine="0" readonly="0" scrollbars="1"
-              caret="1" popupmenu="1"/>
-  <TEXTEDITOR name="new text editor" id="ece48b3f66a2ecdc" memberName="textEditor42"
-              virtualName="" explicitFocusOrder="0" pos="697 512 48 24" initialText="20"
-              multiline="0" retKeyStartsLine="0" readonly="0" scrollbars="1"
-              caret="1" popupmenu="1"/>
-  <TEXTEDITOR name="new text editor" id="cb0f1b9fcc38944e" memberName="textEditor43"
-              virtualName="" explicitFocusOrder="0" pos="697 544 48 24" initialText="0.707"
-              multiline="0" retKeyStartsLine="0" readonly="0" scrollbars="1"
-              caret="1" popupmenu="1"/>
-  <TOGGLEBUTTON name="new toggle button" id="662a5302c262143f" memberName="toggleButton12"
-                virtualName="" explicitFocusOrder="0" pos="422 456 23 24" buttonText=""
-                connectedEdges="0" needsCallback="1" radioGroupId="0" state="1"/>
-  <TEXTEDITOR name="new text editor" id="544ab4727afd9bd1" memberName="textEditor47"
-              virtualName="" explicitFocusOrder="0" pos="408 544 48 24" initialText="3"
-              multiline="0" retKeyStartsLine="0" readonly="0" scrollbars="1"
-              caret="1" popupmenu="1"/>
-  <LABEL name="new label" id="3f5d3a7b11195999" memberName="label4" virtualName=""
-         explicitFocusOrder="0" pos="184 384 40 24" textCol="ffffffff"
+  <TOGGLEBUTTON name="tb enable" id="662a5302c262143f" memberName="tb6" virtualName=""
+                explicitFocusOrder="0" pos="424 456 23 24" buttonText="" connectedEdges="0"
+                needsCallback="0" radioGroupId="0" state="1"/>
+  <TEXTEDITOR name="q6" id="544ab4727afd9bd1" memberName="te_q6" virtualName=""
+              explicitFocusOrder="0" pos="408 544 48 24" initialText="3" multiline="0"
+              retKeyStartsLine="0" readonly="0" scrollbars="1" caret="1" popupmenu="1"/>
+  <LABEL name="new label" id="3f5d3a7b11195999" memberName="lb_200" virtualName=""
+         explicitFocusOrder="0" pos="184 404 40 24" textCol="ffffffff"
          edTextCol="ff000000" edBkgCol="0" labelText="200" editableSingleClick="0"
          editableDoubleClick="0" focusDiscardsChanges="0" fontname="Default font"
          fontsize="15" bold="0" italic="0" justification="33"/>
-  <LABEL name="new label" id="c3c7ec2825b7f5a0" memberName="label5" virtualName=""
-         explicitFocusOrder="0" pos="432 384 40 24" textCol="ffffffff"
+  <LABEL name="new label" id="c3c7ec2825b7f5a0" memberName="lb_2000" virtualName=""
+         explicitFocusOrder="0" pos="432 404 40 24" textCol="ffffffff"
          edTextCol="ff000000" edBkgCol="0" labelText="2000" editableSingleClick="0"
          editableDoubleClick="0" focusDiscardsChanges="0" fontname="Default font"
          fontsize="15" bold="0" italic="0" justification="33"/>
-  <LABEL name="new label" id="32dce46979c808e3" memberName="label6" virtualName=""
-         explicitFocusOrder="0" pos="704 384 40 24" textCol="ffffffff"
+  <LABEL name="new label" id="32dce46979c808e3" memberName="lb_20K" virtualName=""
+         explicitFocusOrder="0" pos="704 404 40 24" textCol="ffffffff"
          edTextCol="ff000000" edBkgCol="0" labelText="20K" editableSingleClick="0"
          editableDoubleClick="0" focusDiscardsChanges="0" fontname="Default font"
          fontsize="15" bold="0" italic="0" justification="33"/>
-  <IMAGEBUTTON name="new button" id="48380475ea313b08" memberName="imageButton"
-               virtualName="" explicitFocusOrder="0" pos="48 584 48 24" buttonText="new button"
+  <IMAGEBUTTON name="Graph Type" id="48380475ea313b08" memberName="ib_1" virtualName=""
+               explicitFocusOrder="0" pos="48 584 48 24" buttonText="new button"
                connectedEdges="0" needsCallback="1" radioGroupId="0" keepProportions="1"
                resourceNormal="eq_ls_png" opacityNormal="1" colourNormal="0"
                resourceOver="" opacityOver="1" colourOver="0" resourceDown=""
                opacityDown="1" colourDown="0"/>
-  <IMAGEBUTTON name="new button" id="6abee26448cc0ea1" memberName="imageButton2"
-               virtualName="" explicitFocusOrder="0" pos="120 584 48 24" buttonText="new button"
+  <IMAGEBUTTON name="Graph Type" id="6abee26448cc0ea1" memberName="ib_2" virtualName=""
+               explicitFocusOrder="0" pos="120 584 48 24" buttonText="new button"
                connectedEdges="0" needsCallback="1" radioGroupId="0" keepProportions="1"
                resourceNormal="eq_peak_png" opacityNormal="1" colourNormal="0"
                resourceOver="" opacityOver="1" colourOver="0" resourceDown=""
                opacityDown="1" colourDown="0"/>
-  <IMAGEBUTTON name="new button" id="e96dfb56c4591eff" memberName="imageButton3"
-               virtualName="" explicitFocusOrder="0" pos="192 584 48 24" buttonText="new button"
+  <IMAGEBUTTON name="Graph Type" id="e96dfb56c4591eff" memberName="ib_3" virtualName=""
+               explicitFocusOrder="0" pos="192 584 48 24" buttonText="new button"
                connectedEdges="0" needsCallback="1" radioGroupId="0" keepProportions="1"
                resourceNormal="eq_peak_png" opacityNormal="1" colourNormal="0"
                resourceOver="" opacityOver="1" colourOver="0" resourceDown=""
                opacityDown="1" colourDown="0"/>
-  <IMAGEBUTTON name="new button" id="52e6df220a3c5f04" memberName="imageButton4"
-               virtualName="" explicitFocusOrder="0" pos="264 584 48 24" buttonText="new button"
+  <IMAGEBUTTON name="Graph Type" id="52e6df220a3c5f04" memberName="ib_4" virtualName=""
+               explicitFocusOrder="0" pos="264 584 48 24" buttonText="new button"
                connectedEdges="0" needsCallback="1" radioGroupId="0" keepProportions="1"
                resourceNormal="eq_peak_png" opacityNormal="1" colourNormal="0"
                resourceOver="" opacityOver="1" colourOver="0" resourceDown=""
                opacityDown="1" colourDown="0"/>
-  <IMAGEBUTTON name="new button" id="22e04453fe0237a" memberName="imageButton5"
-               virtualName="" explicitFocusOrder="0" pos="336 584 48 24" buttonText="new button"
+  <IMAGEBUTTON name="Graph Type" id="22e04453fe0237a" memberName="ib_5" virtualName=""
+               explicitFocusOrder="0" pos="336 584 48 24" buttonText="new button"
                connectedEdges="0" needsCallback="1" radioGroupId="0" keepProportions="1"
                resourceNormal="eq_peak_png" opacityNormal="1" colourNormal="0"
                resourceOver="" opacityOver="1" colourOver="0" resourceDown=""
                opacityDown="1" colourDown="0"/>
-  <IMAGEBUTTON name="new button" id="7be8e6b181831ee0" memberName="imageButton6"
-               virtualName="" explicitFocusOrder="0" pos="408 584 48 24" buttonText="new button"
+  <IMAGEBUTTON name="Graph Type" id="7be8e6b181831ee0" memberName="ib_6" virtualName=""
+               explicitFocusOrder="0" pos="408 584 48 24" buttonText="new button"
                connectedEdges="0" needsCallback="1" radioGroupId="0" keepProportions="1"
                resourceNormal="eq_peak_png" opacityNormal="1" colourNormal="0"
                resourceOver="" opacityOver="1" colourOver="0" resourceDown=""
                opacityDown="1" colourDown="0"/>
-  <IMAGEBUTTON name="new button" id="5fe0ff184bd2c159" memberName="imageButton7"
-               virtualName="" explicitFocusOrder="0" pos="480 584 48 24" buttonText="new button"
+  <IMAGEBUTTON name="Graph Type" id="5fe0ff184bd2c159" memberName="ib_7" virtualName=""
+               explicitFocusOrder="0" pos="480 584 48 24" buttonText="new button"
                connectedEdges="0" needsCallback="1" radioGroupId="0" keepProportions="1"
                resourceNormal="eq_peak_png" opacityNormal="1" colourNormal="0"
                resourceOver="" opacityOver="1" colourOver="0" resourceDown=""
                opacityDown="1" colourDown="0"/>
-  <IMAGEBUTTON name="new button" id="28286a69b2b723e6" memberName="imageButton8"
-               virtualName="" explicitFocusOrder="0" pos="552 584 48 24" buttonText="new button"
+  <IMAGEBUTTON name="Graph Type" id="28286a69b2b723e6" memberName="ib_8" virtualName=""
+               explicitFocusOrder="0" pos="552 584 48 24" buttonText="new button"
                connectedEdges="0" needsCallback="1" radioGroupId="0" keepProportions="1"
                resourceNormal="eq_peak_png" opacityNormal="1" colourNormal="0"
                resourceOver="" opacityOver="1" colourOver="0" resourceDown=""
                opacityDown="1" colourDown="0"/>
-  <IMAGEBUTTON name="new button" id="9b63059a4a15f2d7" memberName="imageButton9"
-               virtualName="" explicitFocusOrder="0" pos="696 584 48 24" buttonText="new button"
+  <IMAGEBUTTON name="new button" id="9b63059a4a15f2d7" memberName="ib_10" virtualName=""
+               explicitFocusOrder="0" pos="696 584 48 24" buttonText="new button"
                connectedEdges="0" needsCallback="1" radioGroupId="0" keepProportions="1"
                resourceNormal="eq_ls_png" opacityNormal="1" colourNormal="0"
                resourceOver="" opacityOver="1" colourOver="0" resourceDown=""
                opacityDown="1" colourDown="0"/>
-  <IMAGEBUTTON name="new button" id="669f01a827b50b7e" memberName="imageButton10"
-               virtualName="" explicitFocusOrder="0" pos="624 584 48 24" buttonText="new button"
+  <IMAGEBUTTON name="Graph Type" id="669f01a827b50b7e" memberName="ib_9" virtualName=""
+               explicitFocusOrder="0" pos="624 584 48 24" buttonText="new button"
                connectedEdges="0" needsCallback="1" radioGroupId="0" keepProportions="1"
                resourceNormal="eq_peak_png" opacityNormal="1" colourNormal="0"
                resourceOver="" opacityOver="1" colourOver="0" resourceDown=""
                opacityDown="1" colourDown="0"/>
+  <JUCERCOMP name="" id="d19dcfa2fc5dc2ea" memberName="eqGraphComponent" virtualName=""
+             explicitFocusOrder="0" pos="16 8 740 400" sourceFile="EqGraph.cpp"
+             constructorParams=""/>
 </JUCER_COMPONENT>
 
 END_JUCER_METADATA

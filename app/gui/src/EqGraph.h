@@ -17,13 +17,14 @@
   ==============================================================================
 */
 
-#ifndef __JUCE_HEADER_B05BE1D021B1B44C__
-#define __JUCE_HEADER_B05BE1D021B1B44C__
+#ifndef __JUCE_HEADER_23C2B266F985A3A8__
+#define __JUCE_HEADER_23C2B266F985A3A8__
 
 //[Headers]     -- You can add your own extra header files here --
+#define CIRCLE_COUNT 10
 #include "../JuceLibraryCode/JuceHeader.h"
-#include "AudioComponent.h"
-#include "GuiDefinitions.h"
+#include "CircleItem.h"
+#include "MyUtils.h"
 //[/Headers]
 
 
@@ -36,59 +37,53 @@
     Describe your class and how it works here!
                                                                     //[/Comments]
 */
-class AndrewPlayer  : public Component,
-                      public ChangeListener,
-                      public SliderListener,
-                      public ButtonListener
+class EqGraph  : public Component,
+                 public ChangeBroadcaster
 {
 public:
     //==============================================================================
-    AndrewPlayer ();
-    ~AndrewPlayer();
+    EqGraph ();
+    ~EqGraph();
 
     //==============================================================================
     //[UserMethods]     -- You can add your own custom methods in this section.
-    enum TransportState
-	{
-		Stopped,
-		Starting,
-		Playing,
-		Stopping
-	};
-    TransportState state;
-
-    void setGlobalsParams(GuiGlobalsParams *params);
-    void changeState(AndrewPlayer::TransportState newState);
-    void changeListenerCallback(ChangeBroadcaster* source) override;
-
-
+    #define X_SIZE 740
+    #define Y_SIZE 400  
+    void drawCircles (Graphics& g);
+    void drawLineGraph (Graphics& g);
+    int checkMouseOver (int x, int y);
+    void activeCircle(int circleIndex, int active);
+    float getFreq(int index); 
+    float getGain(int index);
+    int getSelectedItem();
+    void SetMagDb(float *Magdb, float size);
     //[/UserMethods]
 
     void paint (Graphics& g) override;
     void resized() override;
-    void sliderValueChanged (Slider* sliderThatWasMoved) override;
-    void buttonClicked (Button* buttonThatWasClicked) override;
+    void mouseMove (const MouseEvent& e) override;
+    void mouseExit (const MouseEvent& e) override;
+    void mouseDown (const MouseEvent& e) override;
+    void mouseDrag (const MouseEvent& e) override;
+    void mouseUp (const MouseEvent& e) override;
 
 
 
 private:
     //[UserVariables]   -- You can add your own custom variables in this section.
-    GuiGlobalsParams *guiGlobalsParams;
+    CircleItem* circles;
+    int selectedItem = 0;
+    float Magdb[X_SIZE];
     //[/UserVariables]
 
     //==============================================================================
-    ScopedPointer<Slider> slider;
-    ScopedPointer<Label> label;
-    ScopedPointer<TextButton> openButton;
-    ScopedPointer<TextButton> playButton;
-    ScopedPointer<TextButton> stopButton;
 
 
     //==============================================================================
-    JUCE_DECLARE_NON_COPYABLE_WITH_LEAK_DETECTOR (AndrewPlayer)
+    JUCE_DECLARE_NON_COPYABLE_WITH_LEAK_DETECTOR (EqGraph)
 };
 
 //[EndFile] You can add extra defines here...
 //[/EndFile]
 
-#endif   // __JUCE_HEADER_B05BE1D021B1B44C__
+#endif   // __JUCE_HEADER_23C2B266F985A3A8__

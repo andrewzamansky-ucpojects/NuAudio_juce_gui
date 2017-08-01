@@ -65,6 +65,7 @@ AndrewPlayer::AndrewPlayer ()
     stopButton->setColour (TextButton::buttonColourId, Colours::red);
     stopButton->setColour (TextButton::buttonOnColourId, Colours::aqua);
 
+
     //[UserPreSize]
     //[/UserPreSize]
 
@@ -72,7 +73,7 @@ AndrewPlayer::AndrewPlayer ()
 
 
     //[Constructor] You can add your own custom stuff here..
-    
+
     //[/Constructor]
 }
 
@@ -88,7 +89,7 @@ AndrewPlayer::~AndrewPlayer()
     stopButton = nullptr;
 
 
-    //[Destructor]. You can add your own custom destruction code here..	
+    //[Destructor]. You can add your own custom destruction code here..
     //[/Destructor]
 }
 

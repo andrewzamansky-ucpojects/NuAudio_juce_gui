@@ -648,7 +648,6 @@ BEGIN_JUCER_METADATA
     <ROUNDRECT pos="524 344 244 276" cornerSize="10" fill="solid: ff314a5b"
                hasStroke="0"/>
     <RECT pos="540 388 212 4" fill="solid: ff000000" hasStroke="0"/>
-    <IMAGE pos="584 448 100 100" resource="" opacity="1" mode="0"/>
   </BACKGROUND>
   <LABEL name="new label" id="18572fc6c01b2c8f" memberName="label" virtualName=""
          explicitFocusOrder="0" pos="80 296 104 24" textCol="ffffffff"
