@@ -37,7 +37,9 @@
 */
 class Equalizer  : public Component,
                    public ChangeListener,
-                   public ButtonListener
+                   public TextEditorListener,
+                   public ButtonListener,
+                   public ComboBoxListener
 {
 public:
     //==============================================================================
@@ -49,7 +51,9 @@ public:
     #define M_PI 3.14159265359f
     #define SR 48000.0f
     #define X_SIZE 740
-    #define Y_SIZE 400    
+    #define Y_SIZE 400
+
+    float DELTA = 0.0f;
 
     struct BiQuads {
         // Zeros
@@ -58,20 +62,23 @@ public:
         float a2;
         // Poles
         float b1;
-        float b2;    
+        float b2;
     };
 
-    
     void changeListenerCallback(ChangeBroadcaster* source) override;
+    void textEditorTextChanged(TextEditor &source);
     BiQuads LowPassFilter(float f, float q);
-    void Equalizer::CoefsEval(float *coefs, int numOfCoeffs,float w, float *resReal, float *resImg);
-    void Equalizer::FilterEval(Equalizer::BiQuads biQuads, float *magdb, int numPoints);
+    BiQuads PeakFilter(float f, float q, float g);
+    float filterEvaluate(float freq, float sampleRate, Equalizer::BiQuads biQuads);
+    void calc_biquads_graph(float *mag, Equalizer::BiQuads biQuads, float factor);
+    void evaluateGraph(bool refreshEditors);
 
     //[/UserMethods]
 
     void paint (Graphics& g) override;
     void resized() override;
     void buttonClicked (Button* buttonThatWasClicked) override;
+    void comboBoxChanged (ComboBox* comboBoxThatHasChanged) override;
 
     // Binary resources:
     static const char* dynamics_graph_png;
@@ -86,6 +93,10 @@ private:
     //[UserVariables]   -- You can add your own custom variables in this section.
     ToggleButton **toggles;
     TextEditor **te_frequencies;
+    TextEditor **te_gains;
+    TextEditor **te_qs;
+    ComboBox **cb_filters;
+    ImageButton **ib_filters;
     float Magdb[X_SIZE];
     //[/UserVariables]
 
@@ -147,6 +158,16 @@ private:
     ScopedPointer<ImageButton> ib_10;
     ScopedPointer<ImageButton> ib_9;
     ScopedPointer<EqGraph> eqGraphComponent;
+    ScopedPointer<ComboBox> cb_filter1;
+    ScopedPointer<ComboBox> cb_filter2;
+    ScopedPointer<ComboBox> cb_filter3;
+    ScopedPointer<ComboBox> cb_filter4;
+    ScopedPointer<ComboBox> cb_filter5;
+    ScopedPointer<ComboBox> cb_filter6;
+    ScopedPointer<ComboBox> cb_filter7;
+    ScopedPointer<ComboBox> cb_filter8;
+    ScopedPointer<ComboBox> cb_filter9;
+    ScopedPointer<ComboBox> cb_filter10;
 
 
     //==============================================================================

@@ -152,16 +152,18 @@ void EqGraph::mouseDrag (const MouseEvent& e)
                 if(setY > 400) setY = 400;
                 if(setY < 0) setY = 0;
 
-                if(selectedItem == 0)
-                {
-                    // Set Y 200 for the first circle
-                    setY = 200;
-                }
+                // if(selectedItem == 0)
+                // {
+                //     // Set Y 200 for the first circle
+                //     setY = 200;
+                // }
                 
                 circles[selectedItem].setPos(setX, setY);                
             }
         }
+
     }
+    sendChangeMessage();
     repaint();
     //[/UserCode_mouseDrag]
 }
@@ -197,22 +199,22 @@ void EqGraph::drawLineGraph (Graphics& g)
     int lastX = circles[0].getX();
     int lastY = circles[0].getY();
 
-    g.setColour (Colours::grey);
-    for(i = 0; i< CIRCLE_COUNT; i++)
-    {
-        if(circles[i].isEnabled())
-        {
-            g.drawLine(lastX, lastY, circles[i].getX(), circles[i].getY(), 1);
-            lastX = circles[i].getX();
-            lastY = circles[i].getY();
-        }
-    }
+    // g.setColour (Colours::grey);
+    // for(i = 0; i< CIRCLE_COUNT; i++)
+    // {
+    //     if(circles[i].isEnabled())
+    //     {
+    //         g.drawLine(lastX, lastY, circles[i].getX(), circles[i].getY(), 1);
+    //         lastX = circles[i].getX();
+    //         lastY = circles[i].getY();
+    //     }
+    // }
 
     // Draw curve
     g.setColour (Colours::yellow);
     for(i = 0; i<X_SIZE; i++)
     {
-        g.drawEllipse(i, Magdb[i] + Y_SIZE, 1, 1, 1);
+        g.drawEllipse(i, -Magdb[i] + (Y_SIZE/2), 1, 1, 1);
     }
 }
 
@@ -247,17 +249,29 @@ int EqGraph::getSelectedItem(){
     return selectedItem;
 }
 
-float EqGraph::getFreq(int index) {
-    float width = 1.0f/(float)X_SIZE;
-    float x =  (float)circles[index].getX() * width;
-    float xLog = 2220*pow(10,x)-2200;
+float EqGraph::getFreq(int index, float delta) {
+    float x =  (float)circles[index].getX();
+    float xLog = 20*pow(delta, x);
     return xLog;
+}
+
+void EqGraph::setFreq(int index, float freq, float delta) {
+    int x = log10(freq / 20) / log10(delta);
+    circles[index].setX(x);
+    repaint();
+}
+
+void EqGraph::setGain(int index, float gain, float delta) {
+    int y = MyUtils::map(gain, 18.0, -18.0, 0.0, 400.0);
+    circles[index].setY(y);
+    repaint();
 }
 
 float EqGraph::getGain(int index) {    
     float y =  (float)circles[index].getY();    
     return MyUtils::map(y, 0.0, 400.0, 18.0, -18.0);
 }
+
 
 void EqGraph::SetMagDb(float *SrcMagdb, float size)
 {

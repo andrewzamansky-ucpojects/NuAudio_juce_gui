@@ -24,14 +24,16 @@ void CircleItem::draw (Graphics& gr)
     int x = posX - size/2;
     int y = posY - size/2;
 
+    gr.setColour (Colours::white); 
+    gr.setFont (10.0f);
+    gr.drawFittedText (String(index), x, y-20, 10,10, Justification::centred, 1); 
+
     if(enabled)
     {
-        // Enabled
+        // Enabled        
         if(isOver) 
         {
-            gr.setColour (Colours::white); 
-            gr.setFont (10.0f);
-            gr.drawFittedText (String(index), x, y-20, 10,10, Justification::centred, 1); 
+            
 
             if(isPressed)
             {
@@ -63,10 +65,6 @@ void CircleItem::draw (Graphics& gr)
     }
 
     gr.fillEllipse (x, y, size, size); 
-
-    
-
-
 }
 
 void CircleItem::setPos(int x, int y)
@@ -79,8 +77,16 @@ int CircleItem::getX(){
     return posX;
 }
 
+void CircleItem::setX(int x){
+    posX = x;
+}
+
 int CircleItem::getY(){
     return posY;
+}
+
+void CircleItem::setY(int y){
+     posY = y;
 }
 
 int CircleItem::isMousePressed()

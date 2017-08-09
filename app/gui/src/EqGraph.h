@@ -53,8 +53,10 @@ public:
     void drawLineGraph (Graphics& g);
     int checkMouseOver (int x, int y);
     void activeCircle(int circleIndex, int active);
-    float getFreq(int index); 
+    float getFreq(int index, float delta);
+    void setFreq(int index, float freq, float delta);
     float getGain(int index);
+    void setGain(int index, float gain, float delta);
     int getSelectedItem();
     void SetMagDb(float *Magdb, float size);
     //[/UserMethods]

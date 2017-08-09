@@ -66,9 +66,9 @@ Equalizer::Equalizer ()
     addAndMakeVisible (te_g1 = new TextEditor ("gain 1"));
     te_g1->setMultiLine (false);
     te_g1->setReturnKeyStartsNewLine (false);
-    te_g1->setReadOnly (true);
+    te_g1->setReadOnly (false);
     te_g1->setScrollbarsShown (true);
-    te_g1->setCaretVisible (false);
+    te_g1->setCaretVisible (true);
     te_g1->setPopupMenuEnabled (true);
     te_g1->setText (TRANS("0"));
 
@@ -476,6 +476,126 @@ Equalizer::Equalizer ()
                      Image(), 1.000f, Colour (0x00000000),
                      Image(), 1.000f, Colour (0x00000000));
     addAndMakeVisible (eqGraphComponent = new EqGraph());
+    addAndMakeVisible (cb_filter1 = new ComboBox ("new combo box"));
+    cb_filter1->setEditableText (false);
+    cb_filter1->setJustificationType (Justification::centred);
+    cb_filter1->setTextWhenNothingSelected (String());
+    cb_filter1->setTextWhenNoChoicesAvailable (TRANS("(no choices)"));
+    cb_filter1->addItem (TRANS("Peak"), 1);
+    cb_filter1->addItem (TRANS("LPF"), 2);
+    cb_filter1->addItem (TRANS("HPF"), 3);
+    cb_filter1->addItem (TRANS("LS"), 4);
+    cb_filter1->addItem (TRANS("HS"), 5);
+    cb_filter1->addListener (this);
+
+    addAndMakeVisible (cb_filter2 = new ComboBox ("new combo box"));
+    cb_filter2->setEditableText (false);
+    cb_filter2->setJustificationType (Justification::centred);
+    cb_filter2->setTextWhenNothingSelected (String());
+    cb_filter2->setTextWhenNoChoicesAvailable (TRANS("(no choices)"));
+    cb_filter2->addItem (TRANS("Peak"), 1);
+    cb_filter2->addItem (TRANS("LPF"), 2);
+    cb_filter2->addItem (TRANS("HPF"), 3);
+    cb_filter2->addItem (TRANS("LS"), 4);
+    cb_filter2->addItem (TRANS("HS"), 5);
+    cb_filter2->addListener (this);
+
+    addAndMakeVisible (cb_filter3 = new ComboBox ("new combo box"));
+    cb_filter3->setEditableText (false);
+    cb_filter3->setJustificationType (Justification::centred);
+    cb_filter3->setTextWhenNothingSelected (String());
+    cb_filter3->setTextWhenNoChoicesAvailable (TRANS("(no choices)"));
+    cb_filter3->addItem (TRANS("Peak"), 1);
+    cb_filter3->addItem (TRANS("LPF"), 2);
+    cb_filter3->addItem (TRANS("HPF"), 3);
+    cb_filter3->addItem (TRANS("LS"), 4);
+    cb_filter3->addItem (TRANS("HS"), 5);
+    cb_filter3->addListener (this);
+
+    addAndMakeVisible (cb_filter4 = new ComboBox ("new combo box"));
+    cb_filter4->setEditableText (false);
+    cb_filter4->setJustificationType (Justification::centred);
+    cb_filter4->setTextWhenNothingSelected (String());
+    cb_filter4->setTextWhenNoChoicesAvailable (TRANS("(no choices)"));
+    cb_filter4->addItem (TRANS("Peak"), 1);
+    cb_filter4->addItem (TRANS("LPF"), 2);
+    cb_filter4->addItem (TRANS("HPF"), 3);
+    cb_filter4->addItem (TRANS("LS"), 4);
+    cb_filter4->addItem (TRANS("HS"), 5);
+    cb_filter4->addListener (this);
+
+    addAndMakeVisible (cb_filter5 = new ComboBox ("new combo box"));
+    cb_filter5->setEditableText (false);
+    cb_filter5->setJustificationType (Justification::centred);
+    cb_filter5->setTextWhenNothingSelected (String());
+    cb_filter5->setTextWhenNoChoicesAvailable (TRANS("(no choices)"));
+    cb_filter5->addItem (TRANS("Peak"), 1);
+    cb_filter5->addItem (TRANS("LPF"), 2);
+    cb_filter5->addItem (TRANS("HPF"), 3);
+    cb_filter5->addItem (TRANS("LS"), 4);
+    cb_filter5->addItem (TRANS("HS"), 5);
+    cb_filter5->addListener (this);
+
+    addAndMakeVisible (cb_filter6 = new ComboBox ("new combo box"));
+    cb_filter6->setEditableText (false);
+    cb_filter6->setJustificationType (Justification::centred);
+    cb_filter6->setTextWhenNothingSelected (String());
+    cb_filter6->setTextWhenNoChoicesAvailable (TRANS("(no choices)"));
+    cb_filter6->addItem (TRANS("Peak"), 1);
+    cb_filter6->addItem (TRANS("LPF"), 2);
+    cb_filter6->addItem (TRANS("HPF"), 3);
+    cb_filter6->addItem (TRANS("LS"), 4);
+    cb_filter6->addItem (TRANS("HS"), 5);
+    cb_filter6->addListener (this);
+
+    addAndMakeVisible (cb_filter7 = new ComboBox ("new combo box"));
+    cb_filter7->setEditableText (false);
+    cb_filter7->setJustificationType (Justification::centred);
+    cb_filter7->setTextWhenNothingSelected (String());
+    cb_filter7->setTextWhenNoChoicesAvailable (TRANS("(no choices)"));
+    cb_filter7->addItem (TRANS("Peak"), 1);
+    cb_filter7->addItem (TRANS("LPF"), 2);
+    cb_filter7->addItem (TRANS("HPF"), 3);
+    cb_filter7->addItem (TRANS("LS"), 4);
+    cb_filter7->addItem (TRANS("HS"), 5);
+    cb_filter7->addListener (this);
+
+    addAndMakeVisible (cb_filter8 = new ComboBox ("new combo box"));
+    cb_filter8->setEditableText (false);
+    cb_filter8->setJustificationType (Justification::centred);
+    cb_filter8->setTextWhenNothingSelected (String());
+    cb_filter8->setTextWhenNoChoicesAvailable (TRANS("(no choices)"));
+    cb_filter8->addItem (TRANS("Peak"), 1);
+    cb_filter8->addItem (TRANS("LPF"), 2);
+    cb_filter8->addItem (TRANS("HPF"), 3);
+    cb_filter8->addItem (TRANS("LS"), 4);
+    cb_filter8->addItem (TRANS("HS"), 5);
+    cb_filter8->addListener (this);
+
+    addAndMakeVisible (cb_filter9 = new ComboBox ("new combo box"));
+    cb_filter9->setEditableText (false);
+    cb_filter9->setJustificationType (Justification::centred);
+    cb_filter9->setTextWhenNothingSelected (String());
+    cb_filter9->setTextWhenNoChoicesAvailable (TRANS("(no choices)"));
+    cb_filter9->addItem (TRANS("Peak"), 1);
+    cb_filter9->addItem (TRANS("LPF"), 2);
+    cb_filter9->addItem (TRANS("HPF"), 3);
+    cb_filter9->addItem (TRANS("LS"), 4);
+    cb_filter9->addItem (TRANS("HS"), 5);
+    cb_filter9->addListener (this);
+
+    addAndMakeVisible (cb_filter10 = new ComboBox ("new combo box"));
+    cb_filter10->setEditableText (false);
+    cb_filter10->setJustificationType (Justification::centred);
+    cb_filter10->setTextWhenNothingSelected (String());
+    cb_filter10->setTextWhenNoChoicesAvailable (TRANS("(no choices)"));
+    cb_filter10->addItem (TRANS("Peak"), 1);
+    cb_filter10->addItem (TRANS("LPF"), 2);
+    cb_filter10->addItem (TRANS("HPF"), 3);
+    cb_filter10->addItem (TRANS("LS"), 4);
+    cb_filter10->addItem (TRANS("HS"), 5);
+    cb_filter10->addListener (this);
+
 
     //[UserPreSize]
     //[/UserPreSize]
@@ -513,6 +633,77 @@ Equalizer::Equalizer ()
     te_frequencies[7] = te_f8;
     te_frequencies[8] = te_f9;
     te_frequencies[9] = te_f10;
+
+    te_gains = new TextEditor*[10];
+    te_gains[0] = te_g1;
+    te_gains[1] = te_g2;
+    te_gains[2] = te_g3;
+    te_gains[3] = te_g4;
+    te_gains[4] = te_g5;
+    te_gains[5] = te_g6;
+    te_gains[6] = te_g7;
+    te_gains[7] = te_g8;
+    te_gains[8] = te_g9;
+    te_gains[9] = te_g10;
+
+    te_qs= new TextEditor*[10];
+    te_qs[0] = te_q1;
+    te_qs[1] = te_q2;
+    te_qs[2] = te_q3;
+    te_qs[3] = te_q4;
+    te_qs[4] = te_q5;
+    te_qs[5] = te_q6;
+    te_qs[6] = te_q7;
+    te_qs[7] = te_q8;
+    te_qs[8] = te_q9;
+    te_qs[9] = te_q10;
+
+    // Add the listener to all the TE
+    for(i=0; i<10; i++) {
+        te_frequencies[i]->addListener(this);
+        te_gains[i]->addListener(this);
+        te_qs[i]->addListener(this);
+    }
+
+
+    ib_filters= new ImageButton*[10];
+    ib_filters[0] = ib_1;
+    ib_filters[1] = ib_2;
+    ib_filters[2] = ib_3;
+    ib_filters[3] = ib_4;
+    ib_filters[4] = ib_5;
+    ib_filters[5] = ib_6;
+    ib_filters[6] = ib_7;
+    ib_filters[7] = ib_8;
+    ib_filters[8] = ib_9;
+    ib_filters[9] = ib_10;
+
+    cb_filters= new ComboBox*[10];
+    cb_filters[0] = cb_filter1;
+    cb_filters[1] = cb_filter2;
+    cb_filters[2] = cb_filter3;
+    cb_filters[3] = cb_filter4;
+    cb_filters[4] = cb_filter5;
+    cb_filters[5] = cb_filter6;
+    cb_filters[6] = cb_filter7;
+    cb_filters[7] = cb_filter8;
+    cb_filters[8] = cb_filter9;
+    cb_filters[9] = cb_filter10;
+    // Hide the combobox, set Default
+    for(i=0; i<10; i++) {
+        // cb_filters[i]->setVisible(false);
+         cb_filters[i]->setText("Peak");
+    }
+    cb_filters[0]->setText("HPF");
+    cb_filters[9]->setText("LPF");
+
+    // Calc the Delta between points on graph (x)
+    int start = 20;
+    // start from 20 Hz
+    int stop = 20000;
+    DELTA  = pow ((stop / start), (1.0/X_SIZE));
+
+    evaluateGraph(true);
 
     //[/Constructor]
 }
@@ -579,6 +770,16 @@ Equalizer::~Equalizer()
     ib_10 = nullptr;
     ib_9 = nullptr;
     eqGraphComponent = nullptr;
+    cb_filter1 = nullptr;
+    cb_filter2 = nullptr;
+    cb_filter3 = nullptr;
+    cb_filter4 = nullptr;
+    cb_filter5 = nullptr;
+    cb_filter6 = nullptr;
+    cb_filter7 = nullptr;
+    cb_filter8 = nullptr;
+    cb_filter9 = nullptr;
+    cb_filter10 = nullptr;
 
 
     //[Destructor]. You can add your own custom destruction code here..
@@ -665,6 +866,16 @@ void Equalizer::resized()
     ib_10->setBounds (696, 584, 48, 24);
     ib_9->setBounds (624, 584, 48, 24);
     eqGraphComponent->setBounds (16, 8, 740, 400);
+    cb_filter1->setBounds (48, 584, 56, 24);
+    cb_filter2->setBounds (120, 584, 56, 24);
+    cb_filter3->setBounds (192, 584, 56, 24);
+    cb_filter4->setBounds (264, 584, 56, 24);
+    cb_filter5->setBounds (336, 584, 56, 24);
+    cb_filter6->setBounds (408, 584, 56, 24);
+    cb_filter7->setBounds (480, 584, 56, 24);
+    cb_filter8->setBounds (552, 584, 56, 24);
+    cb_filter9->setBounds (624, 584, 56, 24);
+    cb_filter10->setBounds (696, 584, 56, 24);
     //[UserResized] Add your own custom resize handling here..
     //[/UserResized]
 }
@@ -672,17 +883,22 @@ void Equalizer::resized()
 void Equalizer::buttonClicked (Button* buttonThatWasClicked)
 {
     //[UserbuttonClicked_Pre]
-    
 
-    // Check for TBs
     int i = 0;
     for(i=0;i<10;i++){
+         // Check for TBs
         if (buttonThatWasClicked == toggles[i])
         {
             eqGraphComponent->activeCircle(i, buttonThatWasClicked->getToggleState());
             break;
         }
+        // Check Filter Selection
+        if (buttonThatWasClicked == ib_filters[i])
+        {
+             cb_filters[i]->showPopup();
+        }
     }
+
     //[/UserbuttonClicked_Pre]
 
     if (buttonThatWasClicked == ib_1)
@@ -740,34 +956,200 @@ void Equalizer::buttonClicked (Button* buttonThatWasClicked)
     //[/UserbuttonClicked_Post]
 }
 
+void Equalizer::comboBoxChanged (ComboBox* comboBoxThatHasChanged)
+{
+    //[UsercomboBoxChanged_Pre]
+
+    int i = 0;
+    for(i=0;i<10;i++){
+         // Check for TBs
+        if (comboBoxThatHasChanged == cb_filters[i])
+        {
+    //          cb_filter5->addItem (TRANS("Peak"), 1);
+    // cb_filter5->addItem (TRANS("LPF"), 2);
+    // cb_filter5->addItem (TRANS("HPF"), 3);
+    // cb_filter5->addItem (TRANS("LS"), 4);
+    // cb_filter5->addItem (TRANS("HS"), 5);
+            if(comboBoxThatHasChanged->getText() == TRANS("Peak"))
+            {
+                // ib_filters[i]->setImages (false, true, true,
+                //      ImageCache::getFromMemory (eq_peak_png, eq_peak_pngSize), 1.000f, Colour (0x00000000),
+                //      Image(), 1.000f, Colour (0x00000000),
+                //      Image(), 1.000f, Colour (0x00000000));
+            }
+
+            if(comboBoxThatHasChanged->getText() == TRANS("LPF"))
+            {
+                // ib_filters[i]->setImages (false, true, true,
+                //      ImageCache::getFromMemory (eq_ls_png, eq_ls_png), 1.000f, Colour (0x00000000),
+                //      Image(), 1.000f, Colour (0x00000000),
+                //      Image(), 1.000f, Colour (0x00000000));
+            }
+        }
+    }
+
+    evaluateGraph(true);
+
+    //[/UsercomboBoxChanged_Pre]
+
+    if (comboBoxThatHasChanged == cb_filter1)
+    {
+        //[UserComboBoxCode_cb_filter1] -- add your combo box handling code here..
+        //[/UserComboBoxCode_cb_filter1]
+    }
+    else if (comboBoxThatHasChanged == cb_filter2)
+    {
+        //[UserComboBoxCode_cb_filter2] -- add your combo box handling code here..
+        //[/UserComboBoxCode_cb_filter2]
+    }
+    else if (comboBoxThatHasChanged == cb_filter3)
+    {
+        //[UserComboBoxCode_cb_filter3] -- add your combo box handling code here..
+        //[/UserComboBoxCode_cb_filter3]
+    }
+    else if (comboBoxThatHasChanged == cb_filter4)
+    {
+        //[UserComboBoxCode_cb_filter4] -- add your combo box handling code here..
+        //[/UserComboBoxCode_cb_filter4]
+    }
+    else if (comboBoxThatHasChanged == cb_filter5)
+    {
+        //[UserComboBoxCode_cb_filter5] -- add your combo box handling code here..
+        //[/UserComboBoxCode_cb_filter5]
+    }
+    else if (comboBoxThatHasChanged == cb_filter6)
+    {
+        //[UserComboBoxCode_cb_filter6] -- add your combo box handling code here..
+        //[/UserComboBoxCode_cb_filter6]
+    }
+    else if (comboBoxThatHasChanged == cb_filter7)
+    {
+        //[UserComboBoxCode_cb_filter7] -- add your combo box handling code here..
+        //[/UserComboBoxCode_cb_filter7]
+    }
+    else if (comboBoxThatHasChanged == cb_filter8)
+    {
+        //[UserComboBoxCode_cb_filter8] -- add your combo box handling code here..
+        //[/UserComboBoxCode_cb_filter8]
+    }
+    else if (comboBoxThatHasChanged == cb_filter9)
+    {
+        //[UserComboBoxCode_cb_filter9] -- add your combo box handling code here..
+        //[/UserComboBoxCode_cb_filter9]
+    }
+    else if (comboBoxThatHasChanged == cb_filter10)
+    {
+        //[UserComboBoxCode_cb_filter10] -- add your combo box handling code here..
+        //[/UserComboBoxCode_cb_filter10]
+    }
+
+    //[UsercomboBoxChanged_Post]
+    //[/UsercomboBoxChanged_Post]
+}
+
 
 
 //[MiscUserCode] You can add your own definitions of your custom methods or any other code here...
+void Equalizer::textEditorTextChanged(TextEditor &source){
+     int i=0;
+     for(i=0; i<10; i++){
+         // Check for TBs
+        if (&source == te_frequencies[i])
+        {
+            float freq = te_frequencies[i]->getText().getFloatValue();
+            eqGraphComponent->setFreq(i, freq, DELTA);
+        }
+        if (&source == te_gains[i])
+        {
+            float gain = te_gains[i]->getText().getFloatValue();
+            eqGraphComponent->setGain(i, gain, DELTA);
+        }
+     }
+
+    evaluateGraph(false);
+}
+
 void Equalizer::changeListenerCallback(ChangeBroadcaster* source)
 {
     if(source == eqGraphComponent)
     {
-        int index = eqGraphComponent->getSelectedItem();
-        float freq = eqGraphComponent->getFreq(index);
-        float gain = eqGraphComponent->getGain(index);
-        Logger::outputDebugString ("ChangeBroadcaster :" + String(index) + " : " + String(freq) + " : " +  String(gain));
-        
-        te_frequencies[index]->setText(String(freq));
-
-        if(index == 0)
-        {
-            BiQuads bq = LowPassFilter(freq, 1);
-            FilterEval(bq, Magdb, X_SIZE); 
-            eqGraphComponent->SetMagDb(Magdb, X_SIZE);
-        }
+        evaluateGraph(true);
     }
 }
 
+void Equalizer::evaluateGraph(bool refreshEditors){
+    int index = eqGraphComponent->getSelectedItem();
+    float freq = eqGraphComponent->getFreq(index, DELTA);
+    float gain = eqGraphComponent->getGain(index);
+    float q = te_qs[index]->getText().getFloatValue();
+
+    Logger::outputDebugString ("ChangeBroadcaster :" + String(index) + " : " + String(freq) + " : " +  String(gain));
+
+    if(refreshEditors)
+    {
+        te_frequencies[index]->setText(String(freq));
+        te_gains[index]->setText(String(gain));
+    }
+
+    if(index == 0)
+    {
+        // Select filter
+        BiQuads bq;
+        if(cb_filters[index]->getText() == "Peak")
+        {
+            bq = PeakFilter(freq, q, gain);
+            calc_biquads_graph(Magdb, bq, 11);
+        }
+        else
+        {
+            bq = LowPassFilter(freq, q);
+            calc_biquads_graph(Magdb, bq, 11);
+        }
+
+        
+    }
+
+    eqGraphComponent->SetMagDb(Magdb, X_SIZE);
+}
+
+
+Equalizer::BiQuads Equalizer::PeakFilter(float f, float q, float g)
+{
+    BiQuads biQuads;
+    float k, v, kk, kq, vk, vq, norm;
+
+    v = pow(10, abs(g)/20);
+    k = tan(f / float(SR) * M_PI);
+    vk = v/k;
+    kk = k*k;
+    vq = v/q;
+    kq = k/q;
+
+    if (g >= 0) //positive gain
+    {
+        norm = 1 / (1 + kq + kk);
+        biQuads.a0 = (1 + vq * k + kk) * norm;
+        biQuads.a1 = 2 * (kk - 1) * norm;
+        biQuads.a2 = (1 - vq * k + kk) * norm;
+        biQuads.b1 = biQuads.a1;
+        biQuads.b2 = (1 - kq + kk) * norm;
+    }
+    else
+    {
+        norm = 1 / (1 + vq * k + kk);
+        biQuads.a0 = (1 + kq  + kk) * norm;
+        biQuads.a1 = 2 * (kk - 1) * norm;
+        biQuads.a2 = (1 - kq + kk) * norm;
+        biQuads.b1 = biQuads.a1;
+        biQuads.b2 = (1 - vq * k + kk) * norm;
+    }
+
+    return biQuads;
+}
 
 Equalizer::BiQuads Equalizer::LowPassFilter(float f, float q)
-{   
-    BiQuads biQuads;    
-    // int G = 1;
+{
+    BiQuads biQuads;
     float k, kk, kq, norm;
 
     k = tan(f / float(SR) * M_PI);
@@ -778,48 +1160,88 @@ Equalizer::BiQuads Equalizer::LowPassFilter(float f, float q)
     biQuads.a1 = 2 * biQuads.a0;
     biQuads.a2 = biQuads.a0;
     biQuads.b1 = 2 * (kk - 1) * norm;
-    biQuads.b2 = (1 - kq + kk) * norm;    
+    biQuads.b2 = (1 - kq + kk) * norm;
 
     return biQuads;
 }
 
-void Equalizer::CoefsEval(float *coefs, int numOfCoeffs,float w, float *resReal, float *resImg)
+void Equalizer::calc_biquads_graph(float *mag, Equalizer::BiQuads biQuads, float factor)
 {
-    *resReal = 0;
-    *resImg = 0;
-    int i;
-    for (i = 0; i < numOfCoeffs; i++)
+    float f = 20.0f;
+    int i=0;
+    for (i = 0 ; i < X_SIZE; i ++)
     {
-        *resReal += coefs[i] * cos(((float)(-i))* w);
-        *resImg += coefs[i] * sin(((float)(-i))* w);
-    }  
-}
-
-void Equalizer::FilterEval(Equalizer::BiQuads biQuads, float *magdb, int numPoints)
-{
-    float resZerosReal;
-    float resZerosImg;
-    float resPolesReal;
-    float resPolesImg;
-
-    float mag;
-    float w;
-
-    float zeros[3] = {biQuads.a0, biQuads.a1, biQuads.a2};
-    float poles[2] = {biQuads.b1, biQuads.b2};
-
-    for(int jdx = 0; jdx < numPoints; jdx++)
-    {
-        w = jdx * M_PI / (numPoints-1);        
-        CoefsEval(zeros, 3, w, &resZerosReal, &resZerosImg );
-        CoefsEval(poles, 2, w, &resPolesReal, &resPolesImg );
-
-        mag = (pow(resZerosReal,2) + pow(resZerosImg,2))/(pow(resPolesReal,2) + pow(resPolesImg,2));        
-        mag = sqrt(mag);
-        mag += 0.0000000001f; // limit to -200 dB for log        
-        magdb[jdx] = 20 * log10(mag);
+        f = f * DELTA;
+        mag[i] = factor * filterEvaluate (f, SR, biQuads);
     }
 }
+
+float Equalizer::filterEvaluate(float freq, float sampleRate, Equalizer::BiQuads biQuads)
+{
+
+  float w = 2 * M_PI * freq / sampleRate;
+
+  float cos1 = cos(-1 * w);
+  float cos2 = cos(-2 * w);
+
+  float sin1 = sin(-1 * w);
+  float sin2 = sin(-2 * w);
+
+  float realZeros = biQuads.a0 + biQuads.a1 * cos1 + biQuads.a2 * cos2;
+  float imagZeros = biQuads.a1 * sin1 + biQuads.a2 * sin2;
+
+  float realPoles = 1 + biQuads.b1 * cos1 + biQuads.b2 * cos2;
+  float imagPoles = biQuads.b1 * sin1 + biQuads.b2 * sin2;
+
+  float divider = realPoles * realPoles + imagPoles * imagPoles;
+
+  float realHw = (realZeros * realPoles + imagZeros * imagPoles) / divider;
+  float imagHw = (imagZeros * realPoles - realZeros * imagPoles) / divider;
+
+  float magnitude = sqrt(realHw * realHw + imagHw * imagHw);
+
+  //return magnitude;     //gain in Au
+  return 20 * log10(magnitude);  // find log10 in C++ libraries .gain in dB
+}
+
+
+// void Equalizer::CoefsEval(float *coefs, int numOfCoeffs,float w, float *resReal, float *resImg)
+// {
+//     *resReal = 0;
+//     *resImg = 0;
+//     int i;
+//     for (i = 0; i < numOfCoeffs; i++)
+//     {
+//         *resReal += coefs[i] * cos(((float)(-i))* w);
+//         *resImg += coefs[i] * sin(((float)(-i))* w);
+//     }
+// }
+
+// void Equalizer::FilterEval(Equalizer::BiQuads biQuads, float *magdb, int numPoints)
+// {
+//     float resZerosReal;
+//     float resZerosImg;
+//     float resPolesReal;
+//     float resPolesImg;
+
+//     float mag;
+//     float w;
+
+//     float zeros[3] = {biQuads.a0, biQuads.a1, biQuads.a2};
+//     float poles[2] = {biQuads.b1, biQuads.b2};
+
+//     for(int jdx = 0; jdx < numPoints; jdx++)
+//     {
+//         w = jdx * M_PI / (numPoints-1);
+//         CoefsEval(zeros, 3, w, &resZerosReal, &resZerosImg );
+//         CoefsEval(poles, 2, w, &resPolesReal, &resPolesImg );
+
+//         mag = (pow(resZerosReal,2) + pow(resZerosImg,2))/(pow(resPolesReal,2) + pow(resPolesImg,2));
+//         mag = sqrt(mag);
+//         mag += 0.0000000001f; // limit to -200 dB for log
+//         magdb[jdx] = 20 * log10(mag);
+//     }
+// }
 
 //[/MiscUserCode]
 
@@ -834,9 +1256,10 @@ void Equalizer::FilterEval(Equalizer::BiQuads biQuads, float *magdb, int numPoin
 BEGIN_JUCER_METADATA
 
 <JUCER_COMPONENT documentType="Component" className="Equalizer" componentName=""
-                 parentClasses="public Component, public ChangeListener" constructorParams=""
-                 variableInitialisers="" snapPixels="8" snapActive="1" snapShown="1"
-                 overlayOpacity="0.330" fixedSize="0" initialWidth="780" initialHeight="650">
+                 parentClasses="public Component, public ChangeListener, public TextEditorListener"
+                 constructorParams="" variableInitialisers="" snapPixels="8" snapActive="1"
+                 snapShown="1" overlayOpacity="0.330" fixedSize="0" initialWidth="780"
+                 initialHeight="650">
   <BACKGROUND backgroundColour="ff000000">
     <ROUNDRECT pos="0 0 770 424" cornerSize="10" fill="solid: ff314a5b" hasStroke="0"/>
     <ROUNDRECT pos="0 444 770 172" cornerSize="10" fill="solid: ff314a5b" hasStroke="0"/>
@@ -859,7 +1282,7 @@ BEGIN_JUCER_METADATA
          fontsize="15" bold="1" italic="0" justification="33"/>
   <TEXTEDITOR name="gain 1" id="ede80515ec296f29" memberName="te_g1" virtualName=""
               explicitFocusOrder="0" pos="48 512 48 24" initialText="0" multiline="0"
-              retKeyStartsLine="0" readonly="1" scrollbars="1" caret="0" popupmenu="1"/>
+              retKeyStartsLine="0" readonly="0" scrollbars="1" caret="1" popupmenu="1"/>
   <LABEL name="new label" id="e4767d1e09fd9935" memberName="label3" virtualName=""
          explicitFocusOrder="0" pos="16 544 23 24" textCol="ffffffff"
          edTextCol="ff000000" edBkgCol="0" labelText="Q" editableSingleClick="0"
@@ -1056,6 +1479,46 @@ BEGIN_JUCER_METADATA
   <JUCERCOMP name="" id="d19dcfa2fc5dc2ea" memberName="eqGraphComponent" virtualName=""
              explicitFocusOrder="0" pos="16 8 740 400" sourceFile="EqGraph.cpp"
              constructorParams=""/>
+  <COMBOBOX name="new combo box" id="1af39ed4dfeee051" memberName="cb_filter1"
+            virtualName="" explicitFocusOrder="0" pos="48 584 56 24" editable="0"
+            layout="36" items="Peak&#10;LPF&#10;HPF&#10;LS&#10;HS" textWhenNonSelected=""
+            textWhenNoItems="(no choices)"/>
+  <COMBOBOX name="new combo box" id="8b1814bbf7b4643c" memberName="cb_filter2"
+            virtualName="" explicitFocusOrder="0" pos="120 584 56 24" editable="0"
+            layout="36" items="Peak&#10;LPF&#10;HPF&#10;LS&#10;HS" textWhenNonSelected=""
+            textWhenNoItems="(no choices)"/>
+  <COMBOBOX name="new combo box" id="d1cd3530d6fcf0b" memberName="cb_filter3"
+            virtualName="" explicitFocusOrder="0" pos="192 584 56 24" editable="0"
+            layout="36" items="Peak&#10;LPF&#10;HPF&#10;LS&#10;HS" textWhenNonSelected=""
+            textWhenNoItems="(no choices)"/>
+  <COMBOBOX name="new combo box" id="6aedf276c682d952" memberName="cb_filter4"
+            virtualName="" explicitFocusOrder="0" pos="264 584 56 24" editable="0"
+            layout="36" items="Peak&#10;LPF&#10;HPF&#10;LS&#10;HS" textWhenNonSelected=""
+            textWhenNoItems="(no choices)"/>
+  <COMBOBOX name="new combo box" id="889b6b26af5926fe" memberName="cb_filter5"
+            virtualName="" explicitFocusOrder="0" pos="336 584 56 24" editable="0"
+            layout="36" items="Peak&#10;LPF&#10;HPF&#10;LS&#10;HS" textWhenNonSelected=""
+            textWhenNoItems="(no choices)"/>
+  <COMBOBOX name="new combo box" id="6caea50a6fc4894e" memberName="cb_filter6"
+            virtualName="" explicitFocusOrder="0" pos="408 584 56 24" editable="0"
+            layout="36" items="Peak&#10;LPF&#10;HPF&#10;LS&#10;HS" textWhenNonSelected=""
+            textWhenNoItems="(no choices)"/>
+  <COMBOBOX name="new combo box" id="41ed79185562dd71" memberName="cb_filter7"
+            virtualName="" explicitFocusOrder="0" pos="480 584 56 24" editable="0"
+            layout="36" items="Peak&#10;LPF&#10;HPF&#10;LS&#10;HS" textWhenNonSelected=""
+            textWhenNoItems="(no choices)"/>
+  <COMBOBOX name="new combo box" id="f63e2b90d230b16c" memberName="cb_filter8"
+            virtualName="" explicitFocusOrder="0" pos="552 584 56 24" editable="0"
+            layout="36" items="Peak&#10;LPF&#10;HPF&#10;LS&#10;HS" textWhenNonSelected=""
+            textWhenNoItems="(no choices)"/>
+  <COMBOBOX name="new combo box" id="c37c912ba2a6d341" memberName="cb_filter9"
+            virtualName="" explicitFocusOrder="0" pos="624 584 56 24" editable="0"
+            layout="36" items="Peak&#10;LPF&#10;HPF&#10;LS&#10;HS" textWhenNonSelected=""
+            textWhenNoItems="(no choices)"/>
+  <COMBOBOX name="new combo box" id="ef5fd394a3ff2e4d" memberName="cb_filter10"
+            virtualName="" explicitFocusOrder="0" pos="696 584 56 24" editable="0"
+            layout="36" items="Peak&#10;LPF&#10;HPF&#10;LS&#10;HS" textWhenNonSelected=""
+            textWhenNoItems="(no choices)"/>
 </JUCER_COMPONENT>
 
 END_JUCER_METADATA

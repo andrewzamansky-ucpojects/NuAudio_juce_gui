@@ -18,7 +18,9 @@ public:
     void setMouseOver(int over);
     void setMousePressed(int pressed);
     int getX();
+    void setX(int x);
     int getY();
+    void setY(int y);
     void setEnable(int en);
     int isEnabled();
     
