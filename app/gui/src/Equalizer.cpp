@@ -1097,21 +1097,44 @@ void Equalizer::evaluateGraph(bool refreshEditors){
         BiQuads bq;
         if(cb_filters[index]->getText() == "Peak")
         {
-            bq = PeakFilter(freq, q, gain);
-            calc_biquads_graph(Magdb, bq, 11);
+            bq = PeakFilter(freq, q, gain);            
         }
-        else
+        else if(cb_filters[index]->getText() == "LPF")
         {
-            bq = LowPassFilter(freq, q);
-            calc_biquads_graph(Magdb, bq, 11);
+            bq = LowPassFilter(freq, q);            
+        }
+        else if(cb_filters[index]->getText() == "HPF")
+        {
+            bq = HighPassFilter(freq, q);            
+        }
+        else if(cb_filters[index]->getText() == "LS")
+        {
+            bq = LowshelfFilter(freq, q, gain);            
+        }
+        else if(cb_filters[index]->getText() == "HS")
+        {
+            bq = HighshelfFilter(freq, q, gain);            
+        } else {
+            bq = ByPassFilter();
         }
 
-        
+        calc_biquads_graph(Magdb, bq, 11);        
     }
 
     eqGraphComponent->SetMagDb(Magdb, X_SIZE);
 }
 
+Equalizer::BiQuads Equalizer::ByPassFilter()
+{
+    BiQuads biQuads;
+    biQuads.a0 = 1;
+    biQuads.a1 = 0;
+    biQuads.a2 = 0;
+    biQuads.b1 = 0;
+    biQuads.b2 = 0;
+    
+    return biQuads;
+}
 
 Equalizer::BiQuads Equalizer::PeakFilter(float f, float q, float g)
 {
@@ -1147,6 +1170,75 @@ Equalizer::BiQuads Equalizer::PeakFilter(float f, float q, float g)
     return biQuads;
 }
 
+Equalizer::BiQuads Equalizer::LowshelfFilter(float f, float q, float g)
+{
+    BiQuads biQuads;
+    float k, v, kk, kq, vk, vq, norm;
+
+    v = pow(10, abs(g)/20);
+    k = tan(f / float(SR) * M_PI);
+    vk = v/k;
+    kk = k*k;
+    vq = v/q;
+    kq = k/q;
+
+    if (g >= 0) //positive gain
+    {
+        norm = 1 / (1 + kq + kk);
+        biQuads.a0 = (1 + sqrt(v)*kq + v * kk) * norm;
+        biQuads.a1 = 2 * (v * kk - 1) * norm;
+        biQuads.a2 = (1 - sqrt(v)*kq + v * kk) * norm;
+        biQuads.b1 = 2 * (kk - 1) * norm;
+        biQuads.b2 = (1 - kq + kk) * norm;
+    }
+    else
+    {
+        norm = 1 / (1 + sqrt(v) * kq + v * kk);
+        biQuads.a0 = (1 + kq + kk) * norm;
+        biQuads.a1 = 2 * (kk - 1) * norm;
+        biQuads.a2 = (1 - kq + kk) * norm;
+        biQuads.b1 = 2 * (v * kk- 1) * norm;
+        biQuads.b2 = (1 - sqrt(v) * kq + v * kk) * norm;
+    }
+
+    return biQuads;
+}
+
+Equalizer::BiQuads Equalizer::HighshelfFilter(float f, float q, float g)
+{
+    BiQuads biQuads;
+    float k, v, kk, kq, vk, vq, norm;
+
+    v = pow(10, abs(g)/20);
+    k = tan(f / float(SR) * M_PI);
+    vk = v/k;
+    kk = k*k;
+    vq = v/q;
+    kq = k/q;
+
+    if (g >= 0) //positive gain
+    {
+        norm = 1 / (1 + kq + kk);
+        biQuads.a0 = (v + sqrt(v)*kq + kk) * norm;
+        biQuads.a1 = 2 * (kk - v) * norm;
+        biQuads.a2 = (v - sqrt(v)*kq + kk) * norm;
+        biQuads.b1 = 2 * (kk - 1) * norm;
+        biQuads.b2 = (1 - kq + kk) * norm;
+    }
+    else
+    {
+        norm = 1 / (v +sqrt(v) * kq + kk);
+        biQuads.a0 = (1 + kq + kk) * norm;
+        biQuads.a1 = 2 * (kk - 1) * norm;
+        biQuads.a2 = (1 - kq + kk) * norm;
+        biQuads.b1 = 2 * (kk - v) * norm;
+        biQuads.b2 = (v - sqrt(v)* kq + kk) * norm;        
+    }
+
+    return biQuads;
+}
+
+
 Equalizer::BiQuads Equalizer::LowPassFilter(float f, float q)
 {
     BiQuads biQuads;
@@ -1158,6 +1250,24 @@ Equalizer::BiQuads Equalizer::LowPassFilter(float f, float q)
     norm = 1/(1+kq+kk);
     biQuads.a0 = kk * norm;
     biQuads.a1 = 2 * biQuads.a0;
+    biQuads.a2 = biQuads.a0;
+    biQuads.b1 = 2 * (kk - 1) * norm;
+    biQuads.b2 = (1 - kq + kk) * norm;
+
+    return biQuads;
+}
+
+Equalizer::BiQuads Equalizer::HighPassFilter(float f, float q)
+{
+    BiQuads biQuads;
+    float k, kk, kq, norm;
+
+    k = tan(f / float(SR) * M_PI);
+    kk = k*k;
+    kq = k/q;
+    norm = 1/(1+kq+kk);
+    biQuads.a0 = 1 * norm;
+    biQuads.a1 = -2 * biQuads.a0;
     biQuads.a2 = biQuads.a0;
     biQuads.b1 = 2 * (kk - 1) * norm;
     biQuads.b2 = (1 - kq + kk) * norm;

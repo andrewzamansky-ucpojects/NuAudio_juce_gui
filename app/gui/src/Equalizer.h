@@ -67,8 +67,12 @@ public:
 
     void changeListenerCallback(ChangeBroadcaster* source) override;
     void textEditorTextChanged(TextEditor &source);
+    BiQuads ByPassFilter();
     BiQuads LowPassFilter(float f, float q);
+    BiQuads HighPassFilter(float f, float q);
     BiQuads PeakFilter(float f, float q, float g);
+    BiQuads LowshelfFilter(float f, float q, float g);
+    BiQuads HighshelfFilter(float f, float q, float g);
     float filterEvaluate(float freq, float sampleRate, Equalizer::BiQuads biQuads);
     void calc_biquads_graph(float *mag, Equalizer::BiQuads biQuads, float factor);
     void evaluateGraph(bool refreshEditors);
