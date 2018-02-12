@@ -1079,39 +1079,47 @@ void Equalizer::changeListenerCallback(ChangeBroadcaster* source)
 
 void Equalizer::evaluateGraph(bool refreshEditors){
     int index = eqGraphComponent->getSelectedItem();
-    float freq = eqGraphComponent->getFreq(index, DELTA);
-    float gain = eqGraphComponent->getGain(index);
-    float q = te_qs[index]->getText().getFloatValue();
-
-    Logger::outputDebugString ("ChangeBroadcaster :" + String(index) + " : " + String(freq) + " : " +  String(gain));
+    
 
     if(refreshEditors)
     {
+        float freq = eqGraphComponent->getFreq(index, DELTA);
+        float gain = eqGraphComponent->getGain(index);
         te_frequencies[index]->setText(String(freq));
         te_gains[index]->setText(String(gain));
+        Logger::outputDebugString ("ChangeBroadcaster :" + String(index) + " : " + String(freq) + " : " +  String(gain));
     }
 
-    if(index == 0)
+    for (int i = 0 ; i < X_SIZE; i ++)
     {
+        Magdb[i] = 0;
+    }
+
+    for(int i=0;i<10;i++)    
+    {
+        float freq = eqGraphComponent->getFreq(i, DELTA);
+        float gain = eqGraphComponent->getGain(i);
+        float q = te_qs[i]->getText().getFloatValue();
+
         // Select filter
         BiQuads bq;
-        if(cb_filters[index]->getText() == "Peak")
+        if(cb_filters[i]->getText() == "Peak")
         {
             bq = PeakFilter(freq, q, gain);            
         }
-        else if(cb_filters[index]->getText() == "LPF")
+        else if(cb_filters[i]->getText() == "LPF")
         {
             bq = LowPassFilter(freq, q);            
         }
-        else if(cb_filters[index]->getText() == "HPF")
+        else if(cb_filters[i]->getText() == "HPF")
         {
             bq = HighPassFilter(freq, q);            
         }
-        else if(cb_filters[index]->getText() == "LS")
+        else if(cb_filters[i]->getText() == "LS")
         {
             bq = LowshelfFilter(freq, q, gain);            
         }
-        else if(cb_filters[index]->getText() == "HS")
+        else if(cb_filters[i]->getText() == "HS")
         {
             bq = HighshelfFilter(freq, q, gain);            
         } else {
@@ -1282,7 +1290,7 @@ void Equalizer::calc_biquads_graph(float *mag, Equalizer::BiQuads biQuads, float
     for (i = 0 ; i < X_SIZE; i ++)
     {
         f = f * DELTA;
-        mag[i] = factor * filterEvaluate (f, SR, biQuads);
+        mag[i] += factor * filterEvaluate (f, SR, biQuads);
     }
 }
 
